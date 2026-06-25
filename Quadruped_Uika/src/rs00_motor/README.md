@@ -32,7 +32,7 @@ sudo ifconfig can0 txqueuelen 100
 chmod +x ./setup_can.sh
 colcon build
 source ./install/setup.bash
-ros2 run rs_motor_ros2 rs_motor_ros2
+ros2 run rs00_motor rs00_motor
 ```
 /home/nvidia/UIKA/Quadruped_Uika/setup_can.sh
 ## 编译注意事项
@@ -42,24 +42,24 @@ ros2 run rs_motor_ros2 rs_motor_ros2
 
 **编译前先删除旧版本：**
 ```shell
-rm -rf ~/VMC_Quadruped/src/robstride_ros_sample/install
-colcon build --packages-select rs_motor_ros2
+rm -rf ~/VMC_Quadruped/src/rs00_motor/install
+colcon build --packages-select rs00_motor
 ```
 
 **验证编译结果：**
 ```shell
 # 检查二进制文件修改时间（应该是最新编译的时间）
-ls -la ~/VMC_Quadruped/install/rs_motor_ros2/lib/rs_motor_ros2/rs_motor_ros2
+ls -la ~/VMC_Quadruped/install/rs00_motor/lib/rs00_motor/rs00_motor
 
 # 检查进程中实际运行的路径
-pgrep -f rs_motor_ros2 | while read pid; do
+pgrep -f rs00_motor | while read pid; do
   echo "PID $pid:"
   cat /proc/$pid/cmdline | tr '\0' ' '
   echo
 done
 ```
 
-**确保使用的是 `~/VMC_Quadruped/install/` 下的版本，而非 `~/VMC_Quadruped/src/robstride_ros_sample/install/`**
+**确保使用的是 `~/VMC_Quadruped/install/` 下的版本，而非 `~/VMC_Quadruped/src/rs00_motor/install/`**
 
 ## 话题说明
 

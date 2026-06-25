@@ -1,0 +1,55 @@
+single_motor_sweep:
+  ros__parameters:
+    # 目标电机索引，顺序见 joint_fields。默认 2 = fl_calf。
+    target_index: 2
+
+    # 12 个电机字段顺序，必须和 interfaces/msg/MotorCommand12.msg 一致。
+    joint_fields:
+      - fl_hip
+      - fl_thigh
+      - fl_calf
+      - fr_hip
+      - fr_thigh
+      - fr_calf
+      - rl_hip
+      - rl_thigh
+      - rl_calf
+      - rr_hip
+      - rr_thigh
+      - rr_calf
+
+    # 悬空测试站立姿态，单位 rad。扫频时其他 11 个电机保持这些位置。
+    stand_positions:
+      - -0.7
+      - 0.2
+      - 0.7
+      - 0.7
+      - -0.2
+      - -0.7
+      - 0.7
+      - 0.2
+      - 0.7
+      - -0.7
+      - -0.2
+      - -0.7
+
+    # 线性 chirp 扫频：频率从 start_frequency 线性增加到 end_frequency。
+    amplitude: 0.15
+    start_frequency: 0.1
+    end_frequency: 5.0
+    duration: 40.0
+
+    # 发布和记录频率。建议 publish_rate 与 rs00_motor 控制频率一致。
+    publish_rate: 500.0
+    record_rate: 500.0
+
+    # 扫频前从当前位置软启动到站立姿态；扫完后保持站立姿态。
+    ramp_time: 3.0
+    hold_time: 1.0
+
+    # 安全检查。
+    max_position_error: 0.8
+    feedback_timeout: 0.5
+
+    # CSV 输出路径。为空时自动保存到 ~/uika_sweep_logs。
+    output_file: ""

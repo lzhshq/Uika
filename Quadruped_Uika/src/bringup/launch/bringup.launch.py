@@ -44,9 +44,9 @@ def generate_launch_description():
 
     # Robstride motor node
     rs_motor_node = Node(
-        package='rs_motor_ros2',
-        executable='rs_motor_ros2',
-        name='rs_motor_ros2',
+        package='rs00_motor',
+        executable='rs00_motor',
+        name='rs00_motor',
         output='screen',
     )
 

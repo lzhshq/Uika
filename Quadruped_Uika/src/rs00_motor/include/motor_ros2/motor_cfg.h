@@ -9,6 +9,7 @@
 #include <linux/can.h>
 #include <linux/can/raw.h>
 #include <map>
+#include <memory>
 #include <mutex>
 #include <net/if.h>
 #include <optional>
@@ -211,68 +212,19 @@ public:
   }
 };
 
+class CanRxDispatcher;
+
 class RobStrideMotor {
 public:
   RobStrideMotor(const std::string can_interface, uint8_t master_id,
-                 uint8_t motor_id, int actuator_type)
-      : iface(can_interface), master_id(master_id), motor_id(motor_id),
-        actuator_type(actuator_type) {
-    init_socket();
-    receiver_thread_ = std::thread(&RobStrideMotor::receiver_loop, this);
-  }
-
-  ~RobStrideMotor() {
-    stop_receiver_ = true;
-    if (receiver_thread_.joinable())
-      receiver_thread_.join();
-    if (socket_fd >= 0)
-      close(socket_fd);
-  }
-
-  ReceiveResult receive(double timeout_sec = 0) {
-    // 设置超时时间
-    if (timeout_sec > 0) {
-      struct timeval timeout;
-      timeout.tv_sec = static_cast<int>(timeout_sec);
-      timeout.tv_usec = static_cast<int>((timeout_sec - timeout.tv_sec) * 1e6);
-      setsockopt(socket_fd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
-    }
-
-    struct can_frame frame;
-    std::memset(&frame, 0, sizeof(frame));
-
-    ssize_t nbytes = recv(socket_fd, &frame, sizeof(struct can_frame), 0);
-
-    if (nbytes <= 0) {
-      return std::nullopt; // 超时或失败
-    }
-
-    // 检查是否是扩展帧
-    if (!(frame.can_id & CAN_EFF_FLAG)) {
-      throw std::runtime_error("Frame is not extended ID");
-    }
-
-    uint32_t can_id = frame.can_id & CAN_EFF_MASK;
-
-    uint8_t communication_type = (can_id >> 24) & 0x1F;
-    uint16_t extra_data = (can_id >> 8) & 0xFFFF;
-    uint8_t host_id = can_id & 0xFF;
-
-    error_code = uint8_t((can_id >> 16) & 0x3F);
-    pattern = uint8_t((can_id >> 22) & 0x03);
-
-    std::vector<uint8_t> data(frame.data, frame.data + frame.can_dlc);
-
-    return std::make_tuple(communication_type, extra_data, host_id, data);
-  }
+                 uint8_t motor_id, int actuator_type);
+  ~RobStrideMotor();
 
   std::tuple<float, float, float, float> return_data_pvtt() {
     std::lock_guard<std::mutex> lock(state_mutex_);
     return std::make_tuple(position_, velocity_, torque_, temperature_);
   }
 
-  void receive_status_frame();
-  void receiver_loop();
   void handle_received_frame(uint8_t communication_type, uint16_t extra_data,
                              uint8_t host_id,
                              const std::vector<uint8_t> &data);
@@ -289,8 +241,6 @@ public:
   std::tuple<float, float, float, float> enable_motor();
 
   float read_initial_position();
-
-  void init_socket();
 
   uint16_t float_to_uint(float x, float x_min, float x_max, int bits);
   // 发送运控模式（控制角度 + 速度 + KP + KD）
@@ -336,7 +286,6 @@ public:
   std::string iface;
   uint8_t master_id;
   uint8_t motor_id;
-  int socket_fd = -1;
   Motor_Set Motor_Set_All; // 设定值
   data_read_write_one params;
   data_read_write drw;
@@ -349,10 +298,8 @@ public:
   uint8_t error_code;
   uint8_t pattern;
   std::atomic<bool> is_move_control_first = true;
-  std::atomic<bool> stop_receiver_{false};
   std::atomic<uint64_t> rx_count_{0};
-  std::thread receiver_thread_;
+  std::shared_ptr<CanRxDispatcher> rx_dispatcher_;
   std::mutex state_mutex_;
-  std::mutex io_mutex_;
   int actuator_type;
 };

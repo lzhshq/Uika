@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(rs_motor_ros2)
+project(rs00_motor)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
@@ -37,6 +37,7 @@ include_directories(
 # Declare a cpp library with a different name to avoid conflict
 add_library(${PROJECT_NAME}_lib
   src/motor_cfg.cpp
+  src/motor_config.cpp
 )
 
 # Rename the output to avoid confusion
@@ -57,14 +58,14 @@ ament_target_dependencies(${PROJECT_NAME}_lib
 
 
 # Motor control test executable
-add_executable(rs_motor_ros2
+add_executable(rs00_motor
   src/main.cpp
 )
 # add_executable(enable_motor
 #   src/enable_motor.cpp
 # )
 
-ament_target_dependencies(rs_motor_ros2
+ament_target_dependencies(rs00_motor
   rclcpp
   std_msgs
   interfaces
@@ -75,7 +76,7 @@ ament_target_dependencies(rs_motor_ros2
 #   can_msgs
 # )
 
-target_link_libraries(rs_motor_ros2
+target_link_libraries(rs00_motor
   ${PROJECT_NAME}_lib
 )
 # target_link_libraries(enable_motor
@@ -90,10 +91,18 @@ install(
 
 # Install targets
 install(
-  TARGETS ${PROJECT_NAME}_lib rs_motor_ros2
+  TARGETS ${PROJECT_NAME}_lib rs00_motor
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+# Install Python helper scripts
+install(
+  PROGRAMS
+    scripts/soft_start_stand.py
+    scripts/soft_start_zero.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 # Install launch files

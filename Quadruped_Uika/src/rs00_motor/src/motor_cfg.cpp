@@ -1,70 +1,143 @@
 #include "motor_ros2/motor_cfg.h"
 
-void RobStrideMotor::init_socket() {
-  socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-  if (socket_fd < 0) {
-    perror("socket");
-    exit(1);
+#include <map>
+#include <memory>
+
+class CanRxDispatcher {
+public:
+  explicit CanRxDispatcher(const std::string &iface) : iface_(iface) {
+    init_socket();
+    rx_thread_ = std::thread(&CanRxDispatcher::rx_loop, this);
   }
 
-  struct ifreq ifr{};
-  std::strncpy(ifr.ifr_name, iface.c_str(), IFNAMSIZ);
-  if (ioctl(socket_fd, SIOCGIFINDEX, &ifr) < 0) {
-    perror("ioctl");
-    exit(1);
+  ~CanRxDispatcher() {
+    running_ = false;
+    if (rx_thread_.joinable()) {
+      rx_thread_.join();
+    }
+    if (socket_fd_ >= 0) {
+      close(socket_fd_);
+    }
   }
 
-  struct sockaddr_can addr{};
-  addr.can_family = AF_CAN;
-  addr.can_ifindex = ifr.ifr_ifindex;
-
-  if (bind(socket_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-    perror("bind");
-    exit(1);
+  void register_motor(uint8_t motor_id, RobStrideMotor *motor) {
+    std::lock_guard<std::mutex> lock(motors_mutex_);
+    motors_[motor_id] = motor;
   }
 
-  struct can_filter rfilter[1];
-  rfilter[0].can_id =
-      (motor_id << 8) | CAN_EFF_FLAG; // Bit8~Bit15 放电机ID，高位扩展帧标志
-  rfilter[0].can_mask =
-      (0xFF << 8) | CAN_EFF_FLAG; // 只匹配 Bit8~Bit15 + 扩展帧标志
-
-  if (setsockopt(socket_fd, SOL_CAN_RAW, CAN_RAW_FILTER, &rfilter,
-                 sizeof(rfilter)) < 0) {
-    perror("setsockopt filter");
-    exit(1);
+  void unregister_motor(uint8_t motor_id, RobStrideMotor *motor) {
+    std::lock_guard<std::mutex> lock(motors_mutex_);
+    auto it = motors_.find(motor_id);
+    if (it != motors_.end() && it->second == motor) {
+      motors_.erase(it);
+    }
   }
 
-  struct timeval timeout{};
-  timeout.tv_sec = 0;
-  timeout.tv_usec = 5000;
-  if (setsockopt(socket_fd, SOL_SOCKET, SO_RCVTIMEO, &timeout,
-                 sizeof(timeout)) < 0) {
-    perror("setsockopt timeout");
-    exit(1);
+  ssize_t send(const struct can_frame &frame) {
+    std::lock_guard<std::mutex> lock(tx_mutex_);
+    return write(socket_fd_, &frame, sizeof(frame));
   }
-}
 
-void RobStrideMotor::receive_status_frame() {
-  uint64_t previous_rx_count = rx_count_.load();
-  if (!wait_for_rx_update(previous_rx_count, std::chrono::milliseconds(20))) {
-    throw std::runtime_error("No frame received.");
+private:
+  void init_socket() {
+    socket_fd_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+    if (socket_fd_ < 0) {
+      perror("rx socket");
+      exit(1);
+    }
+
+    struct ifreq ifr{};
+    std::strncpy(ifr.ifr_name, iface_.c_str(), IFNAMSIZ);
+    if (ioctl(socket_fd_, SIOCGIFINDEX, &ifr) < 0) {
+      perror("rx ioctl");
+      exit(1);
+    }
+
+    struct sockaddr_can addr{};
+    addr.can_family = AF_CAN;
+    addr.can_ifindex = ifr.ifr_ifindex;
+    if (bind(socket_fd_, reinterpret_cast<struct sockaddr *>(&addr),
+             sizeof(addr)) < 0) {
+      perror("rx bind");
+      exit(1);
+    }
+
+    struct timeval timeout{};
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 5000;
+    if (setsockopt(socket_fd_, SOL_SOCKET, SO_RCVTIMEO, &timeout,
+                   sizeof(timeout)) < 0) {
+      perror("rx setsockopt timeout");
+      exit(1);
+    }
   }
-}
 
-void RobStrideMotor::receiver_loop() {
-  while (!stop_receiver_) {
-    try {
-      auto result = receive();
-      if (!result) {
+  void rx_loop() {
+    while (running_) {
+      struct can_frame frame{};
+      const ssize_t nbytes = recv(socket_fd_, &frame, sizeof(frame), 0);
+      if (nbytes <= 0) {
         continue;
       }
-      auto [communication_type, extra_data, host_id, data] = *result;
-      handle_received_frame(communication_type, extra_data, host_id, data);
-      rx_count_.fetch_add(1, std::memory_order_relaxed);
-    } catch (const std::exception &) {
-      continue;
+      if (!(frame.can_id & CAN_EFF_FLAG)) {
+        continue;
+      }
+
+      const uint32_t can_id = frame.can_id & CAN_EFF_MASK;
+      const uint8_t communication_type = (can_id >> 24) & 0x1F;
+      const uint16_t extra_data = (can_id >> 8) & 0xFFFF;
+      const uint8_t host_id = can_id & 0xFF;
+      const uint8_t motor_id = extra_data & 0xFF;
+      const std::vector<uint8_t> data(frame.data, frame.data + frame.can_dlc);
+
+      std::lock_guard<std::mutex> lock(motors_mutex_);
+      auto it = motors_.find(motor_id);
+      if (it == motors_.end()) {
+        continue;
+      }
+      it->second->handle_received_frame(communication_type, extra_data, host_id,
+                                        data);
+      it->second->rx_count_.fetch_add(1, std::memory_order_relaxed);
     }
+  }
+
+  std::string iface_;
+  int socket_fd_ = -1;
+  std::atomic<bool> running_{true};
+  std::thread rx_thread_;
+  std::mutex motors_mutex_;
+  std::mutex tx_mutex_;
+  std::map<uint8_t, RobStrideMotor *> motors_;
+};
+
+std::shared_ptr<CanRxDispatcher> get_can_rx_dispatcher(
+    const std::string &iface) {
+  static std::mutex dispatchers_mutex;
+  static std::map<std::string, std::weak_ptr<CanRxDispatcher>> dispatchers;
+
+  std::lock_guard<std::mutex> lock(dispatchers_mutex);
+  auto existing = dispatchers[iface].lock();
+  if (existing) {
+    return existing;
+  }
+
+  auto created = std::make_shared<CanRxDispatcher>(iface);
+  dispatchers[iface] = created;
+  return created;
+}
+
+RobStrideMotor::RobStrideMotor(const std::string can_interface,
+                               uint8_t master_id, uint8_t motor_id,
+                               int actuator_type)
+    : iface(can_interface), master_id(master_id), motor_id(motor_id),
+      actuator_type(actuator_type) {
+  rx_dispatcher_ = get_can_rx_dispatcher(iface);
+  rx_dispatcher_->register_motor(motor_id, this);
+}
+
+RobStrideMotor::~RobStrideMotor() {
+  if (rx_dispatcher_) {
+    rx_dispatcher_->unregister_motor(motor_id, this);
   }
 }
 
@@ -157,7 +230,7 @@ void RobStrideMotor::handle_received_frame(uint8_t communication_type,
 bool RobStrideMotor::wait_for_rx_update(uint64_t previous_rx_count,
                                         std::chrono::milliseconds timeout) {
   auto deadline = std::chrono::steady_clock::now() + timeout;
-  while (!stop_receiver_ && std::chrono::steady_clock::now() < deadline) {
+  while (std::chrono::steady_clock::now() < deadline) {
     if (rx_count_.load(std::memory_order_relaxed) > previous_rx_count) {
       return true;
     }
@@ -191,11 +264,7 @@ void RobStrideMotor::Set_RobStrite_Motor_parameter(uint16_t Index, float Value,
   }
 
   uint64_t previous_rx_count = rx_count_.load();
-  int n;
-  {
-    std::lock_guard<std::mutex> lock(io_mutex_);
-    n = write(socket_fd, &frame, sizeof(frame));
-  }
+  int n = rx_dispatcher_->send(frame);
   if (n != sizeof(frame)) {
     perror("set mode failed");
   }
@@ -212,11 +281,7 @@ std::tuple<float, float, float, float> RobStrideMotor::enable_motor() {
   memset(frame.data, 0, 8);
 
   uint64_t previous_rx_count = rx_count_.load();
-  int n;
-  {
-    std::lock_guard<std::mutex> lock(io_mutex_);
-    n = write(socket_fd, &frame, sizeof(frame));
-  }
+  int n = rx_dispatcher_->send(frame);
   if (n != sizeof(frame)) {
     perror("enable_motor failed");
   } else {
@@ -314,11 +379,7 @@ RobStrideMotor::send_motion_command(float torque, float position_rad,
   frame.data[7] = kd_u;
   // 05 70 00 00 07 01 82 F9
 
-  int n;
-  {
-    std::lock_guard<std::mutex> lock(io_mutex_);
-    n = write(socket_fd, &frame, sizeof(frame));
-  }
+  int n = rx_dispatcher_->send(frame);
 
   if (n != sizeof(frame)) {
     perror("send_motion_command failed");
@@ -356,39 +417,16 @@ RobStrideMotor::send_velocity_mode_command(float velocity_rad_s) {
 }
 
 float RobStrideMotor::read_initial_position() {
-  struct can_frame frame{};
-  auto start = std::chrono::steady_clock::now();
-  while (true) {
-    // float neutral_pos = 2.0f;
-    // send_motion_command(neutral_pos, 0.0f, 0.0f, 0.0f);
-
-    ssize_t nbytes = read(socket_fd, &frame, sizeof(frame));
-    if (nbytes > 0 && (frame.can_id & CAN_EFF_FLAG)) {
-      uint32_t canid = frame.can_id & CAN_EFF_MASK;
-      uint8_t type = (canid >> 24) & 0xFF;
-      uint8_t mid = (canid >> 8) & 0xFF;
-      uint8_t eid = canid & 0xFF;
-
-      // please switch print output;
-      printf("type: 0x%02X\n", type);
-      printf("mid:  0x%02X\n", mid);
-      printf("eid:  0x%02X\n", eid);
-
-      if (type == 0x02 && mid == 0x01 && eid == 0xFD) {
-        uint16_t p_uint = (frame.data[0] << 8) | frame.data[1];
-        float pos = uint_to_float(p_uint, -4 * M_PI, 4 * M_PI, 16);
-        std::cout << "[✓] Initial position read: " << pos << " rad"
-                  << std::endl;
-        return pos;
-      }
-    }
-    auto now = std::chrono::steady_clock::now();
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start)
-            .count() > 10000) {
-      std::cerr << "[!] Timeout waiting for motor feedback." << std::endl;
-      return 0.0f;
-    }
+  const uint64_t previous_rx_count = rx_count_.load();
+  if (!wait_for_rx_update(previous_rx_count, std::chrono::seconds(10))) {
+    std::cerr << "[!] Timeout waiting for motor feedback." << std::endl;
+    return 0.0f;
   }
+
+  std::lock_guard<std::mutex> lock(state_mutex_);
+  std::cout << "[✓] Initial position read: " << position_ << " rad"
+            << std::endl;
+  return position_;
 }
 
 void RobStrideMotor::Get_RobStrite_Motor_parameter(uint16_t Index) {
@@ -407,11 +445,7 @@ void RobStrideMotor::Get_RobStrite_Motor_parameter(uint16_t Index) {
   frame.data[6] = 0x00;
   frame.data[7] = 0x00;
   uint64_t previous_rx_count = rx_count_.load();
-  int n;
-  {
-    std::lock_guard<std::mutex> lock(io_mutex_);
-    n = write(socket_fd, &frame, sizeof(frame));
-  }
+  int n = rx_dispatcher_->send(frame);
 
   if (n != sizeof(frame)) {
     perror("get_motor_parameter failed");
@@ -510,11 +544,7 @@ void RobStrideMotor::Disenable_Motor(uint8_t clear_error) {
   frame.data[7] = 0x00;
 
   uint64_t previous_rx_count = rx_count_.load();
-  int n;
-  {
-    std::lock_guard<std::mutex> lock(io_mutex_);
-    n = write(socket_fd, &frame, sizeof(frame));
-  }
+  int n = rx_dispatcher_->send(frame);
 
   if (n != sizeof(frame)) {
     perror("disable_motor failed");
@@ -543,11 +573,7 @@ void RobStrideMotor::Set_CAN_ID(uint8_t Set_CAN_ID) {
   frame.data[6] = 0x00;
   frame.data[7] = 0x00;
 
-  int n;
-  {
-    std::lock_guard<std::mutex> lock(io_mutex_);
-    n = write(socket_fd, &frame, sizeof(frame));
-  }
+  int n = rx_dispatcher_->send(frame);
 
   if (n != sizeof(frame)) {
     perror("Set_ZeroPos failed");
@@ -624,11 +650,7 @@ void RobStrideMotor::Set_ZeroPos() {
   frame.data[6] = 0x00;
   frame.data[7] = 0x00;
 
-  int n;
-  {
-    std::lock_guard<std::mutex> lock(io_mutex_);
-    n = write(socket_fd, &frame, sizeof(frame));
-  }
+  int n = rx_dispatcher_->send(frame);
 
   if (n != sizeof(frame)) {
     perror("Set_ZeroPos failed");

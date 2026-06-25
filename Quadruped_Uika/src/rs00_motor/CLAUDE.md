@@ -2,34 +2,34 @@
 
 ## 二进制文件路径问题
 
-当看到 `ros2 run rs_motor_ros2 rs_motor_ros2` 运行时，必须确保使用的是正确路径的二进制文件。
+当看到 `ros2 run rs00_motor rs00_motor` 运行时，必须确保使用的是正确路径的二进制文件。
 
 ### 问题原因
 项目中存在两个可能的 install 路径：
-- `~/VMC_Quadruped/install/rs_motor_ros2/` （正确的）
-- `~/VMC_Quadruped/src/robstride_ros_sample/install/` （旧的，可能被优先使用）
+- `~/VMC_Quadruped/install/rs00_motor/` （正确的）
+- `~/VMC_Quadruped/src/rs00_motor/install/` （旧的，可能被优先使用）
 
 如果 `ros2 run` 使用了旧版本的二进制文件，代码修改将不会生效。
 
 ### 验证方法
 ```bash
 # 查看正在运行的进程
-pgrep -f rs_motor_ros2 | while read pid; do
+pgrep -f rs00_motor | while read pid; do
   echo "PID $pid:"
   cat /proc/$pid/cmdline | tr '\0' ' '
   echo
 done
 
 # 检查二进制文件修改时间
-ls -la ~/VMC_Quadruped/install/rs_motor_ros2/lib/rs_motor_ros2/rs_motor_ros2
-ls -la ~/VMC_Quadruped/src/robstride_ros_sample/install/rs_motor_ros2/lib/rs_motor_ros2/rs_motor_ros2
+ls -la ~/VMC_Quadruped/install/rs00_motor/lib/rs00_motor/rs00_motor
+ls -la ~/VMC_Quadruped/src/rs00_motor/install/rs00_motor/lib/rs00_motor/rs00_motor
 ```
 
 ### 解决方法
 如果发现使用了旧路径，删除旧版本：
 ```bash
-rm -rf ~/VMC_Quadruped/src/robstride_ros_sample/install
-colcon build --packages-select rs_motor_ros2
+rm -rf ~/VMC_Quadruped/src/rs00_motor/install
+colcon build --packages-select rs00_motor
 ```
 
 ## ROS2 话题问题排查
