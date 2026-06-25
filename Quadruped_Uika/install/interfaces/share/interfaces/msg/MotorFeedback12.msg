@@ -1,0 +1,13 @@
+std_msgs/Header header
+interfaces/MotorFeedback fl_hip
+interfaces/MotorFeedback fl_thigh
+interfaces/MotorFeedback fl_calf
+interfaces/MotorFeedback fr_hip
+interfaces/MotorFeedback fr_thigh
+interfaces/MotorFeedback fr_calf
+interfaces/MotorFeedback rl_hip
+interfaces/MotorFeedback rl_thigh
+interfaces/MotorFeedback rl_calf
+interfaces/MotorFeedback rr_hip
+interfaces/MotorFeedback rr_thigh
+interfaces/MotorFeedback rr_calf

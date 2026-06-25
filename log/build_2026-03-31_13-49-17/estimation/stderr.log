@@ -1,4 +1,0 @@
-/home/lzh/VMC_Quadruped/src/estimation/src/contact_detection_node.cpp: In member function ‘void estimation::ContactDetectionNode::on_motor_feedback(interfaces::msg::MotorFeedback12_<std::allocator<void> >::SharedPtr)’:
-/home/lzh/VMC_Quadruped/src/estimation/src/contact_detection_node.cpp:63:13: warning: unused variable ‘offset’ [-Wunused-variable]
-   63 |         int offset = static_cast<int>(leg_idx) * LegConstants::JOINTS_PER_LEG;
-      |             ^~~~~~

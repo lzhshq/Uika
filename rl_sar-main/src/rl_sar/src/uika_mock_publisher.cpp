@@ -18,6 +18,12 @@
  *     - 前4个: 四元数姿态 (w,x,y,z)
  *     - 后3个: 陀螺仪角速度 (rad/s)
  *
+ *   /uika/commands (std_msgs/Float64MultiArray)
+ *     - 3个float: [vx, vy, wz]
+ *     - vx: 前进/后退速度 (m/s)
+ *     - vy: 左/右横移速度 (m/s)
+ *     - wz: 偏航角速度 (rad/s)
+ *
  * 【数据内容】
  *
  *   关节位置:
@@ -32,6 +38,11 @@
  *   IMU姿态:
  *     - 四元数: [0, 0, 0, 1] 表示无旋转
  *     - 陀螺仪: [0, 0, 0] 表示无角速度
+ *
+ *   遥控命令:
+ *     - 前进速度: 0.5 m/s
+ *     - 无侧向移动
+ *     - 无旋转
  *
  * 【发布频率】
  *   200Hz (5ms间隔)
@@ -77,6 +88,11 @@ public:
         imu_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
             "/uika/imu", 10);
 
+        // 遥控命令发布器: /uika/commands
+        // 数据: [vx, vy, wz] = 3个float
+        commands_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
+            "/uika/commands", 10);
+
         // ============================================================
         // 2. 初始化默认关节位置（站立姿态）
         // ============================================================
@@ -102,6 +118,9 @@ public:
         RCLCPP_INFO(this->get_logger(), "Mock Publisher started");
         RCLCPP_INFO(this->get_logger(), "  Publishing /uika/joint_state at 200Hz");
         RCLCPP_INFO(this->get_logger(), "  Publishing /uika/imu at 200Hz");
+        RCLCPP_INFO(this->get_logger(), "  Publishing /uika/commands at 200Hz");
+        RCLCPP_INFO(this->get_logger(), "  Commands: vx=%.2f, vy=%.2f, wz=%.2f",
+                    vx_, vy_, wz_);
         RCLCPP_INFO(this->get_logger(), "  Default joint positions:");
         RCLCPP_INFO(this->get_logger(), "    FR: hip=%.2f, thigh=%.2f, calf=%.2f",
                     default_pos_[0], default_pos_[1], default_pos_[2]);
@@ -160,6 +179,17 @@ private:
 
         imu_pub_->publish(imu_msg);
 
+        // ========================================================
+        // 发布遥控命令 /uika/commands
+        // ========================================================
+        std_msgs::msg::Float64MultiArray commands_msg;
+        commands_msg.data.resize(3);  // vx, vy, wz
+        commands_msg.data[0] = vx_;   // 前进速度
+        commands_msg.data[1] = vy_;   // 侧向速度
+        commands_msg.data[2] = wz_;   // 偏航角速度
+
+        commands_pub_->publish(commands_msg);
+
         // 每秒打印一次状态
         if (count_ % 200 == 0)
         {
@@ -174,6 +204,7 @@ private:
     // 发布器
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr joint_state_pub_;
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr imu_pub_;
+    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr commands_pub_;
 
     // 定时器
     rclcpp::TimerBase::SharedPtr timer_;
@@ -184,6 +215,11 @@ private:
     // 计数器和时间
     int count_;
     double t_;
+
+    // 遥控命令参数
+    double vx_ = 0.5;   // 前进速度 (m/s)
+    double vy_ = 0.0;   // 侧向速度 (m/s)
+    double wz_ = 0.0;   // 偏航角速度 (rad/s)
 };
 
 int main(int argc, char **argv)

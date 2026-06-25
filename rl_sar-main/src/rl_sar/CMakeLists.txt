@@ -34,11 +34,14 @@ add_definitions(-DPOLICY_DIR="${PROJECT_ROOT_DIR}/policy")
 add_definitions(-DBOOST_BIND_GLOBAL_PLACEHOLDERS)
 
 # ROS2 dependencies
-find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
+find_package(ament_cmake REQUIRED)                        
+find_package(rclcpp REQUIRED)     
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)  
+find_package(interfaces REQUIRED)                                                                                              
 find_package(ament_index_cpp REQUIRED)
+find_package(rosidl_typesupport_cpp REQUIRED)     
 
 # Inference Runtime
 set(INFERENCE_RUNTIME_DIR "${PROJECT_ROOT_DIR}/library/inference_runtime")
@@ -52,10 +55,10 @@ set(ONNX_RUNTIME_DIR "${INFERENCE_RUNTIME_DIR}/onnxruntime")
 set(IS_JETSON FALSE)
 if(EXISTS "/etc/nv_tegra_release")
     set(IS_JETSON TRUE)
-    message(STATUS "Jetson platform detected - ONNX Runtime will be disabled")
+    message(STATUS "Jetson platform detected - ONNX Runtime enabled")
 endif()
 
-if(EXISTS "${ONNX_RUNTIME_DIR}/include" AND EXISTS "${ONNX_RUNTIME_DIR}/lib" AND NOT IS_JETSON)
+if(EXISTS "${ONNX_RUNTIME_DIR}/include" AND EXISTS "${ONNX_RUNTIME_DIR}/lib")
     set(USE_ONNX "ON")
     add_compile_definitions(USE_ONNX)
 
@@ -188,6 +191,7 @@ endif()
 
 include_directories(
     include
+    /home/nvidia/UIKA/Quadruped_Uika/install/interfaces/include/interfaces 
     library/core/matplotlibcpp
     library/core/observation_buffer
     library/core/rl_sdk
@@ -246,6 +250,8 @@ if(SYSTEM_TYPE STREQUAL "Linux")
         rclcpp
         std_msgs
         geometry_msgs
+        sensor_msgs
+        interfaces
     )
     install(TARGETS uika DESTINATION lib/${PROJECT_NAME})
 

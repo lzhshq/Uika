@@ -1,0 +1,5 @@
+/home/nvidia/UIKA/build/robot_msgs/rosidl_adapter/robot_msgs:msg/MotorCommand.idl
+/home/nvidia/UIKA/build/robot_msgs/rosidl_adapter/robot_msgs:msg/MotorState.idl
+/home/nvidia/UIKA/build/robot_msgs/rosidl_adapter/robot_msgs:msg/RobotCommand.idl
+/home/nvidia/UIKA/build/robot_msgs/rosidl_adapter/robot_msgs:msg/RobotState.idl
+/home/nvidia/UIKA/build/robot_msgs/rosidl_adapter/robot_msgs:msg/IMU.idl

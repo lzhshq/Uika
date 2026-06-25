@@ -1,0 +1,22 @@
+[0.060s] Invoking command in '/home/nvidia/UIKA/build/bringup': /usr/bin/cmake /home/nvidia/UIKA/Quadruped_Uika/src/bringup -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/bringup
+[0.666s] -- The C compiler identification is GNU 11.4.0
+[0.667s] -- The CXX compiler identification is GNU 11.4.0
+[0.667s] -- Detecting C compiler ABI info
+[1.047s] -- Detecting C compiler ABI info - done
+[1.064s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.076s] -- Detecting C compile features
+[1.076s] -- Detecting C compile features - done
+[1.083s] -- Detecting CXX compiler ABI info
+[1.431s] -- Detecting CXX compiler ABI info - done
+[1.438s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.439s] -- Detecting CXX compile features
+[1.440s] -- Detecting CXX compile features - done
+[1.447s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.882s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[2.240s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[2.263s] [31mCMake Error at CMakeLists.txt:18 (ament_install_python_scripts):
+[2.263s]   Unknown CMake command "ament_install_python_scripts".
+[2.263s] 
+[2.263s] [0m
+[2.264s] -- Configuring incomplete, errors occurred!
+[2.264s] See also "/home/nvidia/UIKA/build/bringup/CMakeFiles/CMakeOutput.log".

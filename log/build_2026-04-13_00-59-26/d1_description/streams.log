@@ -1,0 +1,36 @@
+[0.059s] Invoking command in '/home/nvidia/UIKA/build/d1_description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/d1_description -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/d1_description
+[1.929s] -- The C compiler identification is GNU 11.4.0
+[1.929s] -- The CXX compiler identification is GNU 11.4.0
+[1.930s] -- Detecting C compiler ABI info
+[1.930s] -- Detecting C compiler ABI info - done
+[1.930s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.930s] -- Detecting C compile features
+[1.930s] -- Detecting C compile features - done
+[1.930s] -- Detecting CXX compiler ABI info
+[1.930s] -- Detecting CXX compiler ABI info - done
+[1.931s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.931s] -- Detecting CXX compile features
+[1.931s] -- Detecting CXX compile features - done
+[1.931s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.931s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.931s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.931s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[1.959s] [31mCMake Error at CMakeLists.txt:20 (find_package):
+[1.959s]   By not providing "Findxacro.cmake" in CMAKE_MODULE_PATH this project has
+[1.960s]   asked CMake to find a package configuration file provided by "xacro", but
+[1.961s]   CMake did not find one.
+[1.962s] 
+[1.962s]   Could not find a package configuration file provided by "xacro" with any of
+[1.962s]   the following names:
+[1.965s] 
+[1.967s]     xacroConfig.cmake
+[1.967s]     xacro-config.cmake
+[1.967s] 
+[1.967s]   Add the installation prefix of "xacro" to CMAKE_PREFIX_PATH or set
+[1.967s]   "xacro_DIR" to a directory containing one of the above files.  If "xacro"
+[1.968s]   provides a separate development package or SDK, be sure it has been
+[1.968s]   installed.
+[1.968s] 
+[1.968s] [0m
+[1.968s] -- Configuring incomplete, errors occurred!
+[1.968s] See also "/home/nvidia/UIKA/build/d1_description/CMakeFiles/CMakeOutput.log".

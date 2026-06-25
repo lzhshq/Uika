@@ -1,4 +1,0 @@
-[01m[K/home/lzh/VMC_Quadruped/src/estimation/src/contact_detection_node.cpp:[m[K In member function ‘[01m[Kvoid estimation::ContactDetectionNode::on_motor_feedback(interfaces::msg::MotorFeedback12_<std::allocator<void> >::SharedPtr)[m[K’:
-[01m[K/home/lzh/VMC_Quadruped/src/estimation/src/contact_detection_node.cpp:63:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Koffset[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
-   63 |         int [01;35m[Koffset[m[K = static_cast<int>(leg_idx) * LegConstants::JOINTS_PER_LEG;
-      |             [01;35m[K^~~~~~[m[K

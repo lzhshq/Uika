@@ -1,0 +1,23 @@
+[0.052s] Invoking command in '/home/nvidia/UIKA/build/b2_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/b2_description -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/b2_description
+[0.079s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.697s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.697s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[0.783s] [31mCMake Error at CMakeLists.txt:21 (find_package):
+[0.783s]   By not providing "Findxacro.cmake" in CMAKE_MODULE_PATH this project has
+[0.783s] -- Configuring incomplete, errors occurred!
+[0.784s] See also "/home/nvidia/UIKA/build/b2_description/CMakeFiles/CMakeOutput.log".
+[0.784s]   asked CMake to find a package configuration file provided by "xacro", but
+[0.786s]   CMake did not find one.
+[0.786s] 
+[0.786s]   Could not find a package configuration file provided by "xacro" with any of
+[0.786s]   the following names:
+[0.786s] 
+[0.786s]     xacroConfig.cmake
+[0.786s]     xacro-config.cmake
+[0.787s] 
+[0.787s]   Add the installation prefix of "xacro" to CMAKE_PREFIX_PATH or set
+[0.787s]   "xacro_DIR" to a directory containing one of the above files.  If "xacro"
+[0.787s]   provides a separate development package or SDK, be sure it has been
+[0.787s]   installed.
+[0.787s] 
+[0.788s] [0m

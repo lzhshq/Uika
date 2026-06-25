@@ -1,0 +1,1 @@
+Invoking command in '/home/nvidia/UIKA/build/robot_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/rl_sar-main/src/robot_msgs -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/robot_msgs

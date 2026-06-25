@@ -1,0 +1,77 @@
+header:
+  stamp:
+    sec: 0
+    nanosec: 0
+  frame_id: "cmd"
+fl_hip:
+  torque: 0.0
+  position: -0.80
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+fl_thigh:
+  torque: 0.0
+  position: 0.05
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+fl_calf:
+  torque: 0.0
+  position: 0.70
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+fr_hip:
+  torque: 0.0
+  position: 0.80
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+fr_thigh:
+  torque: 0.0
+  position: -0.05
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+fr_calf:
+  torque: 0.0
+  position: -0.70
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+rl_hip:
+  torque: 0.0
+  position: 0.75
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+rl_thigh:
+  torque: 0.0
+  position: 0.05
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+rl_calf:
+  torque: 0.0
+  position: 0.70
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+rr_hip:
+  torque: 0.0
+  position: -0.75
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+rr_thigh:
+  torque: 0.0
+  position: -0.05
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0
+rr_calf:
+  torque: 0.0
+  position: -0.70
+  velocity: 0.0
+  kp: 1.0
+  kd: 1.0

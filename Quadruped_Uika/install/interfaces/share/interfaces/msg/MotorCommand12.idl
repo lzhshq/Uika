@@ -1,0 +1,64 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/MotorCommand12.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/MotorCommand.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    struct MotorCommand12 {
+      @verbatim (language="comment", text=
+        "消息头：包含时间戳")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "左前髋关节电机命令")
+      interfaces::msg::MotorCommand fl_hip;
+
+      @verbatim (language="comment", text=
+        "左前大腿关节电机命令")
+      interfaces::msg::MotorCommand fl_thigh;
+
+      @verbatim (language="comment", text=
+        "左前小腿关节电机命令")
+      interfaces::msg::MotorCommand fl_calf;
+
+      @verbatim (language="comment", text=
+        "右前髋关节电机命令")
+      interfaces::msg::MotorCommand fr_hip;
+
+      @verbatim (language="comment", text=
+        "右前大腿关节电机命令")
+      interfaces::msg::MotorCommand fr_thigh;
+
+      @verbatim (language="comment", text=
+        "右前小腿关节电机命令")
+      interfaces::msg::MotorCommand fr_calf;
+
+      @verbatim (language="comment", text=
+        "左后髋关节电机命令")
+      interfaces::msg::MotorCommand rl_hip;
+
+      @verbatim (language="comment", text=
+        "左后大腿关节电机命令")
+      interfaces::msg::MotorCommand rl_thigh;
+
+      @verbatim (language="comment", text=
+        "左后小腿关节电机命令")
+      interfaces::msg::MotorCommand rl_calf;
+
+      @verbatim (language="comment", text=
+        "右后髋关节电机命令")
+      interfaces::msg::MotorCommand rr_hip;
+
+      @verbatim (language="comment", text=
+        "右后大腿关节电机命令")
+      interfaces::msg::MotorCommand rr_thigh;
+
+      @verbatim (language="comment", text=
+        "右后小腿关节电机命令")
+      interfaces::msg::MotorCommand rr_calf;
+    };
+  };
+};

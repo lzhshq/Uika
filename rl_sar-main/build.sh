@@ -408,7 +408,7 @@ main() {
 
     setup_inference_runtime
     setup_robot_descriptions
-    setup_gazebo_models
+    # skip gazebo_models for hardware deployment
     run_ros_build "${packages[@]}"
 }
 

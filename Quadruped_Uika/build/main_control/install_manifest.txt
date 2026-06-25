@@ -1,0 +1,15 @@
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/ament_index/resource_index/package_run_dependencies/main_control
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/ament_index/resource_index/parent_prefix_path/main_control
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/environment/ament_prefix_path.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/environment/ament_prefix_path.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/environment/path.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/environment/path.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/local_setup.bash
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/local_setup.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/local_setup.zsh
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/local_setup.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/package.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/ament_index/resource_index/packages/main_control
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/cmake/main_controlConfig.cmake
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/cmake/main_controlConfig-version.cmake
+/home/nvidia/UIKA/Quadruped_Uika/install/main_control/share/main_control/package.xml

@@ -1,8 +1,0 @@
-/home/lzh/VMC_Quadruped/src/robstride_ros_sample/src/main.cpp: In member function ‘double MotorControlSample::motor_to_joint(int, double)’:
-/home/lzh/VMC_Quadruped/src/robstride_ros_sample/src/main.cpp:146:29: warning: unused parameter ‘motor_idx’ [-Wunused-parameter]
-  146 |   double motor_to_joint(int motor_idx, double motor_pos) {
-      |                         ~~~~^~~~~~~~~
-/home/lzh/VMC_Quadruped/src/robstride_ros_sample/src/main.cpp: In member function ‘double MotorControlSample::joint_to_motor(int, double)’:
-/home/lzh/VMC_Quadruped/src/robstride_ros_sample/src/main.cpp:153:29: warning: unused parameter ‘motor_idx’ [-Wunused-parameter]
-  153 |   double joint_to_motor(int motor_idx, double joint_pos) {
-      |                         ~~~~^~~~~~~~~

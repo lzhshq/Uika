@@ -1,0 +1,10 @@
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/BaseState.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/ContactState.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/GaitPhase.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/MotionCommand.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/SingleFootState.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/FootState.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/MotorCommand.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/MotorCommand12.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/MotorFeedback.idl
+/home/nvidia/UIKA/Quadruped_Uika/build/interfaces/rosidl_adapter/interfaces:msg/MotorFeedback12.idl

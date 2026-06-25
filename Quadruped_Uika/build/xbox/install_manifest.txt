@@ -1,0 +1,17 @@
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/lib/xbox/xbox_vel_publisher
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/launch/xbox.launch.py
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/ament_index/resource_index/package_run_dependencies/xbox
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/ament_index/resource_index/parent_prefix_path/xbox
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/environment/ament_prefix_path.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/environment/ament_prefix_path.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/environment/path.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/environment/path.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/local_setup.bash
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/local_setup.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/local_setup.zsh
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/local_setup.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/package.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/ament_index/resource_index/packages/xbox
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/cmake/xboxConfig.cmake
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/cmake/xboxConfig-version.cmake
+/home/nvidia/UIKA/Quadruped_Uika/install/xbox/share/xbox/package.xml

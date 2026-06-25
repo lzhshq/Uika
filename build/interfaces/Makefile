@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lzh/VMC_Quadruped/src/interfaces
+CMAKE_SOURCE_DIR = /home/nvidia/UIKA/Quadruped_Uika/src/interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lzh/VMC_Quadruped/build/interfaces
+CMAKE_BINARY_DIR = /home/nvidia/UIKA/build/interfaces
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,9 +142,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lzh/VMC_Quadruped/build/interfaces/CMakeFiles /home/lzh/VMC_Quadruped/build/interfaces//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nvidia/UIKA/build/interfaces/CMakeFiles /home/nvidia/UIKA/build/interfaces//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lzh/VMC_Quadruped/build/interfaces/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nvidia/UIKA/build/interfaces/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -404,19 +404,6 @@ interfaces__py: cmake_check_build_system
 interfaces__py/fast:
 	$(MAKE) $(MAKESILENT) -f interfaces__py/CMakeFiles/interfaces__py.dir/build.make interfaces__py/CMakeFiles/interfaces__py.dir/build
 .PHONY : interfaces__py/fast
-
-#=============================================================================
-# Target rules for targets named interfaces__rs
-
-# Build rule for target.
-interfaces__rs: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 interfaces__rs
-.PHONY : interfaces__rs
-
-# fast build rule for target.
-interfaces__rs/fast:
-	$(MAKE) $(MAKESILENT) -f interfaces__rs/CMakeFiles/interfaces__rs.dir/build.make interfaces__rs/CMakeFiles/interfaces__rs.dir/build
-.PHONY : interfaces__rs/fast
 
 rosidl_generator_c/interfaces/msg/detail/base_state__functions.o: rosidl_generator_c/interfaces/msg/detail/base_state__functions.c.o
 .PHONY : rosidl_generator_c/interfaces/msg/detail/base_state__functions.o
@@ -2428,7 +2415,6 @@ help:
 	@echo "... interfaces"
 	@echo "... interfaces__cpp"
 	@echo "... interfaces__py"
-	@echo "... interfaces__rs"
 	@echo "... interfaces_uninstall"
 	@echo "... uninstall"
 	@echo "... interfaces__rosidl_generator_c"

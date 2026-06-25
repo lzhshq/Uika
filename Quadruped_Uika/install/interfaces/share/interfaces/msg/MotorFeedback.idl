@@ -1,0 +1,26 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/MotorFeedback.msg
+// generated code does not contain a copyright notice
+
+
+module interfaces {
+  module msg {
+    struct MotorFeedback {
+      @verbatim (language="comment", text=
+        "反馈力矩 (N·m)")
+      double torque;
+
+      @verbatim (language="comment", text=
+        "反馈位置 (rad)")
+      double position;
+
+      @verbatim (language="comment", text=
+        "反馈速度 (rad/s)")
+      double velocity;
+
+      @verbatim (language="comment", text=
+        "电机温度 (°C)")
+      double temperature;
+    };
+  };
+};

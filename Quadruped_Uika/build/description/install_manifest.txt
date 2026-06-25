@@ -1,0 +1,15 @@
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/ament_index/resource_index/package_run_dependencies/description
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/ament_index/resource_index/parent_prefix_path/description
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/environment/ament_prefix_path.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/environment/ament_prefix_path.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/environment/path.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/environment/path.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/local_setup.bash
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/local_setup.sh
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/local_setup.zsh
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/local_setup.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/package.dsv
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/ament_index/resource_index/packages/description
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/cmake/descriptionConfig.cmake
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/cmake/descriptionConfig-version.cmake
+/home/nvidia/UIKA/Quadruped_Uika/install/description/share/description/package.xml

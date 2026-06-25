@@ -1,0 +1,1 @@
+Invoking command in '/home/nvidia/UIKA/build/bringup': /usr/bin/cmake /home/nvidia/UIKA/Quadruped_Uika/src/bringup -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/bringup

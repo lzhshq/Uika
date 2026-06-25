@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/MotorCommand.msg
+// generated code does not contain a copyright notice
+
+
+module interfaces {
+  module msg {
+    struct MotorCommand {
+      @verbatim (language="comment", text=
+        "电机前馈力矩，单位 N·m")
+      double torque;
+
+      @verbatim (language="comment", text=
+        "电机目标位置，单位 rad")
+      double position;
+
+      @verbatim (language="comment", text=
+        "电机目标速度，单位 rad/s")
+      double velocity;
+
+      @verbatim (language="comment", text=
+        "位置环增益")
+      double kp;
+
+      @verbatim (language="comment", text=
+        "速度环增益")
+      double kd;
+    };
+  };
+};

@@ -4,6 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Build Commands
 
+  source ~/UIKA/Quadruped_Uika/install/setup.bash           
+  cd ~/UIKA/rl_sar-main                                                                                                          
+  rm -rf cmake_build CMakeCache.txt                                                                                              
+  ./build.sh -m
 ```bash
 cd /home/saiki/Quadruped_Uika-main/rl_sar-main
 

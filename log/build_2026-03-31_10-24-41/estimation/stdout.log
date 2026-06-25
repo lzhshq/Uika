@@ -1,5 +1,0 @@
-Consolidate compiler generated dependencies of target estimation_kinematics
-[ 40%] Built target estimation_kinematics
-Consolidate compiler generated dependencies of target contact_detection_node
-[ 60%] Building CXX object CMakeFiles/contact_detection_node.dir/src/contact_detection_node.cpp.o
-[ 80%] Linking CXX executable contact_detection_node

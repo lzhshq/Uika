@@ -1,0 +1,1 @@
+Invoking command in '/home/nvidia/UIKA/build/interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/Quadruped_Uika/src/interfaces -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/interfaces

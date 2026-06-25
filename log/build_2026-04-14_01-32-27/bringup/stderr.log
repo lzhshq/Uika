@@ -1,0 +1,4 @@
+[31mCMake Error at CMakeLists.txt:18 (ament_install_python_scripts):
+  Unknown CMake command "ament_install_python_scripts".
+
+[0m

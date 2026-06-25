@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lzh/VMC_Quadruped/src/interfaces
+CMAKE_SOURCE_DIR = /home/nvidia/UIKA/Quadruped_Uika/src/interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lzh/VMC_Quadruped/build/interfaces
+CMAKE_BINARY_DIR = /home/nvidia/UIKA/build/interfaces
 
 # Utility rule file for interfaces__py.
 
@@ -178,8 +178,8 @@ rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c:
 rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/geometry_msgs/msg/VelocityStamped.idl
 rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/geometry_msgs/msg/Wrench.idl
 rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/geometry_msgs/msg/WrenchStamped.idl
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lzh/VMC_Quadruped/build/interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code for ROS interfaces"
-	cd /home/lzh/VMC_Quadruped/build/interfaces/interfaces__py && /usr/bin/python3 /opt/ros/humble/share/rosidl_generator_py/cmake/../../../lib/rosidl_generator_py/rosidl_generator_py --generator-arguments-file /home/lzh/VMC_Quadruped/build/interfaces/rosidl_generator_py__arguments.json --typesupport-impls "rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c;rosidl_typesupport_c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nvidia/UIKA/build/interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code for ROS interfaces"
+	cd /home/nvidia/UIKA/build/interfaces/interfaces__py && /usr/bin/python3 /opt/ros/humble/share/rosidl_generator_py/cmake/../../../lib/rosidl_generator_py/rosidl_generator_py --generator-arguments-file /home/nvidia/UIKA/build/interfaces/rosidl_generator_py__arguments.json --typesupport-impls "rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c;rosidl_typesupport_c"
 
 rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_introspection_c.c: rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_introspection_c.c
@@ -283,10 +283,10 @@ interfaces__py/CMakeFiles/interfaces__py.dir/build: interfaces__py
 .PHONY : interfaces__py/CMakeFiles/interfaces__py.dir/build
 
 interfaces__py/CMakeFiles/interfaces__py.dir/clean:
-	cd /home/lzh/VMC_Quadruped/build/interfaces/interfaces__py && $(CMAKE_COMMAND) -P CMakeFiles/interfaces__py.dir/cmake_clean.cmake
+	cd /home/nvidia/UIKA/build/interfaces/interfaces__py && $(CMAKE_COMMAND) -P CMakeFiles/interfaces__py.dir/cmake_clean.cmake
 .PHONY : interfaces__py/CMakeFiles/interfaces__py.dir/clean
 
 interfaces__py/CMakeFiles/interfaces__py.dir/depend:
-	cd /home/lzh/VMC_Quadruped/build/interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lzh/VMC_Quadruped/src/interfaces /home/lzh/VMC_Quadruped/build/interfaces/interfaces__py /home/lzh/VMC_Quadruped/build/interfaces /home/lzh/VMC_Quadruped/build/interfaces/interfaces__py /home/lzh/VMC_Quadruped/build/interfaces/interfaces__py/CMakeFiles/interfaces__py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nvidia/UIKA/build/interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/UIKA/Quadruped_Uika/src/interfaces /home/nvidia/UIKA/build/interfaces/interfaces__py /home/nvidia/UIKA/build/interfaces /home/nvidia/UIKA/build/interfaces/interfaces__py /home/nvidia/UIKA/build/interfaces/interfaces__py/CMakeFiles/interfaces__py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : interfaces__py/CMakeFiles/interfaces__py.dir/depend
 

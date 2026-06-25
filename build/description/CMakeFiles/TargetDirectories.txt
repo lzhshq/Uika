@@ -1,9 +1,0 @@
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/uninstall.dir
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/description_uninstall.dir
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/test.dir
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/edit_cache.dir
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/rebuild_cache.dir
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/list_install_components.dir
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/install.dir
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/install/local.dir
-/home/lzh/VMC_Quadruped/build/description/CMakeFiles/install/strip.dir

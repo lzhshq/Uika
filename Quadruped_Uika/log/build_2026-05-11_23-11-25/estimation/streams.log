@@ -1,0 +1,234 @@
+[0.031s] Invoking command in '/home/nvidia/UIKA/Quadruped_Uika/build/estimation': CMAKE_PREFIX_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble LD_LIBRARY_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64 /usr/bin/cmake /home/nvidia/UIKA/Quadruped_Uika/src/estimation -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/Quadruped_Uika/install/estimation
+[0.144s] -- The C compiler identification is GNU 11.4.0
+[0.262s] -- The CXX compiler identification is GNU 11.4.0
+[0.279s] -- Detecting C compiler ABI info
+[0.429s] -- Detecting C compiler ABI info - done
+[0.454s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.454s] -- Detecting C compile features
+[0.455s] -- Detecting C compile features - done
+[0.463s] -- Detecting CXX compiler ABI info
+[0.637s] -- Detecting CXX compiler ABI info - done
+[0.653s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.653s] -- Detecting CXX compile features
+[0.654s] -- Detecting CXX compile features - done
+[0.674s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.049s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.263s] -- Found rclcpp: 16.0.16 (/opt/ros/humble/share/rclcpp/cmake)
+[1.352s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.362s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.380s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.407s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.443s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.539s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.545s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.718s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.778s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.867s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.887s] -- Looking for pthread.h
+[2.042s] -- Looking for pthread.h - found
+[2.043s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.203s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.203s] -- Found Threads: TRUE  
+[2.318s] -- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[2.346s] -- Found interfaces: 0.0.0 (/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/share/interfaces/cmake)
+[2.388s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[2.586s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[2.587s] -- Configured cppcheck include dirs: /home/nvidia/UIKA/Quadruped_Uika/src/estimation/include
+[2.587s] -- Configured cppcheck exclude dirs and/or files: 
+[2.590s] -- Added test 'lint_cmake' to check CMake code style
+[2.594s] -- Added test 'uncrustify' to check C / C++ code style
+[2.595s] -- Configured uncrustify additional arguments: 
+[2.597s] -- Added test 'xmllint' to check XML markup files
+[2.602s] -- Configuring done
+[2.630s] -- Generating done
+[2.640s] -- Build files have been written to: /home/nvidia/UIKA/Quadruped_Uika/build/estimation
+[2.674s] Invoked command in '/home/nvidia/UIKA/Quadruped_Uika/build/estimation' returned '0': CMAKE_PREFIX_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble LD_LIBRARY_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64 /usr/bin/cmake /home/nvidia/UIKA/Quadruped_Uika/src/estimation -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/Quadruped_Uika/install/estimation
+[2.675s] Invoking command in '/home/nvidia/UIKA/Quadruped_Uika/build/estimation': CMAKE_PREFIX_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble LD_LIBRARY_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64 /usr/bin/cmake --build /home/nvidia/UIKA/Quadruped_Uika/build/estimation -- -j6 -l6
+[2.777s] [ 16%] [32mBuilding CXX object CMakeFiles/estimation_kinematics.dir/src/leg_dynamics.cpp.o[0m
+[4.734s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[4.734s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[4.735s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/leg_dynamics.hpp:4[m[K,
+[4.735s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:1[m[K:
+[4.735s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::pload(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[4.735s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1671:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclass-memaccess-Wclass-memaccess]8;;[m[K]
+[4.735s]  1671 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[4.735s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.736s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[4.736s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[4.736s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/leg_dynamics.hpp:4[m[K,
+[4.736s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:1[m[K:
+[4.736s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[4.736s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[4.736s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[4.738s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[4.738s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[4.738s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/leg_dynamics.hpp:4[m[K,
+[4.738s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:1[m[K:
+[4.738s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::ploadu(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[4.738s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1716:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclass-memaccess-Wclass-memaccess]8;;[m[K]
+[4.739s]  1716 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[4.739s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.739s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[4.739s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[4.739s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/leg_dynamics.hpp:4[m[K,
+[4.739s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:1[m[K:
+[4.739s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[4.739s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[4.740s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[5.910s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:[m[K In member function ‘[01m[KEigen::Matrix3d estimation::LegDynamics::computeInertiaMatrix(const Vector3d&) const[m[K’:
+[5.910s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:8:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kl1[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[5.910s]     8 |     double [01;35m[Kl1[m[K = LegConstants::L_THIGH;
+[5.910s]       |            [01;35m[K^~[m[K
+[5.911s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:9:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kl2[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[5.911s]     9 |     double [01;35m[Kl2[m[K = LegConstants::L_CALF;
+[5.911s]       |            [01;35m[K^~[m[K
+[5.911s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:16:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Ks12[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[5.911s]    16 |     double [01;35m[Ks12[m[K = std::sin(q(1) + q(2));  // sin(thigh + calf)
+[5.911s]       |            [01;35m[K^~~[m[K
+[5.913s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:[m[K In member function ‘[01m[KEigen::Vector3d estimation::LegDynamics::computeCoriolisTerm(const Vector3d&, const Vector3d&) const[m[K’:
+[5.913s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/leg_dynamics.cpp:51:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kc2[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[5.913s]    51 |     double [01;35m[Kc2[m[K = std::cos(q(1));
+[5.913s]       |            [01;35m[K^~[m[K
+[6.436s] [ 33%] [32m[1mLinking CXX static library libestimation_kinematics.a[0m
+[6.506s] [ 33%] Built target estimation_kinematics
+[6.549s] [ 83%] [32mBuilding CXX object CMakeFiles/contact_detection_node.dir/src/main.cpp.o[0m
+[6.549s] [ 83%] [32mBuilding CXX object CMakeFiles/contact_detection_node.dir/src/contact_detection_node.cpp.o[0m
+[6.549s] [ 83%] [32mBuilding CXX object CMakeFiles/contact_detection_node.dir/src/gm_observer.cpp.o[0m
+[8.608s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[8.608s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[8.608s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[8.608s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/gm_observer.cpp:1[m[K:
+[8.609s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::pload(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[8.609s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1671:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclass-memaccess-Wclass-memaccess]8;;[m[K]
+[8.609s]  1671 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[8.609s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[8.609s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[8.610s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[8.610s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[8.610s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/gm_observer.cpp:1[m[K:
+[8.610s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[8.610s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[8.610s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[8.611s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[8.611s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[8.612s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[8.612s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/gm_observer.cpp:1[m[K:
+[8.612s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::ploadu(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[8.612s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1716:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclass-memaccess-Wclass-memaccess]8;;[m[K]
+[8.612s]  1716 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[8.612s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[8.613s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[8.613s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[8.613s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[8.613s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/gm_observer.cpp:1[m[K:
+[8.613s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[8.613s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[8.613s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[9.963s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/gm_observer.cpp:[m[K In member function ‘[01m[Kvoid estimation::GMObserver::update(const Vector3d&, const Vector3d&, const Vector3d&, double)[m[K’:
+[9.963s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/gm_observer.cpp:53:21:[m[K [01;35m[Kwarning: [m[Kvariable ‘[01m[Kp_current[m[K’ set but not used [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-but-set-variable-Wunused-but-set-variable]8;;[m[K]
+[9.963s]    53 |     Eigen::Vector3d [01;35m[Kp_current[m[K = M * q_dot;
+[9.963s]       |                     [01;35m[K^~~~~~~~~[m[K
+[9.963s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/gm_observer.cpp:15:33:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kdt[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[9.964s]    15 |                          [01;35m[Kdouble dt[m[K) {
+[9.964s]       |                          [01;35m[K~~~~~~~^~[m[K
+[13.355s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[13.355s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[13.355s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[13.355s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/contact_detection_node.hpp:16[m[K,
+[13.356s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/main.cpp:2[m[K:
+[13.356s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::pload(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[13.356s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1671:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclass-memaccess-Wclass-memaccess]8;;[m[K]
+[13.356s]  1671 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[13.356s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[13.356s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[13.356s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[13.357s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[13.357s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/contact_detection_node.hpp:16[m[K,
+[13.357s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/main.cpp:2[m[K:
+[13.357s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[13.357s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[13.357s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[13.358s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[13.359s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[13.359s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[13.359s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/contact_detection_node.hpp:16[m[K,
+[13.359s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/main.cpp:2[m[K:
+[13.359s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::ploadu(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[13.359s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1716:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclass-memaccess-Wclass-memaccess]8;;[m[K]
+[13.359s]  1716 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[13.359s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[13.360s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[13.360s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[13.360s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[13.360s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/contact_detection_node.hpp:16[m[K,
+[13.360s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/main.cpp:2[m[K:
+[13.360s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[13.360s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[13.360s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[13.424s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[13.424s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[13.425s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[13.425s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/contact_detection_node.hpp:16[m[K,
+[13.425s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/contact_detection_node.cpp:1[m[K:
+[13.425s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::pload(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[13.425s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1671:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclass-memaccess-Wclass-memaccess]8;;[m[K]
+[13.425s]  1671 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[13.426s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[13.426s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[13.426s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[13.426s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[13.426s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/contact_detection_node.hpp:16[m[K,
+[13.426s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/contact_detection_node.cpp:1[m[K:
+[13.426s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[13.426s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[13.427s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[13.428s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[13.428s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[13.428s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[13.428s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/contact_detection_node.hpp:16[m[K,
+[13.428s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/contact_detection_node.cpp:1[m[K:
+[13.428s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::ploadu(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[13.428s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1716:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclass-memaccess-Wclass-memaccess]8;;[m[K]
+[13.429s]  1716 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[13.429s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[13.429s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[13.429s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[13.429s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/gm_observer.hpp:4[m[K,
+[13.429s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/include/estimation/contact_detection_node.hpp:16[m[K,
+[13.429s]                  from [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/contact_detection_node.cpp:1[m[K:
+[13.429s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[13.430s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[13.430s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[15.562s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/contact_detection_node.cpp:[m[K In member function ‘[01m[Kvoid estimation::ContactDetectionNode::on_motor_feedback(interfaces::msg::MotorFeedback12_<std::allocator<void> >::SharedPtr)[m[K’:
+[15.563s] [01m[K/home/nvidia/UIKA/Quadruped_Uika/src/estimation/src/contact_detection_node.cpp:63:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Koffset[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[15.563s]    63 |         int [01;35m[Koffset[m[K = static_cast<int>(leg_idx) * LegConstants::JOINTS_PER_LEG;
+[15.563s]       |             [01;35m[K^~~~~~[m[K
+[36.762s] [100%] [32m[1mLinking CXX executable contact_detection_node[0m
+[38.059s] [100%] Built target contact_detection_node
+[38.083s] Invoked command in '/home/nvidia/UIKA/Quadruped_Uika/build/estimation' returned '0': CMAKE_PREFIX_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble LD_LIBRARY_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64 /usr/bin/cmake --build /home/nvidia/UIKA/Quadruped_Uika/build/estimation -- -j6 -l6
+[38.088s] Invoking command in '/home/nvidia/UIKA/Quadruped_Uika/build/estimation': CMAKE_PREFIX_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble LD_LIBRARY_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64 /usr/bin/cmake --install /home/nvidia/UIKA/Quadruped_Uika/build/estimation
+[38.105s] -- Install configuration: ""
+[38.105s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/lib/estimation/contact_detection_node
+[38.118s] -- Set runtime path of "/home/nvidia/UIKA/Quadruped_Uika/install/estimation/lib/estimation/contact_detection_node" to ""
+[38.119s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/lib/libestimation_kinematics.a
+[38.119s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/include/estimation
+[38.119s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/include/estimation/gm_observer.hpp
+[38.119s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/include/estimation/types.hpp
+[38.120s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/include/estimation/contact_detection_node.hpp
+[38.120s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/include/estimation/leg_dynamics.hpp
+[38.121s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/ament_index/resource_index/package_run_dependencies/estimation
+[38.121s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/ament_index/resource_index/parent_prefix_path/estimation
+[38.121s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/environment/ament_prefix_path.sh
+[38.122s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/environment/ament_prefix_path.dsv
+[38.122s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/environment/path.sh
+[38.122s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/environment/path.dsv
+[38.122s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/local_setup.bash
+[38.123s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/local_setup.sh
+[38.123s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/local_setup.zsh
+[38.123s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/local_setup.dsv
+[38.124s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/package.dsv
+[38.124s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/ament_index/resource_index/packages/estimation
+[38.125s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/cmake/estimationConfig.cmake
+[38.125s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/cmake/estimationConfig-version.cmake
+[38.125s] -- Installing: /home/nvidia/UIKA/Quadruped_Uika/install/estimation/share/estimation/package.xml
+[38.131s] Invoked command in '/home/nvidia/UIKA/Quadruped_Uika/build/estimation' returned '0': CMAKE_PREFIX_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble LD_LIBRARY_PATH=/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64 /usr/bin/cmake --install /home/nvidia/UIKA/Quadruped_Uika/build/estimation

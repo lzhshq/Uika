@@ -1,0 +1,608 @@
+[0.000000] (-) TimerEvent: {}
+[0.001018] (a1_description) JobQueued: {'identifier': 'a1_description', 'dependencies': OrderedDict()}
+[0.001249] (b2_description) JobQueued: {'identifier': 'b2_description', 'dependencies': OrderedDict()}
+[0.001588] (b2w_description) JobQueued: {'identifier': 'b2w_description', 'dependencies': OrderedDict()}
+[0.002445] (bringup) JobQueued: {'identifier': 'bringup', 'dependencies': OrderedDict()}
+[0.002768] (d1_description) JobQueued: {'identifier': 'd1_description', 'dependencies': OrderedDict()}
+[0.003095] (description) JobQueued: {'identifier': 'description', 'dependencies': OrderedDict()}
+[0.003370] (dm_imu) JobQueued: {'identifier': 'dm_imu', 'dependencies': OrderedDict()}
+[0.003479] (g1_description) JobQueued: {'identifier': 'g1_description', 'dependencies': OrderedDict()}
+[0.003548] (go2_description) JobQueued: {'identifier': 'go2_description', 'dependencies': OrderedDict()}
+[0.003939] (go2w_description) JobQueued: {'identifier': 'go2w_description', 'dependencies': OrderedDict()}
+[0.004026] (gr1t1_description) JobQueued: {'identifier': 'gr1t1_description', 'dependencies': OrderedDict()}
+[0.004158] (gr1t2_description) JobQueued: {'identifier': 'gr1t2_description', 'dependencies': OrderedDict()}
+[0.004233] (interfaces) JobQueued: {'identifier': 'interfaces', 'dependencies': OrderedDict()}
+[0.004284] (l4w4_description) JobQueued: {'identifier': 'l4w4_description', 'dependencies': OrderedDict()}
+[0.004342] (lite3_description) JobQueued: {'identifier': 'lite3_description', 'dependencies': OrderedDict()}
+[0.004393] (main_control) JobQueued: {'identifier': 'main_control', 'dependencies': OrderedDict()}
+[0.004625] (robot_msgs) JobQueued: {'identifier': 'robot_msgs', 'dependencies': OrderedDict()}
+[0.004705] (tita_description) JobQueued: {'identifier': 'tita_description', 'dependencies': OrderedDict()}
+[0.004827] (xbox) JobQueued: {'identifier': 'xbox', 'dependencies': OrderedDict()}
+[0.004909] (estimation) JobQueued: {'identifier': 'estimation', 'dependencies': OrderedDict([('interfaces', '/home/nvidia/UIKA/install/interfaces')])}
+[0.004965] (robot_joint_controller) JobQueued: {'identifier': 'robot_joint_controller', 'dependencies': OrderedDict([('robot_msgs', '/home/nvidia/UIKA/install/robot_msgs')])}
+[0.005029] (rs_motor_ros2) JobQueued: {'identifier': 'rs_motor_ros2', 'dependencies': OrderedDict([('interfaces', '/home/nvidia/UIKA/install/interfaces')])}
+[0.005079] (rl_sar) JobQueued: {'identifier': 'rl_sar', 'dependencies': OrderedDict([('robot_msgs', '/home/nvidia/UIKA/install/robot_msgs'), ('robot_joint_controller', '/home/nvidia/UIKA/install/robot_joint_controller')])}
+[0.005413] (interfaces) JobStarted: {'identifier': 'interfaces'}
+[0.016985] (robot_msgs) JobStarted: {'identifier': 'robot_msgs'}
+[0.025822] (a1_description) JobStarted: {'identifier': 'a1_description'}
+[0.034153] (b2_description) JobStarted: {'identifier': 'b2_description'}
+[0.042496] (b2w_description) JobStarted: {'identifier': 'b2w_description'}
+[0.050489] (bringup) JobStarted: {'identifier': 'bringup'}
+[0.062991] (interfaces) JobProgress: {'identifier': 'interfaces', 'progress': 'cmake'}
+[0.064386] (interfaces) JobProgress: {'identifier': 'interfaces', 'progress': 'build'}
+[0.065921] (interfaces) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/nvidia/UIKA/build/interfaces', '--', '-j6', '-l6'], 'cwd': '/home/nvidia/UIKA/build/interfaces', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('LANGUAGE', 'zh_CN:en_US:en'), ('USER', 'nvidia'), ('SSH_CLIENT', '192.168.1.100 44902 22'), ('LC_TIME', 'zh_CN.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:'), ('BROWSER', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/nvidia'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/nvidia/UIKA/Quadruped_Uika'), ('TERM_PROGRAM_VERSION', '1.115.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-a7b0daeb-9864-4eee-a4ca-beeabc00f026.sock'), ('JETSON_L4T', '36.4.7'), ('ROS_PYTHON_VERSION', '3'), ('JETSON_MODEL', 'NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('_CONDA_ROOT', '/home/nvidia/miniconda3'), ('COLCON_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'nvidia'), ('JETSON_MODULE', 'NVIDIA Jetson Orin Nano (8GB ram)'), ('JETSON_SERIAL_NUMBER', '1422325064280'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/usr/local/cuda-12.6/bin:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/remote-cli:/home/nvidia/.local/bin:/home/nvidia/miniconda3/condabin:/opt/ros/humble/bin:/usr/local/cuda-12.6/bin:/home/nvidia/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'zh_CN.UTF-8'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra234'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-7f3afed0ce.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/home/nvidia/UIKA/Quadruped_Uika/install/description:/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/nvidia/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('_CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('ONNXRUNTIME_HOME', '/home/nvidia/onnxruntime-linux-aarch64-1.22.0'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/nvidia/UIKA/build/interfaces'), ('CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('SSH_CONNECTION', '192.168.1.100 44902 192.168.1.1 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/local/lib/python3.10/dist-packages:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu/lib/python3.10/site-packages:/usr/local/lib/python3.10/site-packages/:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/usr/local/lib/python3.10/site-packages/:'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('CONDA_PREFIX', ''), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('JETSON_JETPACK', ''), ('CMAKE_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble'), ('JETSON_P_NUMBER', 'p3767-0003')]), 'shell': False}
+[0.070702] (robot_msgs) JobProgress: {'identifier': 'robot_msgs', 'progress': 'cmake'}
+[0.071938] (robot_msgs) JobProgress: {'identifier': 'robot_msgs', 'progress': 'build'}
+[0.072449] (robot_msgs) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/nvidia/UIKA/build/robot_msgs', '--', '-j6', '-l6'], 'cwd': '/home/nvidia/UIKA/build/robot_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('LANGUAGE', 'zh_CN:en_US:en'), ('USER', 'nvidia'), ('SSH_CLIENT', '192.168.1.100 44902 22'), ('LC_TIME', 'zh_CN.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:'), ('BROWSER', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/nvidia'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/nvidia/UIKA/Quadruped_Uika'), ('TERM_PROGRAM_VERSION', '1.115.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-a7b0daeb-9864-4eee-a4ca-beeabc00f026.sock'), ('JETSON_L4T', '36.4.7'), ('ROS_PYTHON_VERSION', '3'), ('JETSON_MODEL', 'NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('_CONDA_ROOT', '/home/nvidia/miniconda3'), ('COLCON_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'nvidia'), ('JETSON_MODULE', 'NVIDIA Jetson Orin Nano (8GB ram)'), ('JETSON_SERIAL_NUMBER', '1422325064280'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/usr/local/cuda-12.6/bin:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/remote-cli:/home/nvidia/.local/bin:/home/nvidia/miniconda3/condabin:/opt/ros/humble/bin:/usr/local/cuda-12.6/bin:/home/nvidia/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'zh_CN.UTF-8'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra234'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-7f3afed0ce.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/home/nvidia/UIKA/Quadruped_Uika/install/description:/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/nvidia/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('_CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('ONNXRUNTIME_HOME', '/home/nvidia/onnxruntime-linux-aarch64-1.22.0'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/nvidia/UIKA/build/robot_msgs'), ('CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('SSH_CONNECTION', '192.168.1.100 44902 192.168.1.1 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/local/lib/python3.10/dist-packages:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu/lib/python3.10/site-packages:/usr/local/lib/python3.10/site-packages/:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/usr/local/lib/python3.10/site-packages/:'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('CONDA_PREFIX', ''), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('JETSON_JETPACK', ''), ('CMAKE_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble'), ('JETSON_P_NUMBER', 'p3767-0003')]), 'shell': False}
+[0.076167] (a1_description) JobProgress: {'identifier': 'a1_description', 'progress': 'cmake'}
+[0.077982] (a1_description) Command: {'cmd': ['/usr/bin/cmake', '/home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/a1_description', '-DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/a1_description'], 'cwd': '/home/nvidia/UIKA/build/a1_description', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('LANGUAGE', 'zh_CN:en_US:en'), ('USER', 'nvidia'), ('SSH_CLIENT', '192.168.1.100 44902 22'), ('LC_TIME', 'zh_CN.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:'), ('BROWSER', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/nvidia'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/nvidia/UIKA/Quadruped_Uika'), ('TERM_PROGRAM_VERSION', '1.115.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-a7b0daeb-9864-4eee-a4ca-beeabc00f026.sock'), ('JETSON_L4T', '36.4.7'), ('ROS_PYTHON_VERSION', '3'), ('JETSON_MODEL', 'NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('_CONDA_ROOT', '/home/nvidia/miniconda3'), ('COLCON_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'nvidia'), ('JETSON_MODULE', 'NVIDIA Jetson Orin Nano (8GB ram)'), ('JETSON_SERIAL_NUMBER', '1422325064280'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/usr/local/cuda-12.6/bin:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/remote-cli:/home/nvidia/.local/bin:/home/nvidia/miniconda3/condabin:/opt/ros/humble/bin:/usr/local/cuda-12.6/bin:/home/nvidia/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'zh_CN.UTF-8'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra234'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-7f3afed0ce.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/home/nvidia/UIKA/Quadruped_Uika/install/description:/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/nvidia/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('_CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('ONNXRUNTIME_HOME', '/home/nvidia/onnxruntime-linux-aarch64-1.22.0'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/nvidia/UIKA/build/a1_description'), ('CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('SSH_CONNECTION', '192.168.1.100 44902 192.168.1.1 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/local/lib/python3.10/dist-packages:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu/lib/python3.10/site-packages:/usr/local/lib/python3.10/site-packages/:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/usr/local/lib/python3.10/site-packages/:'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('CONDA_PREFIX', ''), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('JETSON_JETPACK', ''), ('CMAKE_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble'), ('JETSON_P_NUMBER', 'p3767-0003')]), 'shell': False}
+[0.082248] (b2_description) JobProgress: {'identifier': 'b2_description', 'progress': 'cmake'}
+[0.083779] (b2_description) Command: {'cmd': ['/usr/bin/cmake', '/home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/b2_description', '-DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/b2_description'], 'cwd': '/home/nvidia/UIKA/build/b2_description', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('LANGUAGE', 'zh_CN:en_US:en'), ('USER', 'nvidia'), ('SSH_CLIENT', '192.168.1.100 44902 22'), ('LC_TIME', 'zh_CN.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:'), ('BROWSER', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/nvidia'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/nvidia/UIKA/Quadruped_Uika'), ('TERM_PROGRAM_VERSION', '1.115.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-a7b0daeb-9864-4eee-a4ca-beeabc00f026.sock'), ('JETSON_L4T', '36.4.7'), ('ROS_PYTHON_VERSION', '3'), ('JETSON_MODEL', 'NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('_CONDA_ROOT', '/home/nvidia/miniconda3'), ('COLCON_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'nvidia'), ('JETSON_MODULE', 'NVIDIA Jetson Orin Nano (8GB ram)'), ('JETSON_SERIAL_NUMBER', '1422325064280'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/usr/local/cuda-12.6/bin:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/remote-cli:/home/nvidia/.local/bin:/home/nvidia/miniconda3/condabin:/opt/ros/humble/bin:/usr/local/cuda-12.6/bin:/home/nvidia/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'zh_CN.UTF-8'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra234'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-7f3afed0ce.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/home/nvidia/UIKA/Quadruped_Uika/install/description:/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/nvidia/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('_CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('ONNXRUNTIME_HOME', '/home/nvidia/onnxruntime-linux-aarch64-1.22.0'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/nvidia/UIKA/build/b2_description'), ('CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('SSH_CONNECTION', '192.168.1.100 44902 192.168.1.1 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/local/lib/python3.10/dist-packages:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu/lib/python3.10/site-packages:/usr/local/lib/python3.10/site-packages/:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/usr/local/lib/python3.10/site-packages/:'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('CONDA_PREFIX', ''), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('JETSON_JETPACK', ''), ('CMAKE_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble'), ('JETSON_P_NUMBER', 'p3767-0003')]), 'shell': False}
+[0.088434] (b2w_description) JobProgress: {'identifier': 'b2w_description', 'progress': 'cmake'}
+[0.089841] (b2w_description) Command: {'cmd': ['/usr/bin/cmake', '/home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/b2w_description', '-DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/b2w_description'], 'cwd': '/home/nvidia/UIKA/build/b2w_description', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('LANGUAGE', 'zh_CN:en_US:en'), ('USER', 'nvidia'), ('SSH_CLIENT', '192.168.1.100 44902 22'), ('LC_TIME', 'zh_CN.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:'), ('BROWSER', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/nvidia'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/nvidia/UIKA/Quadruped_Uika'), ('TERM_PROGRAM_VERSION', '1.115.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-a7b0daeb-9864-4eee-a4ca-beeabc00f026.sock'), ('JETSON_L4T', '36.4.7'), ('ROS_PYTHON_VERSION', '3'), ('JETSON_MODEL', 'NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('_CONDA_ROOT', '/home/nvidia/miniconda3'), ('COLCON_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'nvidia'), ('JETSON_MODULE', 'NVIDIA Jetson Orin Nano (8GB ram)'), ('JETSON_SERIAL_NUMBER', '1422325064280'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/usr/local/cuda-12.6/bin:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/remote-cli:/home/nvidia/.local/bin:/home/nvidia/miniconda3/condabin:/opt/ros/humble/bin:/usr/local/cuda-12.6/bin:/home/nvidia/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'zh_CN.UTF-8'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra234'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-7f3afed0ce.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/home/nvidia/UIKA/Quadruped_Uika/install/description:/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/nvidia/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('_CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('ONNXRUNTIME_HOME', '/home/nvidia/onnxruntime-linux-aarch64-1.22.0'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/nvidia/UIKA/build/b2w_description'), ('CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('SSH_CONNECTION', '192.168.1.100 44902 192.168.1.1 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/local/lib/python3.10/dist-packages:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu/lib/python3.10/site-packages:/usr/local/lib/python3.10/site-packages/:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/usr/local/lib/python3.10/site-packages/:'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('CONDA_PREFIX', ''), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('JETSON_JETPACK', ''), ('CMAKE_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/description:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble'), ('JETSON_P_NUMBER', 'p3767-0003')]), 'shell': False}
+[0.099984] (-) TimerEvent: {}
+[0.105892] (bringup) JobProgress: {'identifier': 'bringup', 'progress': 'cmake'}
+[0.109558] (bringup) Command: {'cmd': ['/usr/bin/cmake', '/home/nvidia/UIKA/Quadruped_Uika/src/bringup', '-DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/bringup'], 'cwd': '/home/nvidia/UIKA/build/bringup', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('LANGUAGE', 'zh_CN:en_US:en'), ('USER', 'nvidia'), ('SSH_CLIENT', '192.168.1.100 44902 22'), ('LC_TIME', 'zh_CN.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/lib:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:/home/nvidia/onnxruntime-linux-aarch64-1.22.0/lib:/home/nvidia/onnxruntime-osx-arm64-1.24.4/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/lib:/usr/local/cuda-12.6/lib64:'), ('BROWSER', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/nvidia'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/nvidia/UIKA/Quadruped_Uika'), ('TERM_PROGRAM_VERSION', '1.115.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-a7b0daeb-9864-4eee-a4ca-beeabc00f026.sock'), ('JETSON_L4T', '36.4.7'), ('ROS_PYTHON_VERSION', '3'), ('JETSON_MODEL', 'NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('_CONDA_ROOT', '/home/nvidia/miniconda3'), ('COLCON_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'nvidia'), ('JETSON_MODULE', 'NVIDIA Jetson Orin Nano (8GB ram)'), ('JETSON_SERIAL_NUMBER', '1422325064280'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '3'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/usr/local/cuda-12.6/bin:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/nvidia/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/nvidia/.vscode-server/cli/servers/Stable-41dd792b5e652393e7787322889ed5fdc58bd75b/server/bin/remote-cli:/home/nvidia/.local/bin:/home/nvidia/miniconda3/condabin:/opt/ros/humble/bin:/usr/local/cuda-12.6/bin:/home/nvidia/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('PAPERSIZE', 'a4'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'zh_CN.UTF-8'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra234'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-7f3afed0ce.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/home/nvidia/UIKA/Quadruped_Uika/install/description:/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/nvidia/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('_CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('ONNXRUNTIME_HOME', '/home/nvidia/onnxruntime-linux-aarch64-1.22.0'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/nvidia/UIKA/build/bringup'), ('CONDA_EXE', '/home/nvidia/miniconda3/bin/conda'), ('SSH_CONNECTION', '192.168.1.100 44902 192.168.1.1 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/nvidia/UIKA/Quadruped_Uika/install/interfaces/local/lib/python3.10/dist-packages:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu/lib/python3.10/site-packages:/usr/local/lib/python3.10/site-packages/:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/usr/local/lib/python3.10/site-packages/:'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('CONDA_PREFIX', ''), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('JETSON_JETPACK', ''), ('CMAKE_PREFIX_PATH', '/home/nvidia/UIKA/Quadruped_Uika/install/bringup:/home/nvidia/UIKA/Quadruped_Uika/install/xbox:/home/nvidia/UIKA/Quadruped_Uika/install/rs_motor_ros2:/home/nvidia/UIKA/Quadruped_Uika/install/main_control:/home/nvidia/UIKA/Quadruped_Uika/install/estimation:/home/nvidia/UIKA/Quadruped_Uika/install/interfaces:/home/nvidia/UIKA/Quadruped_Uika/install/description'), ('JETSON_P_NUMBER', 'p3767-0003')]), 'shell': False}
+[0.111574] (a1_description) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.113208] (b2_description) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.125172] (b2w_description) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.171474] (interfaces) StdoutLine: {'line': b'[  1%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[0.200113] (interfaces) StdoutLine: {'line': b'[  1%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[0.200623] (-) TimerEvent: {}
+[0.209497] (robot_msgs) StdoutLine: {'line': b'[  1%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[0.279270] (robot_msgs) StdoutLine: {'line': b'[  1%] Built target ament_cmake_python_copy_robot_msgs\n'}
+[0.296792] (robot_msgs) StdoutLine: {'line': b'[  3%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[0.300802] (-) TimerEvent: {}
+[0.307807] (interfaces) StdoutLine: {'line': b'[  1%] Built target ament_cmake_python_copy_interfaces\n'}
+[0.400983] (-) TimerEvent: {}
+[0.501692] (-) TimerEvent: {}
+[0.570766] (a1_description) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[0.571945] (a1_description) StdoutLine: {'line': b'-- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)\n'}
+[0.601844] (-) TimerEvent: {}
+[0.699884] (a1_description) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:20 (find_package):\n'}
+[0.700448] (a1_description) StderrLine: {'line': b'  By not providing "Findxacro.cmake" in CMAKE_MODULE_PATH this project has\n'}
+[0.700653] (a1_description) StderrLine: {'line': b'  asked CMake to find a package configuration file provided by "xacro", but\n'}
+[0.700826] (a1_description) StderrLine: {'line': b'  CMake did not find one.\n'}
+[0.700990] (a1_description) StderrLine: {'line': b'\n'}
+[0.701177] (a1_description) StderrLine: {'line': b'  Could not find a package configuration file provided by "xacro" with any of\n'}
+[0.701353] (a1_description) StderrLine: {'line': b'  the following names:\n'}
+[0.701510] (a1_description) StderrLine: {'line': b'\n'}
+[0.701658] (a1_description) StderrLine: {'line': b'    xacroConfig.cmake\n'}
+[0.701803] (a1_description) StderrLine: {'line': b'    xacro-config.cmake\n'}
+[0.701949] (-) TimerEvent: {}
+[0.702255] (a1_description) StderrLine: {'line': b'\n'}
+[0.702437] (a1_description) StderrLine: {'line': b'  Add the installation prefix of "xacro" to CMAKE_PREFIX_PATH or set\n'}
+[0.702596] (a1_description) StderrLine: {'line': b'  "xacro_DIR" to a directory containing one of the above files.  If "xacro"\n'}
+[0.702744] (a1_description) StderrLine: {'line': b'  provides a separate development package or SDK, be sure it has been\n'}
+[0.702893] (a1_description) StderrLine: {'line': b'  installed.\n'}
+[0.703039] (a1_description) StderrLine: {'line': b'\n'}
+[0.703181] (a1_description) StderrLine: {'line': b'\x1b[0m\n'}
+[0.703450] (a1_description) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.703646] (a1_description) StdoutLine: {'line': b'See also "/home/nvidia/UIKA/build/a1_description/CMakeFiles/CMakeOutput.log".\n'}
+[0.716948] (bringup) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.717475] (bringup) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.717700] (bringup) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.730182] (a1_description) CommandEnded: {'returncode': 1}
+[0.731415] (b2_description) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[0.731673] (b2_description) StdoutLine: {'line': b'-- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)\n'}
+[0.732693] (b2w_description) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[0.734230] (b2w_description) StdoutLine: {'line': b'-- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)\n'}
+[0.802151] (-) TimerEvent: {}
+[0.816918] (b2_description) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:21 (find_package):\n'}
+[0.817363] (b2_description) StderrLine: {'line': b'  By not providing "Findxacro.cmake" in CMAKE_MODULE_PATH this project has\n'}
+[0.817737] (b2_description) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.818108] (b2_description) StdoutLine: {'line': b'See also "/home/nvidia/UIKA/build/b2_description/CMakeFiles/CMakeOutput.log".\n'}
+[0.818304] (b2_description) StderrLine: {'line': b'  asked CMake to find a package configuration file provided by "xacro", but\n'}
+[0.819860] (b2_description) StderrLine: {'line': b'  CMake did not find one.\n'}
+[0.820119] (b2_description) StderrLine: {'line': b'\n'}
+[0.820295] (b2_description) StderrLine: {'line': b'  Could not find a package configuration file provided by "xacro" with any of\n'}
+[0.820448] (b2_description) StderrLine: {'line': b'  the following names:\n'}
+[0.820603] (b2_description) StderrLine: {'line': b'\n'}
+[0.820756] (b2_description) StderrLine: {'line': b'    xacroConfig.cmake\n'}
+[0.820903] (b2_description) StderrLine: {'line': b'    xacro-config.cmake\n'}
+[0.821049] (b2_description) StderrLine: {'line': b'\n'}
+[0.821215] (b2_description) StderrLine: {'line': b'  Add the installation prefix of "xacro" to CMAKE_PREFIX_PATH or set\n'}
+[0.821368] (b2_description) StderrLine: {'line': b'  "xacro_DIR" to a directory containing one of the above files.  If "xacro"\n'}
+[0.821525] (b2_description) StderrLine: {'line': b'  provides a separate development package or SDK, be sure it has been\n'}
+[0.821676] (b2_description) StderrLine: {'line': b'  installed.\n'}
+[0.821826] (b2_description) StderrLine: {'line': b'\n'}
+[0.821976] (b2_description) StderrLine: {'line': b'\x1b[0m\n'}
+[0.828525] (a1_description) JobEnded: {'identifier': 'a1_description', 'rc': 1}
+[0.836468] (b2_description) JobEnded: {'identifier': 'b2_description', 'rc': 'SIGINT'}
+[0.902326] (-) TimerEvent: {}
+[0.936361] (b2w_description) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:20 (find_package):\n'}
+[0.936878] (b2w_description) StderrLine: {'line': b'  By not providing "Findxacro.cmake" in CMAKE_MODULE_PATH this project has\n'}
+[0.937085] (b2w_description) StderrLine: {'line': b'  asked CMake to find a package configuration file provided by "xacro", but\n'}
+[0.937287] (b2w_description) StderrLine: {'line': b'  CMake did not find one.\n'}
+[0.937468] (b2w_description) StderrLine: {'line': b'\n'}
+[0.937632] (b2w_description) StderrLine: {'line': b'  Could not find a package configuration file provided by "xacro" with any of\n'}
+[0.937791] (b2w_description) StderrLine: {'line': b'  the following names:\n'}
+[0.937941] (b2w_description) StderrLine: {'line': b'\n'}
+[0.938091] (b2w_description) StderrLine: {'line': b'    xacroConfig.cmake\n'}
+[0.938239] (b2w_description) StderrLine: {'line': b'    xacro-config.cmake\n'}
+[0.938387] (b2w_description) StderrLine: {'line': b'\n'}
+[0.938533] (b2w_description) StderrLine: {'line': b'  Add the installation prefix of "xacro" to CMAKE_PREFIX_PATH or set\n'}
+[0.938681] (b2w_description) StderrLine: {'line': b'  "xacro_DIR" to a directory containing one of the above files.  If "xacro"\n'}
+[0.938827] (b2w_description) StderrLine: {'line': b'  provides a separate development package or SDK, be sure it has been\n'}
+[0.939008] (b2w_description) StderrLine: {'line': b'  installed.\n'}
+[0.939158] (b2w_description) StderrLine: {'line': b'\n'}
+[0.939304] (b2w_description) StderrLine: {'line': b'\x1b[0m\n'}
+[0.939450] (b2w_description) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.939626] (b2w_description) StdoutLine: {'line': b'See also "/home/nvidia/UIKA/build/b2w_description/CMakeFiles/CMakeOutput.log".\n'}
+[0.960455] (b2w_description) JobEnded: {'identifier': 'b2w_description', 'rc': 'SIGINT'}
+[1.002489] (-) TimerEvent: {}
+[1.097455] (bringup) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.102579] (-) TimerEvent: {}
+[1.114796] (bringup) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.126180] (bringup) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.127004] (bringup) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.133779] (bringup) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.202767] (-) TimerEvent: {}
+[1.293847] (robot_msgs) StdoutLine: {'line': b'running egg_info\n'}
+[1.295077] (robot_msgs) StdoutLine: {'line': b'creating robot_msgs.egg-info\n'}
+[1.295656] (robot_msgs) StdoutLine: {'line': b'writing robot_msgs.egg-info/PKG-INFO\n'}
+[1.296129] (robot_msgs) StdoutLine: {'line': b'writing dependency_links to robot_msgs.egg-info/dependency_links.txt\n'}
+[1.296590] (robot_msgs) StdoutLine: {'line': b'writing top-level names to robot_msgs.egg-info/top_level.txt\n'}
+[1.297219] (robot_msgs) StdoutLine: {'line': b"writing manifest file 'robot_msgs.egg-info/SOURCES.txt'\n"}
+[1.298470] (interfaces) StdoutLine: {'line': b'running egg_info\n'}
+[1.299737] (interfaces) StdoutLine: {'line': b'creating interfaces.egg-info\n'}
+[1.300183] (interfaces) StdoutLine: {'line': b'writing interfaces.egg-info/PKG-INFO\n'}
+[1.300626] (interfaces) StdoutLine: {'line': b'writing dependency_links to interfaces.egg-info/dependency_links.txt\n'}
+[1.301048] (interfaces) StdoutLine: {'line': b'writing top-level names to interfaces.egg-info/top_level.txt\n'}
+[1.301642] (interfaces) StdoutLine: {'line': b"writing manifest file 'interfaces.egg-info/SOURCES.txt'\n"}
+[1.302864] (-) TimerEvent: {}
+[1.303803] (robot_msgs) StdoutLine: {'line': b"reading manifest file 'robot_msgs.egg-info/SOURCES.txt'\n"}
+[1.305068] (robot_msgs) StdoutLine: {'line': b"writing manifest file 'robot_msgs.egg-info/SOURCES.txt'\n"}
+[1.308090] (interfaces) StdoutLine: {'line': b"reading manifest file 'interfaces.egg-info/SOURCES.txt'\n"}
+[1.309514] (interfaces) StdoutLine: {'line': b"writing manifest file 'interfaces.egg-info/SOURCES.txt'\n"}
+[1.403043] (-) TimerEvent: {}
+[1.418459] (interfaces) StdoutLine: {'line': b'[  1%] Built target ament_cmake_python_build_interfaces_egg\n'}
+[1.449961] (robot_msgs) StdoutLine: {'line': b'[  3%] Built target ament_cmake_python_build_robot_msgs_egg\n'}
+[1.481439] (bringup) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.488984] (bringup) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.489605] (bringup) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.490555] (bringup) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.498112] (bringup) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.503124] (-) TimerEvent: {}
+[1.603666] (-) TimerEvent: {}
+[1.704314] (-) TimerEvent: {}
+[1.804994] (-) TimerEvent: {}
+[1.905699] (-) TimerEvent: {}
+[1.932447] (bringup) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[2.005858] (-) TimerEvent: {}
+[2.065478] (robot_msgs) StdoutLine: {'line': b'[  3%] Built target robot_msgs__cpp\n'}
+[2.088388] (robot_msgs) StdoutLine: {'line': b'[  4%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[2.098054] (robot_msgs) StdoutLine: {'line': b'[  6%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[2.099387] (robot_msgs) StdoutLine: {'line': b'[  7%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[2.106021] (-) TimerEvent: {}
+[2.123471] (robot_msgs) StdoutLine: {'line': b'[  9%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_c.dir/rosidl_generator_c/robot_msgs/msg/detail/motor_command__functions.c.o\x1b[0m\n'}
+[2.161849] (robot_msgs) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_c.dir/rosidl_generator_c/robot_msgs/msg/detail/robot_command__functions.c.o\x1b[0m\n'}
+[2.163188] (robot_msgs) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_c.dir/rosidl_generator_c/robot_msgs/msg/detail/motor_state__functions.c.o\x1b[0m\n'}
+[2.206179] (-) TimerEvent: {}
+[2.290314] (bringup) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[2.306333] (-) TimerEvent: {}
+[2.313216] (bringup) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:18 (ament_install_python_scripts):\n'}
+[2.313774] (bringup) StderrLine: {'line': b'  Unknown CMake command "ament_install_python_scripts".\n'}
+[2.313997] (bringup) StderrLine: {'line': b'\n'}
+[2.314179] (bringup) StderrLine: {'line': b'\x1b[0m\n'}
+[2.314518] (bringup) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[2.314751] (bringup) StdoutLine: {'line': b'See also "/home/nvidia/UIKA/build/bringup/CMakeFiles/CMakeOutput.log".\n'}
+[2.327903] (bringup) JobEnded: {'identifier': 'bringup', 'rc': 'SIGINT'}
+[2.333699] (robot_msgs) StdoutLine: {'line': b'[ 14%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_c.dir/rosidl_generator_c/robot_msgs/msg/detail/robot_state__functions.c.o\x1b[0m\n'}
+[2.406054] (robot_msgs) StdoutLine: {'line': b'[ 15%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_c.dir/rosidl_generator_c/robot_msgs/msg/detail/imu__functions.c.o\x1b[0m\n'}
+[2.406535] (-) TimerEvent: {}
+[2.507026] (-) TimerEvent: {}
+[2.570050] (robot_msgs) StdoutLine: {'line': b'[ 17%] \x1b[32m\x1b[1mLinking C shared library librobot_msgs__rosidl_generator_c.so\x1b[0m\n'}
+[2.607202] (-) TimerEvent: {}
+[2.652980] (robot_msgs) StdoutLine: {'line': b'[ 17%] Built target robot_msgs__rosidl_generator_c\n'}
+[2.685573] (robot_msgs) StdoutLine: {'line': b'[ 19%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[2.707358] (-) TimerEvent: {}
+[2.711119] (robot_msgs) StdoutLine: {'line': b'[ 20%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[2.731487] (robot_msgs) StdoutLine: {'line': b'[ 22%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[2.807530] (-) TimerEvent: {}
+[2.908210] (-) TimerEvent: {}
+[3.008853] (-) TimerEvent: {}
+[3.109515] (-) TimerEvent: {}
+[3.469592] (-) TimerEvent: {}
+[3.570254] (-) TimerEvent: {}
+[3.663390] (robot_msgs) StdoutLine: {'line': b'[ 23%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/robot_msgs/msg/motor_command__type_support.cpp.o\x1b[0m\n'}
+[3.670430] (-) TimerEvent: {}
+[3.771104] (-) TimerEvent: {}
+[3.871793] (-) TimerEvent: {}
+[3.964002] (robot_msgs) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/robot_msgs/msg/detail/motor_command__type_support.cpp.o\x1b[0m\n'}
+[3.971946] (-) TimerEvent: {}
+[4.072653] (-) TimerEvent: {}
+[4.173533] (-) TimerEvent: {}
+[4.179567] (robot_msgs) StdoutLine: {'line': b'[ 26%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/robot_msgs/msg/detail/dds_fastrtps/motor_command__type_support.cpp.o\x1b[0m\n'}
+[4.273706] (-) TimerEvent: {}
+[4.374446] (-) TimerEvent: {}
+[4.399186] (interfaces) StdoutLine: {'line': b'[  1%] Built target interfaces__cpp\n'}
+[4.474638] (-) TimerEvent: {}
+[4.485839] (robot_msgs) StdoutLine: {'line': b'[ 28%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/robot_msgs/msg/detail/motor_command__type_support_c.cpp.o\x1b[0m\n'}
+[4.486637] (interfaces) StdoutLine: {'line': b'[  2%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[4.488474] (interfaces) StdoutLine: {'line': b'[  3%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[4.535555] (interfaces) StdoutLine: {'line': b'[  4%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[4.574789] (-) TimerEvent: {}
+[4.595794] (robot_msgs) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/robot_msgs/msg/detail/motor_command__type_support.c.o\x1b[0m\n'}
+[4.605414] (interfaces) StdoutLine: {'line': b'[  5%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/base_state__functions.c.o\x1b[0m\n'}
+[4.609845] (interfaces) StdoutLine: {'line': b'[  6%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/contact_state__functions.c.o\x1b[0m\n'}
+[4.647338] (interfaces) StdoutLine: {'line': b'[  7%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/gait_phase__functions.c.o\x1b[0m\n'}
+[4.651979] (robot_msgs) StdoutLine: {'line': b'[ 31%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/robot_msgs/msg/motor_state__type_support.cpp.o\x1b[0m\n'}
+[4.674959] (-) TimerEvent: {}
+[4.683041] (robot_msgs) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/robot_msgs/msg/motor_command__type_support.cpp.o\x1b[0m\n'}
+[4.745710] (robot_msgs) StdoutLine: {'line': b'[ 34%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/robot_msgs/msg/detail/motor_state__type_support.c.o\x1b[0m\n'}
+[4.775146] (-) TimerEvent: {}
+[4.853913] (robot_msgs) StdoutLine: {'line': b'[ 36%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/robot_msgs/msg/motor_state__type_support.cpp.o\x1b[0m\n'}
+[4.875332] (-) TimerEvent: {}
+[4.894044] (interfaces) StdoutLine: {'line': b'[  8%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/motion_command__functions.c.o\x1b[0m\n'}
+[4.915134] (robot_msgs) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/robot_msgs/msg/detail/robot_command__type_support.c.o\x1b[0m\n'}
+[4.919555] (interfaces) StdoutLine: {'line': b'[  9%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/single_foot_state__functions.c.o\x1b[0m\n'}
+[4.975522] (-) TimerEvent: {}
+[4.990426] (interfaces) StdoutLine: {'line': b'[ 10%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/foot_state__functions.c.o\x1b[0m\n'}
+[5.037894] (robot_msgs) StdoutLine: {'line': b'[ 39%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/robot_msgs/msg/robot_command__type_support.cpp.o\x1b[0m\n'}
+[5.075730] (-) TimerEvent: {}
+[5.106281] (robot_msgs) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/robot_msgs/msg/detail/robot_state__type_support.c.o\x1b[0m\n'}
+[5.175920] (-) TimerEvent: {}
+[5.183312] (interfaces) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/motor_command12__functions.c.o\x1b[0m\n'}
+[5.189798] (interfaces) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/motor_command__functions.c.o\x1b[0m\n'}
+[5.218668] (robot_msgs) StdoutLine: {'line': b'[ 42%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/robot_msgs/msg/robot_state__type_support.cpp.o\x1b[0m\n'}
+[5.276113] (-) TimerEvent: {}
+[5.298218] (robot_msgs) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/robot_msgs/msg/detail/imu__type_support.c.o\x1b[0m\n'}
+[5.322241] (interfaces) StdoutLine: {'line': b'[ 13%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/motor_feedback__functions.c.o\x1b[0m\n'}
+[5.376287] (-) TimerEvent: {}
+[5.403834] (robot_msgs) StdoutLine: {'line': b'[ 46%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/robot_msgs/msg/imu__type_support.cpp.o\x1b[0m\n'}
+[5.476488] (-) TimerEvent: {}
+[5.500068] (robot_msgs) StdoutLine: {'line': b'[ 47%] \x1b[32m\x1b[1mLinking C shared library librobot_msgs__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[5.514852] (interfaces) StdoutLine: {'line': b'[ 14%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/motor_feedback12__functions.c.o\x1b[0m\n'}
+[5.544143] (robot_msgs) StdoutLine: {'line': b'[ 49%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/robot_msgs/msg/detail/motor_state__type_support.cpp.o\x1b[0m\n'}
+[5.576662] (-) TimerEvent: {}
+[5.592811] (robot_msgs) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking CXX shared library librobot_msgs__rosidl_typesupport_c.so\x1b[0m\n'}
+[5.673810] (robot_msgs) StdoutLine: {'line': b'[ 50%] Built target robot_msgs__rosidl_typesupport_introspection_c\n'}
+[5.676800] (-) TimerEvent: {}
+[5.753420] (interfaces) StdoutLine: {'line': b'[ 15%] \x1b[32m\x1b[1mLinking C shared library libinterfaces__rosidl_generator_c.so\x1b[0m\n'}
+[5.762473] (robot_msgs) StdoutLine: {'line': b'[ 52%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/robot_msgs/msg/robot_command__type_support.cpp.o\x1b[0m\n'}
+[5.768692] (robot_msgs) StdoutLine: {'line': b'[ 53%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/robot_msgs/msg/robot_state__type_support.cpp.o\x1b[0m\n'}
+[5.776963] (-) TimerEvent: {}
+[5.777968] (robot_msgs) StdoutLine: {'line': b'[ 53%] Built target robot_msgs__rosidl_typesupport_c\n'}
+[5.785851] (robot_msgs) StdoutLine: {'line': b'[ 55%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/robot_msgs/msg/detail/motor_state__type_support_c.cpp.o\x1b[0m\n'}
+[5.814078] (robot_msgs) StdoutLine: {'line': b'[ 57%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/robot_msgs/msg/imu__type_support.cpp.o\x1b[0m\n'}
+[5.877180] (-) TimerEvent: {}
+[5.915731] (interfaces) StdoutLine: {'line': b'[ 15%] Built target interfaces__rosidl_generator_c\n'}
+[5.977441] (-) TimerEvent: {}
+[5.997924] (interfaces) StdoutLine: {'line': b'[ 16%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[6.014624] (interfaces) StdoutLine: {'line': b'[ 17%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[6.038842] (interfaces) StdoutLine: {'line': b'[ 18%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[6.077610] (-) TimerEvent: {}
+[6.178337] (-) TimerEvent: {}
+[6.275489] (robot_msgs) StdoutLine: {'line': b'[ 58%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/robot_msgs/msg/detail/dds_fastrtps/motor_state__type_support.cpp.o\x1b[0m\n'}
+[6.278472] (-) TimerEvent: {}
+[6.379124] (-) TimerEvent: {}
+[6.479812] (-) TimerEvent: {}
+[6.580478] (-) TimerEvent: {}
+[6.681222] (-) TimerEvent: {}
+[6.781926] (-) TimerEvent: {}
+[6.882624] (-) TimerEvent: {}
+[6.983315] (-) TimerEvent: {}
+[7.074153] (robot_msgs) StdoutLine: {'line': b'[ 61%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/robot_msgs/msg/detail/dds_fastrtps/robot_command__type_support.cpp.o\x1b[0m\n'}
+[7.074687] (robot_msgs) StdoutLine: {'line': b'[ 61%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/robot_msgs/msg/detail/robot_command__type_support_c.cpp.o\x1b[0m\n'}
+[7.083477] (-) TimerEvent: {}
+[7.173877] (robot_msgs) StdoutLine: {'line': b'[ 63%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/robot_msgs/msg/detail/robot_command__type_support.cpp.o\x1b[0m\n'}
+[7.183650] (-) TimerEvent: {}
+[7.185190] (robot_msgs) StdoutLine: {'line': b'[ 65%] \x1b[32m\x1b[1mLinking CXX shared library librobot_msgs__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[7.283809] (-) TimerEvent: {}
+[7.384512] (-) TimerEvent: {}
+[7.428721] (robot_msgs) StdoutLine: {'line': b'[ 65%] Built target robot_msgs__rosidl_typesupport_cpp\n'}
+[7.484676] (-) TimerEvent: {}
+[7.493934] (robot_msgs) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/robot_msgs/msg/detail/dds_fastrtps/robot_state__type_support.cpp.o\x1b[0m\n'}
+[7.584840] (-) TimerEvent: {}
+[7.643077] (robot_msgs) StdoutLine: {'line': b'[ 68%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/robot_msgs/msg/detail/robot_state__type_support_c.cpp.o\x1b[0m\n'}
+[7.685049] (-) TimerEvent: {}
+[7.785781] (-) TimerEvent: {}
+[7.886470] (-) TimerEvent: {}
+[7.987170] (-) TimerEvent: {}
+[8.087883] (-) TimerEvent: {}
+[8.188599] (-) TimerEvent: {}
+[8.280636] (robot_msgs) StdoutLine: {'line': b'[ 69%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/robot_msgs/msg/detail/dds_fastrtps/imu__type_support.cpp.o\x1b[0m\n'}
+[8.288736] (-) TimerEvent: {}
+[8.390245] (-) TimerEvent: {}
+[8.490950] (-) TimerEvent: {}
+[8.591674] (-) TimerEvent: {}
+[8.692387] (-) TimerEvent: {}
+[8.793070] (-) TimerEvent: {}
+[8.798007] (robot_msgs) StdoutLine: {'line': b'[ 71%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/robot_msgs/msg/detail/imu__type_support_c.cpp.o\x1b[0m\n'}
+[8.893290] (-) TimerEvent: {}
+[8.993994] (-) TimerEvent: {}
+[9.096543] (-) TimerEvent: {}
+[9.102353] (interfaces) StdoutLine: {'line': b'[ 19%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/base_state__type_support.cpp.o\x1b[0m\n'}
+[9.196746] (-) TimerEvent: {}
+[9.229588] (robot_msgs) StdoutLine: {'line': b'[ 73%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/robot_msgs/msg/detail/robot_state__type_support.cpp.o\x1b[0m\n'}
+[9.257039] (robot_msgs) StdoutLine: {'line': b'[ 74%] \x1b[32mBuilding CXX object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/robot_msgs/msg/detail/imu__type_support.cpp.o\x1b[0m\n'}
+[9.296910] (-) TimerEvent: {}
+[9.397613] (-) TimerEvent: {}
+[9.498300] (-) TimerEvent: {}
+[9.598981] (-) TimerEvent: {}
+[9.699647] (-) TimerEvent: {}
+[9.800379] (-) TimerEvent: {}
+[9.901074] (-) TimerEvent: {}
+[10.001819] (-) TimerEvent: {}
+[10.102555] (-) TimerEvent: {}
+[10.114046] (interfaces) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/base_state__type_support.cpp.o\x1b[0m\n'}
+[10.202724] (-) TimerEvent: {}
+[10.259139] (interfaces) StdoutLine: {'line': b'[ 21%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/contact_state__type_support.cpp.o\x1b[0m\n'}
+[10.293628] (robot_msgs) StdoutLine: {'line': b'[ 76%] \x1b[32m\x1b[1mLinking CXX shared library librobot_msgs__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[10.302890] (-) TimerEvent: {}
+[10.379548] (robot_msgs) StdoutLine: {'line': b'[ 77%] \x1b[32m\x1b[1mLinking CXX shared library librobot_msgs__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[10.403081] (-) TimerEvent: {}
+[10.503837] (-) TimerEvent: {}
+[10.589361] (robot_msgs) StdoutLine: {'line': b'[ 77%] Built target robot_msgs__rosidl_typesupport_fastrtps_c\n'}
+[10.604065] (-) TimerEvent: {}
+[10.685792] (interfaces) StdoutLine: {'line': b'[ 22%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/base_state__type_support.cpp.o\x1b[0m\n'}
+[10.704269] (-) TimerEvent: {}
+[10.743264] (interfaces) StdoutLine: {'line': b'[ 23%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/base_state__type_support.cpp.o\x1b[0m\n'}
+[10.804496] (-) TimerEvent: {}
+[10.842961] (robot_msgs) StdoutLine: {'line': b'[ 77%] Built target robot_msgs__rosidl_typesupport_fastrtps_cpp\n'}
+[10.904685] (-) TimerEvent: {}
+[10.928854] (interfaces) StdoutLine: {'line': b'[ 24%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/contact_state__type_support.cpp.o\x1b[0m\n'}
+[10.952915] (robot_msgs) StdoutLine: {'line': b'[ 79%] \x1b[32m\x1b[1mLinking CXX shared library librobot_msgs__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[11.004907] (-) TimerEvent: {}
+[11.039329] (interfaces) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/gait_phase__type_support.cpp.o\x1b[0m\n'}
+[11.105105] (-) TimerEvent: {}
+[11.126898] (interfaces) StdoutLine: {'line': b'[ 26%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/gait_phase__type_support.cpp.o\x1b[0m\n'}
+[11.150757] (interfaces) StdoutLine: {'line': b'[ 27%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/motion_command__type_support.cpp.o\x1b[0m\n'}
+[11.180790] (robot_msgs) StdoutLine: {'line': b'[ 79%] Built target robot_msgs__rosidl_typesupport_introspection_cpp\n'}
+[11.205329] (-) TimerEvent: {}
+[11.244755] (interfaces) StdoutLine: {'line': b'[ 28%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/single_foot_state__type_support.cpp.o\x1b[0m\n'}
+[11.254486] (robot_msgs) StdoutLine: {'line': b'[ 79%] Built target robot_msgs\n'}
+[11.305518] (-) TimerEvent: {}
+[11.315041] (robot_msgs) StdoutLine: {'line': b'[ 80%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[11.327807] (interfaces) StdoutLine: {'line': b'[ 29%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/foot_state__type_support.cpp.o\x1b[0m\n'}
+[11.334839] (interfaces) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/base_state__type_support_c.cpp.o\x1b[0m\n'}
+[11.396579] (interfaces) StdoutLine: {'line': b'[ 31%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/contact_state__type_support.cpp.o\x1b[0m\n'}
+[11.405690] (-) TimerEvent: {}
+[11.414266] (interfaces) StdoutLine: {'line': b'[ 32%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/base_state__type_support.c.o\x1b[0m\n'}
+[11.431300] (interfaces) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/motor_command__type_support.cpp.o\x1b[0m\n'}
+[11.505840] (-) TimerEvent: {}
+[11.520280] (interfaces) StdoutLine: {'line': b'[ 34%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/motor_command12__type_support.cpp.o\x1b[0m\n'}
+[11.553994] (interfaces) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/contact_state__type_support.c.o\x1b[0m\n'}
+[11.606032] (-) TimerEvent: {}
+[11.630349] (interfaces) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/motor_feedback__type_support.cpp.o\x1b[0m\n'}
+[11.664276] (interfaces) StdoutLine: {'line': b'[ 36%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/gait_phase__type_support.c.o\x1b[0m\n'}
+[11.706235] (-) TimerEvent: {}
+[11.763758] (interfaces) StdoutLine: {'line': b'[ 37%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/motor_feedback12__type_support.cpp.o\x1b[0m\n'}
+[11.779062] (interfaces) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/motion_command__type_support.c.o\x1b[0m\n'}
+[11.806418] (-) TimerEvent: {}
+[11.853806] (interfaces) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/motion_command__type_support.cpp.o\x1b[0m\n'}
+[11.854337] (interfaces) StdoutLine: {'line': b'[ 40%] \x1b[32m\x1b[1mLinking CXX shared library libinterfaces__rosidl_typesupport_c.so\x1b[0m\n'}
+[11.868132] (interfaces) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/single_foot_state__type_support.c.o\x1b[0m\n'}
+[11.906588] (-) TimerEvent: {}
+[11.946497] (interfaces) StdoutLine: {'line': b'[ 42%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/contact_state__type_support.cpp.o\x1b[0m\n'}
+[11.956045] (interfaces) StdoutLine: {'line': b'[ 43%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/foot_state__type_support.c.o\x1b[0m\n'}
+[12.006785] (-) TimerEvent: {}
+[12.019698] (interfaces) StdoutLine: {'line': b'[ 43%] Built target interfaces__rosidl_typesupport_c\n'}
+[12.048498] (interfaces) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/contact_state__type_support_c.cpp.o\x1b[0m\n'}
+[12.067482] (interfaces) StdoutLine: {'line': b'[ 45%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/motor_command__type_support.c.o\x1b[0m\n'}
+[12.106972] (-) TimerEvent: {}
+[12.207724] (-) TimerEvent: {}
+[12.243876] (interfaces) StdoutLine: {'line': b'[ 46%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/motor_command12__type_support.c.o\x1b[0m\n'}
+[12.256508] (interfaces) StdoutLine: {'line': b'[ 47%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/single_foot_state__type_support.cpp.o\x1b[0m\n'}
+[12.311664] (-) TimerEvent: {}
+[12.412436] (-) TimerEvent: {}
+[12.430791] (interfaces) StdoutLine: {'line': b'[ 48%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/motor_feedback__type_support.c.o\x1b[0m\n'}
+[12.512745] (-) TimerEvent: {}
+[12.531849] (interfaces) StdoutLine: {'line': b'[ 49%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/gait_phase__type_support.cpp.o\x1b[0m\n'}
+[12.561795] (interfaces) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/motion_command__type_support.cpp.o\x1b[0m\n'}
+[12.581761] (interfaces) StdoutLine: {'line': b'[ 51%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/motor_feedback12__type_support.c.o\x1b[0m\n'}
+[12.612915] (-) TimerEvent: {}
+[12.713638] (-) TimerEvent: {}
+[12.786474] (interfaces) StdoutLine: {'line': b'[ 52%] \x1b[32m\x1b[1mLinking C shared library libinterfaces__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[12.813819] (-) TimerEvent: {}
+[12.914559] (-) TimerEvent: {}
+[12.967669] (interfaces) StdoutLine: {'line': b'[ 52%] Built target interfaces__rosidl_typesupport_introspection_c\n'}
+[12.982936] (interfaces) StdoutLine: {'line': b'[ 53%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/gait_phase__type_support_c.cpp.o\x1b[0m\n'}
+[13.014718] (-) TimerEvent: {}
+[13.025887] (interfaces) StdoutLine: {'line': b'[ 54%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/motion_command__type_support_c.cpp.o\x1b[0m\n'}
+[13.089171] (interfaces) StdoutLine: {'line': b'[ 55%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/foot_state__type_support.cpp.o\x1b[0m\n'}
+[13.109401] (interfaces) StdoutLine: {'line': b'[ 55%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/gait_phase__type_support.cpp.o\x1b[0m\n'}
+[13.114921] (-) TimerEvent: {}
+[13.215608] (-) TimerEvent: {}
+[13.316393] (-) TimerEvent: {}
+[13.417226] (-) TimerEvent: {}
+[13.517988] (-) TimerEvent: {}
+[13.618945] (-) TimerEvent: {}
+[13.657995] (robot_msgs) StdoutLine: {'line': b'[ 80%] Built target robot_msgs__py\n'}
+[13.683353] (interfaces) StdoutLine: {'line': b'[ 56%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/single_foot_state__type_support.cpp.o\x1b[0m\n'}
+[13.719153] (-) TimerEvent: {}
+[13.770238] (robot_msgs) StdoutLine: {'line': b'[ 82%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_py.dir/rosidl_generator_py/robot_msgs/msg/_motor_command_s.c.o\x1b[0m\n'}
+[13.781337] (robot_msgs) StdoutLine: {'line': b'[ 84%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_py.dir/rosidl_generator_py/robot_msgs/msg/_motor_state_s.c.o\x1b[0m\n'}
+[13.785209] (robot_msgs) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_py.dir/rosidl_generator_py/robot_msgs/msg/_robot_command_s.c.o\x1b[0m\n'}
+[13.796458] (interfaces) StdoutLine: {'line': b'[ 57%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/foot_state__type_support.cpp.o\x1b[0m\n'}
+[13.800282] (robot_msgs) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_py.dir/rosidl_generator_py/robot_msgs/msg/_robot_state_s.c.o\x1b[0m\n'}
+[13.812548] (robot_msgs) StdoutLine: {'line': b'[ 88%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_generator_py.dir/rosidl_generator_py/robot_msgs/msg/_imu_s.c.o\x1b[0m\n'}
+[13.819351] (-) TimerEvent: {}
+[13.894035] (interfaces) StdoutLine: {'line': b'[ 58%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/motor_command__type_support.cpp.o\x1b[0m\n'}
+[13.919561] (-) TimerEvent: {}
+[14.013886] (interfaces) StdoutLine: {'line': b'[ 59%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/single_foot_state__type_support_c.cpp.o\x1b[0m\n'}
+[14.019773] (-) TimerEvent: {}
+[14.038643] (interfaces) StdoutLine: {'line': b'[ 60%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/foot_state__type_support_c.cpp.o\x1b[0m\n'}
+[14.119998] (-) TimerEvent: {}
+[14.220782] (-) TimerEvent: {}
+[14.321550] (-) TimerEvent: {}
+[14.338480] (robot_msgs) StdoutLine: {'line': b'[ 90%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/robot_msgs/librobot_msgs__rosidl_generator_py.so\x1b[0m\n'}
+[14.421756] (-) TimerEvent: {}
+[14.507900] (interfaces) StdoutLine: {'line': b'[ 61%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/motion_command__type_support.cpp.o\x1b[0m\n'}
+[14.521961] (-) TimerEvent: {}
+[14.530794] (robot_msgs) StdoutLine: {'line': b'[ 90%] Built target robot_msgs__rosidl_generator_py\n'}
+[14.622155] (-) TimerEvent: {}
+[14.673802] (robot_msgs) StdoutLine: {'line': b'[ 92%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/robot_msgs/_robot_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[14.706708] (robot_msgs) StdoutLine: {'line': b'[ 95%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/robot_msgs/_robot_msgs_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[14.707266] (robot_msgs) StdoutLine: {'line': b'[ 95%] \x1b[32mBuilding C object CMakeFiles/robot_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/robot_msgs/_robot_msgs_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[14.722357] (-) TimerEvent: {}
+[14.789412] (interfaces) StdoutLine: {'line': b'[ 62%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/motor_command12__type_support.cpp.o\x1b[0m\n'}
+[14.822577] (-) TimerEvent: {}
+[14.923390] (-) TimerEvent: {}
+[15.018518] (robot_msgs) StdoutLine: {'line': b'[ 96%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/robot_msgs/robot_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[15.023606] (-) TimerEvent: {}
+[15.025939] (interfaces) StdoutLine: {'line': b'[ 63%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/motor_command__type_support.cpp.o\x1b[0m\n'}
+[15.123814] (-) TimerEvent: {}
+[15.146073] (robot_msgs) StdoutLine: {'line': b'[ 98%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/robot_msgs/robot_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[15.176879] (robot_msgs) StdoutLine: {'line': b'[ 98%] Built target robot_msgs__rosidl_typesupport_c__pyext\n'}
+[15.208709] (interfaces) StdoutLine: {'line': b'[ 64%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/motor_command__type_support_c.cpp.o\x1b[0m\n'}
+[15.224042] (-) TimerEvent: {}
+[15.235819] (robot_msgs) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/robot_msgs/robot_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[15.262768] (robot_msgs) StdoutLine: {'line': b'[100%] Built target robot_msgs__rosidl_typesupport_fastrtps_c__pyext\n'}
+[15.268671] (interfaces) StdoutLine: {'line': b'[ 65%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/motor_command12__type_support.cpp.o\x1b[0m\n'}
+[15.324284] (-) TimerEvent: {}
+[15.325389] (robot_msgs) StdoutLine: {'line': b'[100%] Built target robot_msgs__rosidl_typesupport_introspection_c__pyext\n'}
+[15.366366] (robot_msgs) JobEnded: {'identifier': 'robot_msgs', 'rc': 'SIGINT'}
+[15.370136] (interfaces) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/motor_command12__type_support_c.cpp.o\x1b[0m\n'}
+[15.424441] (-) TimerEvent: {}
+[15.525233] (-) TimerEvent: {}
+[15.625978] (-) TimerEvent: {}
+[15.629542] (interfaces) StdoutLine: {'line': b'[ 67%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/motor_feedback__type_support.cpp.o\x1b[0m\n'}
+[15.630227] (interfaces) StdoutLine: {'line': b'[ 68%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/single_foot_state__type_support.cpp.o\x1b[0m\n'}
+[15.726170] (-) TimerEvent: {}
+[15.826971] (-) TimerEvent: {}
+[15.927819] (-) TimerEvent: {}
+[16.028654] (-) TimerEvent: {}
+[16.106646] (interfaces) StdoutLine: {'line': b'[ 69%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/motor_feedback__type_support_c.cpp.o\x1b[0m\n'}
+[16.128885] (-) TimerEvent: {}
+[16.166223] (interfaces) StdoutLine: {'line': b'[ 70%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/motor_feedback__type_support.cpp.o\x1b[0m\n'}
+[16.219223] (interfaces) StdoutLine: {'line': b'[ 71%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/motor_feedback12__type_support_c.cpp.o\x1b[0m\n'}
+[16.229109] (-) TimerEvent: {}
+[16.297072] (interfaces) StdoutLine: {'line': b'[ 72%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/motor_feedback12__type_support.cpp.o\x1b[0m\n'}
+[16.327273] (interfaces) StdoutLine: {'line': b'[ 73%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/motor_feedback12__type_support.cpp.o\x1b[0m\n'}
+[16.329258] (-) TimerEvent: {}
+[16.429901] (-) TimerEvent: {}
+[16.531499] (-) TimerEvent: {}
+[16.596510] (interfaces) StdoutLine: {'line': b'[ 74%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/foot_state__type_support.cpp.o\x1b[0m\n'}
+[16.631716] (-) TimerEvent: {}
+[16.732611] (-) TimerEvent: {}
+[16.833450] (-) TimerEvent: {}
+[16.934266] (-) TimerEvent: {}
+[16.968615] (interfaces) StdoutLine: {'line': b'[ 75%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/motor_command__type_support.cpp.o\x1b[0m\n'}
+[17.020920] (interfaces) StdoutLine: {'line': b'[ 76%] \x1b[32m\x1b[1mLinking CXX shared library libinterfaces__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[17.034462] (-) TimerEvent: {}
+[17.072379] (interfaces) StdoutLine: {'line': b'[ 77%] \x1b[32m\x1b[1mLinking CXX shared library libinterfaces__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[17.122418] (interfaces) StdoutLine: {'line': b'[ 77%] Built target interfaces__rosidl_typesupport_cpp\n'}
+[17.134681] (-) TimerEvent: {}
+[17.144914] (interfaces) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/motor_command12__type_support.cpp.o\x1b[0m\n'}
+[17.234925] (-) TimerEvent: {}
+[17.261451] (interfaces) StdoutLine: {'line': b'[ 78%] Built target interfaces__rosidl_typesupport_fastrtps_c\n'}
+[17.277210] (interfaces) StdoutLine: {'line': b'[ 79%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/motor_feedback__type_support.cpp.o\x1b[0m\n'}
+[17.281351] (interfaces) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/motor_feedback12__type_support.cpp.o\x1b[0m\n'}
+[17.304704] (interfaces) StdoutLine: {'line': b'[ 81%] \x1b[32m\x1b[1mLinking CXX shared library libinterfaces__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[17.335128] (-) TimerEvent: {}
+[17.435872] (-) TimerEvent: {}
+[17.508455] (interfaces) StdoutLine: {'line': b'[ 81%] Built target interfaces__rosidl_typesupport_introspection_cpp\n'}
+[17.536071] (-) TimerEvent: {}
+[17.636804] (-) TimerEvent: {}
+[17.737593] (-) TimerEvent: {}
+[17.838364] (-) TimerEvent: {}
+[17.939125] (-) TimerEvent: {}
+[18.039878] (-) TimerEvent: {}
+[18.140641] (-) TimerEvent: {}
+[18.232466] (interfaces) StdoutLine: {'line': b'[ 82%] \x1b[32m\x1b[1mLinking CXX shared library libinterfaces__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[18.240743] (-) TimerEvent: {}
+[18.341204] (-) TimerEvent: {}
+[18.396877] (interfaces) StdoutLine: {'line': b'[ 82%] Built target interfaces__rosidl_typesupport_fastrtps_cpp\n'}
+[18.440986] (interfaces) StdoutLine: {'line': b'[ 82%] Built target interfaces\n'}
+[18.441429] (-) TimerEvent: {}
+[18.488137] (interfaces) StdoutLine: {'line': b'[ 83%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[18.541541] (-) TimerEvent: {}
+[18.641988] (-) TimerEvent: {}
+[18.742377] (-) TimerEvent: {}
+[18.842738] (-) TimerEvent: {}
+[18.943075] (-) TimerEvent: {}
+[19.043411] (-) TimerEvent: {}
+[19.143828] (-) TimerEvent: {}
+[19.244434] (-) TimerEvent: {}
+[19.344841] (-) TimerEvent: {}
+[19.445212] (-) TimerEvent: {}
+[19.545585] (-) TimerEvent: {}
+[19.645947] (-) TimerEvent: {}
+[19.746315] (-) TimerEvent: {}
+[19.846687] (-) TimerEvent: {}
+[19.947086] (-) TimerEvent: {}
+[20.047434] (-) TimerEvent: {}
+[20.147799] (-) TimerEvent: {}
+[20.248216] (-) TimerEvent: {}
+[20.348556] (-) TimerEvent: {}
+[20.448909] (-) TimerEvent: {}
+[20.549305] (-) TimerEvent: {}
+[20.649660] (-) TimerEvent: {}
+[20.750057] (-) TimerEvent: {}
+[20.850501] (-) TimerEvent: {}
+[20.950940] (-) TimerEvent: {}
+[21.051363] (-) TimerEvent: {}
+[21.151788] (-) TimerEvent: {}
+[21.252208] (-) TimerEvent: {}
+[21.352627] (-) TimerEvent: {}
+[21.453062] (-) TimerEvent: {}
+[21.553518] (-) TimerEvent: {}
+[21.653948] (-) TimerEvent: {}
+[21.754391] (-) TimerEvent: {}
+[21.854831] (-) TimerEvent: {}
+[21.955276] (-) TimerEvent: {}
+[22.055738] (-) TimerEvent: {}
+[22.156171] (-) TimerEvent: {}
+[22.256615] (-) TimerEvent: {}
+[22.357052] (-) TimerEvent: {}
+[22.457514] (-) TimerEvent: {}
+[22.557949] (-) TimerEvent: {}
+[22.658376] (-) TimerEvent: {}
+[22.758812] (-) TimerEvent: {}
+[22.859253] (-) TimerEvent: {}
+[22.959716] (-) TimerEvent: {}
+[23.060473] (-) TimerEvent: {}
+[23.120628] (interfaces) StdoutLine: {'line': b'[ 83%] Built target interfaces__py\n'}
+[23.160688] (-) TimerEvent: {}
+[23.167168] (interfaces) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_gait_phase_s.c.o\x1b[0m\n'}
+[23.167758] (interfaces) StdoutLine: {'line': b'[ 86%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_foot_state_s.c.o\x1b[0m\n'}
+[23.168541] (interfaces) StdoutLine: {'line': b'[ 88%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_base_state_s.c.o\x1b[0m\n'}
+[23.169779] (interfaces) StdoutLine: {'line': b'[ 89%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_motion_command_s.c.o\x1b[0m\n'}
+[23.170211] (interfaces) StdoutLine: {'line': b'[ 89%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_single_foot_state_s.c.o\x1b[0m\n'}
+[23.170582] (interfaces) StdoutLine: {'line': b'[ 89%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_contact_state_s.c.o\x1b[0m\n'}
+[23.260889] (-) TimerEvent: {}
+[23.361647] (-) TimerEvent: {}
+[23.407498] (interfaces) StdoutLine: {'line': b'[ 92%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_motor_command_s.c.o\x1b[0m\n'}
+[23.408025] (interfaces) StdoutLine: {'line': b'[ 92%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_motor_command12_s.c.o\x1b[0m\n'}
+[23.408236] (interfaces) StdoutLine: {'line': b'[ 92%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_motor_feedback_s.c.o\x1b[0m\n'}
+[23.412510] (interfaces) StdoutLine: {'line': b'[ 93%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_motor_feedback12_s.c.o\x1b[0m\n'}
+[23.461829] (-) TimerEvent: {}
+[23.562541] (-) TimerEvent: {}
+[23.657460] (interfaces) StdoutLine: {'line': b'[ 94%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/interfaces/libinterfaces__rosidl_generator_py.so\x1b[0m\n'}
+[23.662625] (-) TimerEvent: {}
+[23.750590] (interfaces) StdoutLine: {'line': b'[ 94%] Built target interfaces__rosidl_generator_py\n'}
+[23.762775] (-) TimerEvent: {}
+[23.794617] (interfaces) StdoutLine: {'line': b'[ 96%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[23.795279] (interfaces) StdoutLine: {'line': b'[ 96%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[23.795580] (interfaces) StdoutLine: {'line': b'[ 97%] \x1b[32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[23.862966] (-) TimerEvent: {}
+[23.963738] (-) TimerEvent: {}
+[24.064450] (-) TimerEvent: {}
+[24.084522] (interfaces) StdoutLine: {'line': b'[ 99%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/interfaces/interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[24.085340] (interfaces) StdoutLine: {'line': b'[ 99%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/interfaces/interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[24.087014] (interfaces) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/interfaces/interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[24.164637] (-) TimerEvent: {}
+[24.176208] (interfaces) StdoutLine: {'line': b'[100%] Built target interfaces__rosidl_typesupport_c__pyext\n'}
+[24.176747] (interfaces) StdoutLine: {'line': b'[100%] Built target interfaces__rosidl_typesupport_fastrtps_c__pyext\n'}
+[24.176963] (interfaces) StdoutLine: {'line': b'[100%] Built target interfaces__rosidl_typesupport_introspection_c__pyext\n'}
+[24.207101] (interfaces) JobEnded: {'identifier': 'interfaces', 'rc': 'SIGINT'}
+[24.219103] (d1_description) JobSkipped: {'identifier': 'd1_description'}
+[24.219380] (description) JobSkipped: {'identifier': 'description'}
+[24.219534] (dm_imu) JobSkipped: {'identifier': 'dm_imu'}
+[24.219702] (g1_description) JobSkipped: {'identifier': 'g1_description'}
+[24.219855] (go2_description) JobSkipped: {'identifier': 'go2_description'}
+[24.220023] (go2w_description) JobSkipped: {'identifier': 'go2w_description'}
+[24.220153] (gr1t1_description) JobSkipped: {'identifier': 'gr1t1_description'}
+[24.220242] (gr1t2_description) JobSkipped: {'identifier': 'gr1t2_description'}
+[24.220374] (l4w4_description) JobSkipped: {'identifier': 'l4w4_description'}
+[24.220456] (lite3_description) JobSkipped: {'identifier': 'lite3_description'}
+[24.220564] (main_control) JobSkipped: {'identifier': 'main_control'}
+[24.220642] (tita_description) JobSkipped: {'identifier': 'tita_description'}
+[24.220714] (xbox) JobSkipped: {'identifier': 'xbox'}
+[24.220787] (estimation) JobSkipped: {'identifier': 'estimation'}
+[24.220858] (robot_joint_controller) JobSkipped: {'identifier': 'robot_joint_controller'}
+[24.220930] (rs_motor_ros2) JobSkipped: {'identifier': 'rs_motor_ros2'}
+[24.221001] (rl_sar) JobSkipped: {'identifier': 'rl_sar'}
+[24.221075] (-) EventReactorShutdown: {}

@@ -1,0 +1,37 @@
+[0.045s] Invoking command in '/home/nvidia/UIKA/build/b2_description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/b2_description -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/b2_description
+[0.247s] -- The C compiler identification is GNU 11.4.0
+[0.499s] -- The CXX compiler identification is GNU 11.4.0
+[0.515s] -- Detecting C compiler ABI info
+[0.717s] -- Detecting C compiler ABI info - done
+[0.733s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.734s] -- Detecting C compile features
+[0.735s] -- Detecting C compile features - done
+[0.743s] -- Detecting CXX compiler ABI info
+[0.969s] -- Detecting CXX compiler ABI info - done
+[0.989s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.990s] -- Detecting CXX compile features
+[0.991s] -- Detecting CXX compile features - done
+[0.998s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.531s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.772s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.779s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[1.915s] [31mCMake Error at CMakeLists.txt:21 (find_package):
+[1.915s]   By not providing "Findxacro.cmake" in CMAKE_MODULE_PATH this project has
+[1.916s]   asked CMake to find a package configuration file provided by "xacro", but
+[1.916s]   CMake did not find one.
+[1.916s] 
+[1.916s]   Could not find a package configuration file provided by "xacro" with any of
+[1.916s]   the following names:
+[1.916s] 
+[1.916s]     xacroConfig.cmake
+[1.917s]     xacro-config.cmake
+[1.917s] 
+[1.917s]   Add the installation prefix of "xacro" to CMAKE_PREFIX_PATH or set
+[1.917s]   "xacro_DIR" to a directory containing one of the above files.  If "xacro"
+[1.917s]   provides a separate development package or SDK, be sure it has been
+[1.917s]   installed.
+[1.917s] 
+[1.918s] [0m
+[1.918s] -- Configuring incomplete, errors occurred!
+[1.918s] See also "/home/nvidia/UIKA/build/b2_description/CMakeFiles/CMakeOutput.log".
+[1.954s] Invoked command in '/home/nvidia/UIKA/build/b2_description' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/b2_description -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/b2_description

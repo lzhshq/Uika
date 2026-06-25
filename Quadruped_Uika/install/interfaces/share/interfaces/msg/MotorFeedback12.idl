@@ -1,0 +1,38 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/MotorFeedback12.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/MotorFeedback.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    struct MotorFeedback12 {
+      std_msgs::msg::Header header;
+
+      interfaces::msg::MotorFeedback fl_hip;
+
+      interfaces::msg::MotorFeedback fl_thigh;
+
+      interfaces::msg::MotorFeedback fl_calf;
+
+      interfaces::msg::MotorFeedback fr_hip;
+
+      interfaces::msg::MotorFeedback fr_thigh;
+
+      interfaces::msg::MotorFeedback fr_calf;
+
+      interfaces::msg::MotorFeedback rl_hip;
+
+      interfaces::msg::MotorFeedback rl_thigh;
+
+      interfaces::msg::MotorFeedback rl_calf;
+
+      interfaces::msg::MotorFeedback rr_hip;
+
+      interfaces::msg::MotorFeedback rr_thigh;
+
+      interfaces::msg::MotorFeedback rr_calf;
+    };
+  };
+};

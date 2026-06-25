@@ -22,7 +22,9 @@
 ### 1. 环境配置 (一键脚本)
 
 ```bash
-cd /home/saiki/Quadruped_Uika-main/rl_sar-main
+cd /home/nvidia/UIKA/Quadruped_Uika
+source ./install/setup.bash
+cd /home/nvidia/UIKA/rl_sar-main
 
 # 完整配置 (ROS2 + 推理库 + 构建)
 ./scripts/setup_env.sh

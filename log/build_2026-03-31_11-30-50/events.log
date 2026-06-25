@@ -1,7 +1,0 @@
-[0.000000] (-) TimerEvent: {}
-[0.000075] (-) JobUnselected: {'identifier': 'description'}
-[0.000106] (-) JobUnselected: {'identifier': 'estimation'}
-[0.000128] (-) JobUnselected: {'identifier': 'interfaces'}
-[0.000149] (-) JobUnselected: {'identifier': 'main_control'}
-[0.000169] (-) JobUnselected: {'identifier': 'rs_motor_ros2'}
-[0.000193] (-) EventReactorShutdown: {}

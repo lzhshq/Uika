@@ -1,0 +1,1 @@
+Invoking command in '/home/nvidia/UIKA/build/b2w_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/UIKA/Quadruped_Uika/install/dm_imu:/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/b2w_description -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/b2w_description

@@ -1,0 +1,32 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/FootState.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/SingleFootState.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    struct FootState {
+      @verbatim (language="comment", text=
+        "消息头：包含时间戳和坐标系名称")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "左前腿足端状态")
+      interfaces::msg::SingleFootState fl;
+
+      @verbatim (language="comment", text=
+        "右前腿足端状态")
+      interfaces::msg::SingleFootState fr;
+
+      @verbatim (language="comment", text=
+        "左后腿足端状态")
+      interfaces::msg::SingleFootState rl;
+
+      @verbatim (language="comment", text=
+        "右后腿足端状态")
+      interfaces::msg::SingleFootState rr;
+    };
+  };
+};

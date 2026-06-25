@@ -1,0 +1,28 @@
+[0.257s] Invoking command in '/home/elvis/dm-imu-master/02.例程/ROS2-humble例程': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/dm_imu build --build-base /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build install --record /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/install.log --single-version-externally-managed install_data
+[0.365s] running egg_info
+[0.365s] writing build/dm_imu/dm_imu.egg-info/PKG-INFO
+[0.365s] writing dependency_links to build/dm_imu/dm_imu.egg-info/dependency_links.txt
+[0.365s] writing entry points to build/dm_imu/dm_imu.egg-info/entry_points.txt
+[0.366s] writing requirements to build/dm_imu/dm_imu.egg-info/requires.txt
+[0.366s] writing top-level names to build/dm_imu/dm_imu.egg-info/top_level.txt
+[0.366s] reading manifest file 'build/dm_imu/dm_imu.egg-info/SOURCES.txt'
+[0.366s] adding license file 'LICENSE'
+[0.367s] writing manifest file 'build/dm_imu/dm_imu.egg-info/SOURCES.txt'
+[0.367s] running build
+[0.367s] running build_py
+[0.367s] copying dm_imu/node.py -> /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build/lib/dm_imu
+[0.367s] copying dm_imu/modules/dm_serial.py -> /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build/lib/dm_imu/modules
+[0.367s] running install
+[0.367s] running install_lib
+[0.367s] copying /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build/lib/dm_imu/node.py -> /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu
+[0.367s] copying /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build/lib/dm_imu/modules/dm_serial.py -> /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu/modules
+[0.368s] byte-compiling /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu/node.py to node.cpython-310.pyc
+[0.369s] byte-compiling /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu/modules/dm_serial.py to dm_serial.cpython-310.pyc
+[0.370s] running install_data
+[0.370s] running install_egg_info
+[0.370s] removing '/home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu-0.1.0-py3.10.egg-info' (and everything under it)
+[0.370s] Copying build/dm_imu/dm_imu.egg-info to /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu-0.1.0-py3.10.egg-info
+[0.371s] running install_scripts
+[0.380s] Installing dm_imu_node script to /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/dm_imu
+[0.380s] writing list of installed files to '/home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/install.log'
+[0.390s] Invoked command in '/home/elvis/dm-imu-master/02.例程/ROS2-humble例程' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/dm_imu build --build-base /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build install --record /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/install.log --single-version-externally-managed install_data

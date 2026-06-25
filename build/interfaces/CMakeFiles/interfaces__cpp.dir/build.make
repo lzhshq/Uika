@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lzh/VMC_Quadruped/src/interfaces
+CMAKE_SOURCE_DIR = /home/nvidia/UIKA/Quadruped_Uika/src/interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lzh/VMC_Quadruped/build/interfaces
+CMAKE_BINARY_DIR = /home/nvidia/UIKA/build/interfaces
 
 # Utility rule file for interfaces__cpp.
 
@@ -207,8 +207,8 @@ rosidl_generator_cpp/interfaces/msg/base_state.hpp: /opt/ros/humble/share/geomet
 rosidl_generator_cpp/interfaces/msg/base_state.hpp: /opt/ros/humble/share/geometry_msgs/msg/VelocityStamped.idl
 rosidl_generator_cpp/interfaces/msg/base_state.hpp: /opt/ros/humble/share/geometry_msgs/msg/Wrench.idl
 rosidl_generator_cpp/interfaces/msg/base_state.hpp: /opt/ros/humble/share/geometry_msgs/msg/WrenchStamped.idl
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lzh/VMC_Quadruped/build/interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code for ROS interfaces"
-	/usr/bin/python3 /opt/ros/humble/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp --generator-arguments-file /home/lzh/VMC_Quadruped/build/interfaces/rosidl_generator_cpp__arguments.json
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nvidia/UIKA/build/interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code for ROS interfaces"
+	/usr/bin/python3 /opt/ros/humble/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp --generator-arguments-file /home/nvidia/UIKA/build/interfaces/rosidl_generator_cpp__arguments.json
 
 rosidl_generator_cpp/interfaces/msg/detail/base_state__builder.hpp: rosidl_generator_cpp/interfaces/msg/base_state.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/interfaces/msg/detail/base_state__builder.hpp
@@ -420,6 +420,6 @@ CMakeFiles/interfaces__cpp.dir/clean:
 .PHONY : CMakeFiles/interfaces__cpp.dir/clean
 
 CMakeFiles/interfaces__cpp.dir/depend:
-	cd /home/lzh/VMC_Quadruped/build/interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lzh/VMC_Quadruped/src/interfaces /home/lzh/VMC_Quadruped/src/interfaces /home/lzh/VMC_Quadruped/build/interfaces /home/lzh/VMC_Quadruped/build/interfaces /home/lzh/VMC_Quadruped/build/interfaces/CMakeFiles/interfaces__cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nvidia/UIKA/build/interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/UIKA/Quadruped_Uika/src/interfaces /home/nvidia/UIKA/Quadruped_Uika/src/interfaces /home/nvidia/UIKA/build/interfaces /home/nvidia/UIKA/build/interfaces /home/nvidia/UIKA/build/interfaces/CMakeFiles/interfaces__cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/interfaces__cpp.dir/depend
 

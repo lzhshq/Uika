@@ -1,0 +1,34 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/BaseState.msg
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Point.idl"
+#include "geometry_msgs/msg/Quaternion.idl"
+#include "geometry_msgs/msg/Vector3.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    struct BaseState {
+      @verbatim (language="comment", text=
+        "消息头：包含时间戳和坐标系名称")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "机身位置，单位 m，建议在 world 坐标系下表达")
+      geometry_msgs::msg::Point position;
+
+      @verbatim (language="comment", text=
+        "机身姿态，四元数表示")
+      geometry_msgs::msg::Quaternion orientation;
+
+      @verbatim (language="comment", text=
+        "机身线速度，单位 m/s")
+      geometry_msgs::msg::Vector3 linear_velocity;
+
+      @verbatim (language="comment", text=
+        "机身角速度，单位 rad/s")
+      geometry_msgs::msg::Vector3 angular_velocity;
+    };
+  };
+};

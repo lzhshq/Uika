@@ -1,0 +1,19 @@
+[01m[K/home/nvidia/UIKA/Quadruped_Uika/src/robstride_ros_sample/src/main.cpp:[m[K In member function ‘[01m[Kvoid MotorControlSample::apply_motor_limit(int, float&, float&, float&, float&)[m[K’:
+[01m[K/home/nvidia/UIKA/Quadruped_Uika/src/robstride_ros_sample/src/main.cpp:170:11:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kmin_pos[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+  170 |     float [01;35m[Kmin_pos[m[K = MOTOR_LIMITS[motor_idx][0];
+      |           [01;35m[K^~~~~~~[m[K
+[01m[K/home/nvidia/UIKA/Quadruped_Uika/src/robstride_ros_sample/src/main.cpp:171:11:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kmax_pos[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+  171 |     float [01;35m[Kmax_pos[m[K = MOTOR_LIMITS[motor_idx][1];
+      |           [01;35m[K^~~~~~~[m[K
+[01m[K/home/nvidia/UIKA/Quadruped_Uika/src/robstride_ros_sample/src/main.cpp:172:11:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kmargin[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+  172 |     float [01;35m[Kmargin[m[K = MOTOR_LIMITS[motor_idx][2];
+      |           [01;35m[K^~~~~~[m[K
+[01m[K/home/nvidia/UIKA/Quadruped_Uika/src/robstride_ros_sample/src/main.cpp:169:48:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kpos[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  169 |   void apply_motor_limit(int motor_idx, [01;35m[Kfloat &pos[m[K, float &torque, float &kp, float &kd) {
+      |                                         [01;35m[K~~~~~~~^~~[m[K
+[01m[K/home/nvidia/UIKA/Quadruped_Uika/src/robstride_ros_sample/src/main.cpp:169:75:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kkp[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  169 |   void apply_motor_limit(int motor_idx, float &pos, float &torque, [01;35m[Kfloat &kp[m[K, float &kd) {
+      |                                                                    [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/nvidia/UIKA/Quadruped_Uika/src/robstride_ros_sample/src/main.cpp:169:86:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kkd[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  169 |   void apply_motor_limit(int motor_idx, float &pos, float &torque, float &kp, [01;35m[Kfloat &kd[m[K) {
+      |                                                                               [01;35m[K~~~~~~~^~[m[K

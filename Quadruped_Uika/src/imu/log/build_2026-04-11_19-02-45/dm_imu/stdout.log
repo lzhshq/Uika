@@ -1,0 +1,26 @@
+running egg_info
+writing build/dm_imu/dm_imu.egg-info/PKG-INFO
+writing dependency_links to build/dm_imu/dm_imu.egg-info/dependency_links.txt
+writing entry points to build/dm_imu/dm_imu.egg-info/entry_points.txt
+writing requirements to build/dm_imu/dm_imu.egg-info/requires.txt
+writing top-level names to build/dm_imu/dm_imu.egg-info/top_level.txt
+reading manifest file 'build/dm_imu/dm_imu.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'build/dm_imu/dm_imu.egg-info/SOURCES.txt'
+running build
+running build_py
+copying dm_imu/node.py -> /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build/lib/dm_imu
+copying dm_imu/modules/dm_serial.py -> /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build/lib/dm_imu/modules
+running install
+running install_lib
+copying /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build/lib/dm_imu/node.py -> /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu
+copying /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/build/lib/dm_imu/modules/dm_serial.py -> /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu/modules
+byte-compiling /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu/node.py to node.cpython-310.pyc
+byte-compiling /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu/modules/dm_serial.py to dm_serial.cpython-310.pyc
+running install_data
+running install_egg_info
+removing '/home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu-0.1.0-py3.10.egg-info' (and everything under it)
+Copying build/dm_imu/dm_imu.egg-info to /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/python3.10/site-packages/dm_imu-0.1.0-py3.10.egg-info
+running install_scripts
+Installing dm_imu_node script to /home/elvis/dm-imu-master/02.例程/ROS2-humble例程/install/dm_imu/lib/dm_imu
+writing list of installed files to '/home/elvis/dm-imu-master/02.例程/ROS2-humble例程/build/dm_imu/install.log'

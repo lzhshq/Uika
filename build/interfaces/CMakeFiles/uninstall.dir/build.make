@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lzh/VMC_Quadruped/src/interfaces
+CMAKE_SOURCE_DIR = /home/nvidia/UIKA/Quadruped_Uika/src/interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lzh/VMC_Quadruped/build/interfaces
+CMAKE_BINARY_DIR = /home/nvidia/UIKA/build/interfaces
 
 # Utility rule file for uninstall.
 
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/lzh/VMC_Quadruped/build/interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lzh/VMC_Quadruped/src/interfaces /home/lzh/VMC_Quadruped/src/interfaces /home/lzh/VMC_Quadruped/build/interfaces /home/lzh/VMC_Quadruped/build/interfaces /home/lzh/VMC_Quadruped/build/interfaces/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nvidia/UIKA/build/interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/UIKA/Quadruped_Uika/src/interfaces /home/nvidia/UIKA/Quadruped_Uika/src/interfaces /home/nvidia/UIKA/build/interfaces /home/nvidia/UIKA/build/interfaces /home/nvidia/UIKA/build/interfaces/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 

@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-8ce1d6d2b61a38c6dbbb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "estimation",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "contact_detection_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-contact_detection_node-0a846ac9264c95580fa0.json",
+					"name" : "contact_detection_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "estimation_kinematics::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-estimation_kinematics-b1b3733d7eacf5ad48b4.json",
+					"name" : "estimation_kinematics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "estimation_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-estimation_uninstall-ab001fda4ca7ab481ba2.json",
+					"name" : "estimation_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-587cbcba0093ea0a6fef.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/nvidia/UIKA/Quadruped_Uika/build/estimation",
+		"source" : "/home/nvidia/UIKA/Quadruped_Uika/src/estimation"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
