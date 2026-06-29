@@ -1,0 +1,21 @@
+# colcon / CMake build outputs
+build/
+install/
+log/
+logs/
+devel/
+cmake_build/
+
+# Nested ROS workspace outputs
+Quadruped_Uika/build/
+Quadruped_Uika/install/
+Quadruped_Uika/log/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Editor / OS files
+.vscode/
+.DS_Store
+Thumbs.db

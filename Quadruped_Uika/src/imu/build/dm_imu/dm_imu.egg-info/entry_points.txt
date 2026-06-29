@@ -1,3 +1,0 @@
-[console_scripts]
-dm_imu_node = dm_imu.node:main
-

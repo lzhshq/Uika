@@ -1,2 +1,0 @@
-/usr/bin/ar qc librs_motor_ros2.a CMakeFiles/rs_motor_ros2_lib.dir/src/motor_cfg.cpp.o
-/usr/bin/ranlib librs_motor_ros2.a

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libestimation_kinematics.a CMakeFiles/estimation_kinematics.dir/src/leg_dynamics.cpp.o
-/usr/bin/ranlib libestimation_kinematics.a

@@ -1,2 +1,0 @@
-Invoking command in '/home/nvidia/UIKA/build/b2_description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/b2_description -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/b2_description
-Invoked command in '/home/nvidia/UIKA/build/b2_description' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/nvidia/UIKA/rl_sar-main/src/rl_sar_zoo/b2_description -DCMAKE_INSTALL_PREFIX=/home/nvidia/UIKA/install/b2_description
