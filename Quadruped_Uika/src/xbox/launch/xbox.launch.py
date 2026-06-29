@@ -39,6 +39,10 @@ def generate_launch_description():
                 'max_linear_speed': 1.0,
                 'max_angular_speed': 0.5,
                 'deadzone': 0.1,
+                'zero_axis_1': 2,  # LT
+                'zero_axis_2': 5,  # RT
+                'zero_axis_value': -1.0,
+                'zero_hold_seconds': 5.0,
             }],
         ),
     ])

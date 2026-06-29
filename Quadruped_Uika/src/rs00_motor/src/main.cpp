@@ -3,6 +3,7 @@
 #include "interfaces/msg/motor_command12.hpp"
 #include "interfaces/msg/motor_feedback12.hpp"
 #include "stdint.h"
+#include <std_msgs/msg/empty.hpp>
 #include <array>
 #include <atomic>
 #include <chrono>
@@ -54,12 +55,14 @@ public:
     const auto &configs = rs00_motor::motor_configs();
     motors_.reserve(configs.size());
     motor_initialized_.assign(configs.size(), false);
+    motor_enabled_.assign(configs.size(), false);
     for (const auto &cfg : configs) {
       motors_.push_back(std::make_unique<RobStrideMotor>(
           cfg.can_iface, cfg.master_id, cfg.motor_id, cfg.actuator_type));
     }
 
     // 依次初始化每个电机，跳过失败的
+    size_t initialized_count = 0;
     for (size_t i = 0; i < motors_.size(); ++i) {
       if (!rclcpp::ok() || !running_) {
         break;
@@ -68,16 +71,18 @@ public:
         std::lock_guard<std::mutex> lock(motors_mutex_);
         motors_[i]->Get_RobStrite_Motor_parameter(0x7005);
         usleep(1000);
-        motors_[i]->enable_motor();
+        // 启动节点时只建立通信并确保电机不使能，避免电机追随上一次内部目标位置。
+        motors_[i]->Disenable_Motor(0);
         usleep(1000);
         motor_initialized_[i] = true;
-        RCLCPP_INFO(this->get_logger(), "Motor %zu initialized on %s", i,
-                    configs[i].can_iface.c_str());
+        initialized_count++;
       } catch (const std::exception &e) {
         RCLCPP_WARN(this->get_logger(), "Motor %zu init failed: %s", i,
                     e.what());
       }
     }
+    RCLCPP_INFO(this->get_logger(), "Motor init finished: %zu/%zu initialized, all disabled",
+                initialized_count, motors_.size());
 
     // 创建电机反馈发布者
     feedback_pub_ = this->create_publisher<interfaces::msg::MotorFeedback12>("/motor_feedback", 10);
@@ -89,8 +94,6 @@ public:
           this->publish_feedback();
         });
 
-    RCLCPP_INFO(this->get_logger(), "Motor feedback publisher started on /motor_feedback");
-
     // 创建电机命令订阅
     command_sub_ = this->create_subscription<interfaces::msg::MotorCommand12>(
         "/motor_command", 10,
@@ -98,7 +101,14 @@ public:
           this->command_callback(msg);
         });
 
-    RCLCPP_INFO(this->get_logger(), "Subscribed to /motor_command, waiting for commands...");
+    set_zero_sub_ = this->create_subscription<std_msgs::msg::Empty>(
+        "/motor_set_zero", 10,
+        [this](const std_msgs::msg::Empty::SharedPtr) {
+          this->request_set_zero();
+        });
+
+    RCLCPP_INFO(this->get_logger(),
+                "Ready: feedback=/motor_feedback, command=/motor_command, zero=/motor_set_zero");
 
     worker_thread_ = std::thread(&MotorControlSample::excute_loop, this);
   }
@@ -131,6 +141,11 @@ private:
     RCLCPP_INFO_ONCE(this->get_logger(), "First command received! Starting motor control.");
   }
 
+  void request_set_zero() {
+    set_zero_requested_.store(true);
+    RCLCPP_WARN(this->get_logger(), "Manual motor zero requested");
+  }
+
   void publish_feedback() {
     auto msg = interfaces::msg::MotorFeedback12();
     msg.header.stamp = this->now();
@@ -155,28 +170,73 @@ private:
     feedback_pub_->publish(msg);
   }
 
-  void excute_loop() {
-    // 等待接收第一个命令
-    int wait_count = 0;
-    while (rclcpp::ok() && running_ && !received_first_command_) {
-      wait_count++;
-      if (wait_count % 1000 == 0) {
-        RCLCPP_INFO(this->get_logger(), "Waiting for first command...");
+  void enable_initialized_motors() {
+    std::lock_guard<std::mutex> lock(motors_mutex_);
+    for (size_t i = 0; i < motors_.size(); ++i) {
+      if (!motor_initialized_[i] || motor_enabled_[i]) {
+        continue;
       }
-      std::this_thread::sleep_for(std::chrono::milliseconds(1));
+      try {
+        motors_[i]->enable_motor();
+        usleep(1000);
+        motor_enabled_[i] = true;
+        RCLCPP_INFO(this->get_logger(), "Motor %zu enabled after first command", i);
+      } catch (const std::exception &e) {
+        RCLCPP_WARN(this->get_logger(), "Motor %zu enable failed: %s", i, e.what());
+      }
     }
+  }
 
-    if (!rclcpp::ok() || !running_) {
-      return;
+  void set_zero_all_motors() {
+    RCLCPP_WARN(this->get_logger(), "Setting current position as zero for all initialized motors");
+    std::lock_guard<std::mutex> lock(motors_mutex_);
+    for (size_t i = 0; i < motors_.size(); ++i) {
+      if (!motor_initialized_[i]) {
+        continue;
+      }
+      try {
+        motors_[i]->Set_ZeroPos();
+        usleep(1000);
+        motors_[i]->Disenable_Motor(0);
+        usleep(1000);
+        motor_enabled_[i] = false;
+        RCLCPP_WARN(this->get_logger(), "Motor %zu zeroed and disabled", i);
+      } catch (const std::exception &e) {
+        RCLCPP_WARN(this->get_logger(), "Motor %zu zero failed: %s", i, e.what());
+      }
     }
+  }
 
-    RCLCPP_INFO(this->get_logger(), "Start sending motion commands");
-    auto next_tick = std::chrono::steady_clock::now();
-    auto last_diag_log = next_tick;
-    size_t send_loops = 0;
-    auto max_send_duration = std::chrono::steady_clock::duration::zero();
-
+  void excute_loop() {
     while (rclcpp::ok() && running_) {
+      // 等待接收第一个命令，同时允许手柄触发手动定零。
+      while (rclcpp::ok() && running_ && !received_first_command_) {
+        if (set_zero_requested_.exchange(false)) {
+          set_zero_all_motors();
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+      }
+
+      if (!rclcpp::ok() || !running_) {
+        return;
+      }
+
+      RCLCPP_INFO(this->get_logger(), "Start sending motion commands");
+      enable_initialized_motors();
+
+      auto next_tick = std::chrono::steady_clock::now();
+      auto last_diag_log = next_tick;
+      size_t send_loops = 0;
+      auto max_send_duration = std::chrono::steady_clock::duration::zero();
+
+      while (rclcpp::ok() && running_ && received_first_command_) {
+        if (set_zero_requested_.exchange(false)) {
+          set_zero_all_motors();
+          received_first_command_ = false;
+          RCLCPP_WARN(this->get_logger(),
+                      "Manual zero finished; waiting for next motor command");
+          break;
+        }
       interfaces::msg::MotorCommand12 cmd;
       {
         std::lock_guard<std::mutex> lock(command_mutex_);
@@ -229,19 +289,23 @@ private:
       if (std::chrono::steady_clock::now() > next_tick + COMMAND_PERIOD) {
         next_tick = std::chrono::steady_clock::now();
       }
+      }
     }
   }
 
   rclcpp::Publisher<interfaces::msg::MotorFeedback12>::SharedPtr feedback_pub_;
   rclcpp::TimerBase::SharedPtr feedback_timer_;
   rclcpp::Subscription<interfaces::msg::MotorCommand12>::SharedPtr command_sub_;
+  rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr set_zero_sub_;
   std::thread worker_thread_;
   std::atomic<bool> running_ = true;
   std::atomic<bool> received_first_command_;
+  std::atomic<bool> set_zero_requested_{false};
   std::mutex command_mutex_;
   std::mutex motors_mutex_;
   interfaces::msg::MotorCommand12 latest_command_;
   std::vector<bool> motor_initialized_;
+  std::vector<bool> motor_enabled_;
   std::vector<std::unique_ptr<RobStrideMotor>> motors_;
 };
 

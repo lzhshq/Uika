@@ -28,6 +28,8 @@ endif()
 
 # Get project root directory
 get_filename_component(PROJECT_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+get_filename_component(UIKA_ROOT_DIR "${PROJECT_ROOT_DIR}/.." ABSOLUTE)
+set(UIKA_ROS_WS "${UIKA_ROOT_DIR}/Quadruped_Uika" CACHE PATH "Uika ROS2 workspace path")
 
 add_definitions(-DCMAKE_CURRENT_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 add_definitions(-DPOLICY_DIR="${PROJECT_ROOT_DIR}/policy")
@@ -191,7 +193,7 @@ endif()
 
 include_directories(
     include
-    /home/nvidia/UIKA/Quadruped_Uika/install/interfaces/include/interfaces 
+    ${UIKA_ROS_WS}/install/interfaces/include/interfaces 
     library/core/matplotlibcpp
     library/core/observation_buffer
     library/core/rl_sdk

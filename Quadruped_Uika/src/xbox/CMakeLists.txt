@@ -24,6 +24,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 
 # Create executable
 add_executable(xbox_vel_publisher src/xbox_vel_publisher.cpp)
@@ -33,6 +34,7 @@ ament_target_dependencies(xbox_vel_publisher PUBLIC
   rclcpp
   geometry_msgs
   sensor_msgs
+  std_msgs
 )
 
 # Install executables

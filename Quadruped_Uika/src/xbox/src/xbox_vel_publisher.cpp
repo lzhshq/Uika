@@ -15,9 +15,11 @@
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <sensor_msgs/msg/joy.hpp>
+#include <std_msgs/msg/empty.hpp>
 
 #include <memory>
 #include <chrono>
+#include <cstdlib>
 
 using namespace std::chrono_literals;
 
@@ -37,19 +39,29 @@ public:
     this->declare_parameter<double>("max_linear_speed", 1.0);
     this->declare_parameter<double>("max_angular_speed", 2.0);
     this->declare_parameter<double>("deadzone", 0.1);
+    this->declare_parameter<int>("zero_axis_1", 2);  // LT
+    this->declare_parameter<int>("zero_axis_2", 5);  // RT
+    this->declare_parameter<double>("zero_axis_value", -1.0);
+    this->declare_parameter<double>("zero_hold_seconds", 5.0);
 
     // Get parameter values
     this->get_parameter("max_linear_speed", max_linear_speed_);
     this->get_parameter("max_angular_speed", max_angular_speed_);
     this->get_parameter("deadzone", deadzone_);
+    this->get_parameter("zero_axis_1", zero_axis_1_);
+    this->get_parameter("zero_axis_2", zero_axis_2_);
+    this->get_parameter("zero_axis_value", zero_axis_value_);
+    this->get_parameter("zero_hold_seconds", zero_hold_seconds_);
 
-    RCLCPP_INFO(this->get_logger(), "Xbox Vel Publisher started");
-    RCLCPP_INFO(this->get_logger(), "max_linear_speed: %.2f", max_linear_speed_);
-    RCLCPP_INFO(this->get_logger(), "max_angular_speed: %.2f", max_angular_speed_);
-    RCLCPP_INFO(this->get_logger(), "deadzone: %.2f", deadzone_);
+    RCLCPP_INFO(
+      this->get_logger(),
+      "Xbox ready: linear=%.2f angular=%.2f deadzone=%.2f zero=axes[%d]+axes[%d] %.1fs",
+      max_linear_speed_, max_angular_speed_, deadzone_,
+      zero_axis_1_, zero_axis_2_, zero_hold_seconds_);
 
     // Create publisher for velocity commands
     publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("xbox_vel", 10);
+    zero_publisher_ = this->create_publisher<std_msgs::msg::Empty>("/motor_set_zero", 10);
 
     // Create subscriber for joy messages
     subscriber_ = this->create_subscription<sensor_msgs::msg::Joy>(
@@ -87,6 +99,46 @@ private:
   void joy_callback(const sensor_msgs::msg::Joy::SharedPtr msg)
   {
     latest_joy_ = msg;
+    handle_zero_axes(*msg);
+  }
+
+  bool axis_matches(const sensor_msgs::msg::Joy & joy, int index) const
+  {
+    return index >= 0 &&
+           static_cast<size_t>(index) < joy.axes.size() &&
+           std::abs(joy.axes[index] - zero_axis_value_) <= zero_axis_tolerance_;
+  }
+
+  void handle_zero_axes(const sensor_msgs::msg::Joy & joy)
+  {
+    const bool zero_combo = axis_matches(joy, zero_axis_1_) && axis_matches(joy, zero_axis_2_);
+    const auto now = std::chrono::steady_clock::now();
+
+    if (!zero_combo) {
+      zero_combo_pressed_ = false;
+      zero_combo_start_ = std::chrono::steady_clock::time_point{};
+      return;
+    }
+
+    if (zero_combo_start_ == std::chrono::steady_clock::time_point{}) {
+      zero_combo_start_ = now;
+      RCLCPP_WARN(
+        this->get_logger(),
+        "Manual zero combo started: hold axes[%d] and axes[%d] for %.1f seconds",
+        zero_axis_1_, zero_axis_2_, zero_hold_seconds_);
+      return;
+    }
+
+    const double held_seconds =
+      std::chrono::duration<double>(now - zero_combo_start_).count();
+    if (!zero_combo_pressed_ && held_seconds >= zero_hold_seconds_) {
+      zero_publisher_->publish(std_msgs::msg::Empty());
+      RCLCPP_WARN(
+        this->get_logger(),
+        "Manual motor zero requested by holding axes[%d] and axes[%d] for %.1f seconds",
+        zero_axis_1_, zero_axis_2_, held_seconds);
+      zero_combo_pressed_ = true;
+    }
   }
 
   /**
@@ -107,8 +159,9 @@ private:
     // Xbox controller mapping:
     // axes[0]: Left stick X (left/right)  -> linear.y (sideways)
     // axes[1]: Left stick Y (up/down)     -> linear.x (forward/backward, inverted)
-    // axes[2]: Right stick X (left/right) -> angular.z (turning)
-    // axes[3]: Right stick Y (up/down)    -> not used
+    // axes[2]: LT shoulder trigger        -> manual zero combo
+    // axes[3]: Right stick X (left/right) -> angular.z (turning)
+    // axes[5]: RT shoulder trigger        -> manual zero combo
 
     // Apply deadzone and scaling
     double left_stick_y = apply_deadzone(joy->axes[1]);   // Forward positive
@@ -131,9 +184,17 @@ private:
   double max_linear_speed_;
   double max_angular_speed_;
   double deadzone_;
+  int zero_axis_1_;
+  int zero_axis_2_;
+  double zero_axis_value_;
+  double zero_hold_seconds_;
+  const double zero_axis_tolerance_ = 0.05;
+  bool zero_combo_pressed_ = false;
+  std::chrono::steady_clock::time_point zero_combo_start_;
 
   // ROS interfaces
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_;
+  rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr zero_publisher_;
   rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr subscriber_;
   rclcpp::TimerBase::SharedPtr timer_;
 

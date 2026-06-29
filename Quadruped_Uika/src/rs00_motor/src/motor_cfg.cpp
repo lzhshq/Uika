@@ -548,8 +548,6 @@ void RobStrideMotor::Disenable_Motor(uint8_t clear_error) {
 
   if (n != sizeof(frame)) {
     perror("disable_motor failed");
-  } else {
-    std::cout << "[✓] Motor disable command sent." << std::endl;
   }
   wait_for_rx_update(previous_rx_count, std::chrono::milliseconds(20));
 }

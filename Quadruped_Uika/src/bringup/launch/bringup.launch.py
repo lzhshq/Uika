@@ -13,14 +13,24 @@
 # limitations under the License.
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 import os
+import logging
+import launch.logging
 from ament_index_python.packages import get_package_share_directory
 
 
+class HideProcessStartedFilter(logging.Filter):
+    def filter(self, record):
+        return 'process started with pid' not in record.getMessage()
+
+
 def generate_launch_description():
+    # 只隐藏 launch 自己的进程启动提示，保留各节点自己的 INFO/WARN/ERROR 日志。
+    launch.logging.launch_config.get_screen_handler().addFilter(HideProcessStartedFilter())
+
     # Get package share directories
     xbox_pkg_share = get_package_share_directory('xbox')
     dm_imu_pkg_share = get_package_share_directory('dm_imu')
@@ -51,7 +61,9 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        xbox_launch,
         dm_imu_node,
-        rs_motor_node,
+        TimerAction(period=0.5, actions=[
+            xbox_launch,
+            rs_motor_node,
+        ]),
     ])
