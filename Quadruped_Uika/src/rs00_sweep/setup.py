@@ -26,6 +26,8 @@ setup(
     entry_points={
         'console_scripts': [
             'single_motor_sweep = rs00_sweep.single_motor_sweep:main',
+            'mini_sine_test = rs00_sweep.mini_sine_test:main',
+            'plot_single_motor_sweep = rs00_sweep.plot_single_motor_sweep:main',
         ],
     },
 )

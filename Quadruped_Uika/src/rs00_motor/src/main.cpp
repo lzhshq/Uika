@@ -17,9 +17,13 @@
 #include <unistd.h>
 #include <vector>
 
-const auto COMMAND_PERIOD = std::chrono::milliseconds(2);
-const auto FEEDBACK_PERIOD = std::chrono::milliseconds(2);
+const auto COMMAND_PERIOD = std::chrono::milliseconds(5);
+const auto FEEDBACK_PERIOD = std::chrono::milliseconds(5);
 const auto DIAG_LOG_PERIOD = std::chrono::seconds(1);
+constexpr int ENABLE_MAX_ATTEMPTS = 5;
+const auto ENABLE_CONFIRM_TIMEOUT = std::chrono::milliseconds(100);
+const auto ENABLE_STATUS_POLL_PERIOD = std::chrono::milliseconds(5);
+const auto FEEDBACK_STALE_TIMEOUT = std::chrono::milliseconds(100);
 // ==================================================================
 
 
@@ -71,11 +75,19 @@ public:
         std::lock_guard<std::mutex> lock(motors_mutex_);
         motors_[i]->Get_RobStrite_Motor_parameter(0x7005);
         usleep(1000);
-        // 启动节点时只建立通信并确保电机不使能，避免电机追随上一次内部目标位置。
-        motors_[i]->Disenable_Motor(0);
+        // 启动节点时先清故障并确保电机不使能，避免电机追随上一次内部目标位置。
+        motors_[i]->Disenable_Motor(1);
+        usleep(1000);
+        motors_[i]->Set_RobStrite_Motor_parameter(0X7005, move_control_mode, Set_mode);
+        usleep(1000);
+        motors_[i]->Get_RobStrite_Motor_parameter(0x7005);
         usleep(1000);
         motor_initialized_[i] = true;
         initialized_count++;
+        const auto [error_code, pattern, run_mode] = motors_[i]->return_status();
+        RCLCPP_INFO(this->get_logger(),
+                    "Motor %zu init status: error=%u pattern=%u run_mode=%u",
+                    i, error_code, pattern, run_mode);
       } catch (const std::exception &e) {
         RCLCPP_WARN(this->get_logger(), "Motor %zu init failed: %s", i,
                     e.what());
@@ -87,7 +99,7 @@ public:
     // 创建电机反馈发布者
     feedback_pub_ = this->create_publisher<interfaces::msg::MotorFeedback12>("/motor_feedback", 10);
 
-    // 创建定时器，按 500Hz 发布一次反馈。
+    // 创建定时器，按 200Hz 发布一次反馈。
     feedback_timer_ = this->create_wall_timer(
         FEEDBACK_PERIOD,
         [this]() {
@@ -156,6 +168,13 @@ private:
       if (!motor_initialized_[i]) {
         continue;
       }
+      if (received_first_command_ &&
+          !motors_[i]->has_recent_motion_feedback(FEEDBACK_STALE_TIMEOUT)) {
+        RCLCPP_WARN_THROTTLE(
+            this->get_logger(), *this->get_clock(), 1000,
+            "Motor %zu feedback stale; skipping /motor_feedback publish", i);
+        return;
+      }
 
       auto &feedback = msg.*kFeedbackFields[i];
       const auto &transform = transforms[i];
@@ -177,14 +196,78 @@ private:
         continue;
       }
       try {
-        motors_[i]->enable_motor();
-        usleep(1000);
-        motor_enabled_[i] = true;
-        RCLCPP_INFO(this->get_logger(), "Motor %zu enabled after first command", i);
+        motor_enabled_[i] = enable_motor_with_retry(i);
       } catch (const std::exception &e) {
         RCLCPP_WARN(this->get_logger(), "Motor %zu enable failed: %s", i, e.what());
       }
     }
+  }
+
+  bool is_enabled_status(uint8_t error_code, uint8_t pattern) const {
+    return error_code == 0 && pattern == 2;
+  }
+
+  std::tuple<uint8_t, uint8_t, uint8_t> wait_for_enabled_status(size_t motor_index,
+                                                                std::chrono::milliseconds timeout) {
+    auto status = motors_[motor_index]->return_status();
+    const auto deadline = std::chrono::steady_clock::now() + timeout;
+    while (std::chrono::steady_clock::now() < deadline) {
+      status = motors_[motor_index]->return_status();
+      const auto [error_code, pattern, run_mode] = status;
+      (void)run_mode;
+      if (is_enabled_status(error_code, pattern)) {
+        break;
+      }
+      std::this_thread::sleep_for(ENABLE_STATUS_POLL_PERIOD);
+    }
+    return status;
+  }
+
+  bool enable_motor_with_retry(size_t motor_index) {
+    std::tuple<uint8_t, uint8_t, uint8_t> status{0, 0, 0};
+    for (int attempt = 1; attempt <= ENABLE_MAX_ATTEMPTS; ++attempt) {
+      const auto [pre_error, pre_pattern, pre_run_mode] =
+          motors_[motor_index]->return_status();
+      if (attempt > 1 || pre_error != 0) {
+        RCLCPP_WARN(this->get_logger(),
+                    "Motor %zu enable attempt %d/%d: clearing fault before retry "
+                    "(previous error=%u pattern=%u run_mode=%u)",
+                    motor_index, attempt, ENABLE_MAX_ATTEMPTS,
+                    pre_error, pre_pattern, pre_run_mode);
+      }
+
+      motors_[motor_index]->Disenable_Motor(1);
+      usleep(2000);
+      motors_[motor_index]->Set_RobStrite_Motor_parameter(0X7005, move_control_mode, Set_mode);
+      usleep(2000);
+      motors_[motor_index]->enable_motor();
+
+      status = wait_for_enabled_status(motor_index, ENABLE_CONFIRM_TIMEOUT);
+      const auto [error_code, pattern, run_mode] = status;
+      if (is_enabled_status(error_code, pattern)) {
+        RCLCPP_INFO(this->get_logger(),
+                    "Motor %zu enabled after attempt %d/%d: error=%u pattern=%u run_mode=%u",
+                    motor_index, attempt, ENABLE_MAX_ATTEMPTS,
+                    error_code, pattern, run_mode);
+        return true;
+      }
+
+      RCLCPP_WARN(this->get_logger(),
+                  "Motor %zu enable attempt %d/%d not confirmed: "
+                  "error=%u pattern=%u run_mode=%u",
+                  motor_index, attempt, ENABLE_MAX_ATTEMPTS,
+                  error_code, pattern, run_mode);
+      motors_[motor_index]->Disenable_Motor(1);
+      usleep(5000);
+    }
+
+    const auto [error_code, pattern, run_mode] = status;
+    RCLCPP_ERROR(this->get_logger(),
+                 "Motor %zu enable failed after %d attempts; motor will be skipped "
+                 "until rs00_motor is restarted. Last status: error=%u pattern=%u run_mode=%u",
+                 motor_index, ENABLE_MAX_ATTEMPTS,
+                 error_code, pattern, run_mode);
+    return false;
   }
 
   void set_zero_all_motors() {
@@ -247,7 +330,7 @@ private:
       const auto &transforms = rs00_motor::joint_transforms();
       const auto &gains = rs00_motor::joint_gains();
       for (size_t i = 0; i < motors_.size(); ++i) {
-        if (!motor_initialized_[i]) {
+        if (!motor_initialized_[i] || !motor_enabled_[i]) {
           continue;
         }
 
@@ -257,8 +340,9 @@ private:
         const float position = clamp_position(
             i, static_cast<float>(command.position) * transform.command_position_scale);
         const auto &gain = gains[i];
-        const float kp = command.kp != 0.0 ? static_cast<float>(command.kp) : gain.kp;
-        const float kd = command.kd != 0.0 ? static_cast<float>(command.kd) : gain.kd;
+        const bool use_default_gains = command.kp == 0.0 && command.kd == 0.0;
+        const float kp = use_default_gains ? gain.kp : static_cast<float>(command.kp);
+        const float kd = use_default_gains ? gain.kd : static_cast<float>(command.kd);
         motors_[i]->send_motion_command(torque, position, 0.0f, kp, kd);
       }
 

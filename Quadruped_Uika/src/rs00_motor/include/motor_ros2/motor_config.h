@@ -25,7 +25,7 @@ struct JointLimit {
 };
 
 // 电机命令和反馈的缩放。
-// 当前 hip/thigh 与上层方向相反，calf 直通；小腿不做传动比换算。
+// hip/thigh 与上层方向相反；calf 通过 28/15 减速比在电机侧和关节侧间换算。
 struct JointTransform {
   float command_position_scale;   // 电机目标位置缩放。
   float feedback_position_scale;  // 电机反馈位置缩放。

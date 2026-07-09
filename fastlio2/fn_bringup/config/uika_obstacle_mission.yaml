@@ -1,0 +1,167 @@
+frame_id: map
+name: uika_reverse_obstacle_course
+description: Obstacle-course mission from the top stair platform through the obstacle sequence.
+connect_last_to_first: false
+publish_mission_route: false
+
+start:
+  id: start_top_stair_platform
+  pose: [1.80, -3.50, 0.40, -1.5708]
+
+tasks:
+  - id: start_down_stairs
+    type: stairs
+    zone: t_stairs
+    policy: stair_policy
+    route_color: [1.0, 0.55, 0.05, 1.0]
+    route_width: 0.12
+    entry: [1.80, -3.50, 0.40]
+    required_points:
+      - [1.80, -4.15, 0.30]
+      - [1.80, -4.45, 0.20]
+      - [1.80, -4.75, 0.10]
+    exit: [1.80, -5.30, 0.0]
+    success:
+      description: Start from the top stair platform and descend the high-wall side before entering the obstacle course.
+
+  - id: high_wall
+    type: wall
+    zone: high_wall
+    policy: wall_climb_policy
+    route_color: [1.0, 0.15, 0.15, 1.0]
+    route_width: 0.12
+    entry: [1.80, -6.45, 0.0]
+    required_points:
+      - [1.80, -7.00, 0.30]
+    exit: [1.80, -7.55, 0.0]
+    success:
+      description: Cross over or climb across the wall without bypassing it.
+
+  - id: pole_slalom
+    type: pole_slalom
+    zone: pole_slalom
+    policy: slalom_policy
+    safe_margin: 0.20
+    mandatory_zone_radius: 0.175
+    entry: [1.625, -10.10, 0.0]
+    mandatory_zones:
+      - [1.80, -10.10, 0.0]
+      - [1.55, -12.75, 0.0]
+      - [3.20, -12.50, 0.0]
+    pole_centers:
+      - [1.80, -10.50, 0.0]
+      - [1.80, -11.50, 0.0]
+      - [1.80, -12.50, 0.0]
+      - [2.80, -12.50, 0.0]
+    slalom_gates:
+      - [1.80, -11.00, 0.0]
+      - [1.80, -12.00, 0.0]
+      - [2.30, -12.50, 0.0]
+    required_points:
+      - [1.625, -10.10, 0.0]
+      - [1.674, -12.626, 0.0]
+      - [3.20, -12.325, 0.0]
+    bezier_path:
+      samples_per_segment: 12
+      segments:
+        - [[1.625, -10.10, 0.0], [1.60, -10.32, 0.0], [1.20, -10.75, 0.0], [1.80, -11.00, 0.0]]
+        - [[1.80, -11.00, 0.0], [2.25, -11.15, 0.0], [2.25, -11.85, 0.0], [1.80, -12.00, 0.0]]
+        - [[1.80, -12.00, 0.0], [1.35, -12.15, 0.0], [1.35, -12.52, 0.0], [1.674, -12.626, 0.0]]
+        - [[1.674, -12.626, 0.0], [1.86, -12.82, 0.0], [2.12, -12.80, 0.0], [2.30, -12.50, 0.0]]
+        - [[2.30, -12.50, 0.0], [2.45, -12.05, 0.0], [3.04, -12.08, 0.0], [3.20, -12.325, 0.0]]
+    exit: [3.20, -12.325, 0.0]
+    success:
+      description: Follow an S-shaped path through the required pole-side regions.
+
+  - id: gravel_wood_pit
+    type: gravel
+    zone: gravel_wood_pit
+    policy: gravel_policy
+    route_color: [1.0, 0.95, 0.0, 1.0]
+    route_width: 0.16
+    route_z_offset: 0.0
+    entry: [4.25, -12.325, 0.15]
+    required_points:
+      - [5.30, -12.30, 0.15]
+      - [5.70, -11.00, 0.15]
+    bezier_path:
+      samples_per_segment: 12
+      segments:
+        - [[4.25, -12.325, 0.15], [4.55, -12.55, 0.15], [5.00, -12.55, 0.15], [5.30, -12.30, 0.15]]
+        - [[5.30, -12.30, 0.15], [5.70, -12.00, 0.15], [5.70, -11.35, 0.15], [5.70, -11.00, 0.15]]
+        - [[5.70, -11.00, 0.15], [5.70, -10.60, 0.10], [5.70, -10.20, 0.05], [5.70, -9.85, 0.0]]
+    exit: [5.70, -9.85, 0.0]
+    entry_rule: short_edge_only
+    success:
+      description: Enter or leave from the short edge and avoid body support on the ground.
+
+  - id: low_bar
+    type: low_bar
+    zone: low_bar
+    policy: low_bar_policy
+    entry: [5.70, -9.85, 0.0]
+    required_points:
+      - [5.70, -9.00, 0.0]
+    exit: [5.70, -8.15, 0.0]
+    success:
+      description: Pass below the low bar without touching or knocking it down.
+
+  - id: big_slope
+    type: slope
+    zone: big_slope
+    policy: slope_policy
+    entry: [5.70, -6.80, 0.0]
+    required_points:
+      - [5.20, -5.60, 0.0]
+      - [4.75, -4.40, 0.0]
+    exit: [5.70, -3.35, 0.0]
+    min_distance_on_slope: 1.0
+    success:
+      description: Traverse the slope along the long direction for at least the required distance.
+
+  - id: bridge_b
+    type: bridge
+    zone: bridge_b
+    policy: bridge_policy
+    route_color: [0.0, 1.0, 1.0, 1.0]
+    route_width: 0.07
+    route_z_offset: 0.0
+    hidden_point_markers: [exit]
+    path_mode: straight_centerline
+    require_straight_path: true
+    max_lateral_error: 0.04
+    speed_limit: 0.16
+    entry: [5.50, -3.35, 0.20]
+    exit: [5.50, -1.35, 0.20]
+    success:
+      description: Cross from one platform side to the other without falling off the bridge.
+
+  - id: bridge_a
+    type: bridge
+    zone: bridge_a
+    policy: bridge_policy
+    entry: [5.70, -1.20, 0.0]
+    required_points:
+      - [4.30, 0.00, 0.0]
+      - [3.20, 0.00, 0.0]
+      - [2.65, 0.00, 0.0]
+    exit: [1.80, 0.00, 0.0]
+    success:
+      description: Cross the segmented bridge from one platform to the other.
+
+  - id: t_stairs
+    type: stairs
+    zone: t_stairs
+    policy: stair_policy
+    entry: [1.80, -1.95, 0.0]
+    required_points:
+      - [1.80, -2.25, 0.10]
+      - [1.80, -2.55, 0.20]
+      - [1.80, -2.85, 0.30]
+      - [1.80, -3.50, 0.40]
+      - [1.80, -4.15, 0.30]
+      - [1.80, -4.45, 0.20]
+      - [1.80, -4.75, 0.10]
+    exit: [1.80, -5.30, 0.0]
+    success:
+      description: Touch each stair top at least once and return to ground through the other stair side.

@@ -11,6 +11,20 @@ Quadruped_Uika/build/
 Quadruped_Uika/install/
 Quadruped_Uika/log/
 
+# Local nested repos and machine-specific markers
+deploy_UIKA/
+.last_slam_fastlio_chain_dir
+Quadruped_Uika/home/
+fastlio2/external/navigation2/
+fastlio2/external/perception_pcl/
+
+# Runtime/data captures
+point_lio/PCD/
+point_lio/Log/
+
+# Local backups
+*.bak_*
+
 # Python caches
 __pycache__/
 *.py[cod]

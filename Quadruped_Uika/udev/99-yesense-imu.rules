@@ -1,0 +1,4 @@
+# Yesense USB CDC ACM IMU.
+# Creates a stable device name for the robot bringup:
+#   /dev/yesense_imu
+SUBSYSTEM=="tty", ATTRS{idVendor}=="5953", ATTRS{idProduct}=="5543", ATTRS{manufacturer}=="Yesense Co.Ltd", ATTRS{product}=="YESENSE USB CDC ACM!", ENV{ID_USB_INTERFACE_NUM}=="00", SYMLINK+="yesense_imu", GROUP="dialout", MODE="0660"

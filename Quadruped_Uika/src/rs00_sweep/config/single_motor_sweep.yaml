@@ -19,37 +19,56 @@ single_motor_sweep:
       - rr_calf
 
     # 悬空测试站立姿态，单位 rad。扫频时其他 11 个电机保持这些位置。
+    # 四个 hip 相比原 ±0.7rad 各少走 0.3rad，避免腿打到支架。
     stand_positions:
-      - -0.7
+      - -0.4
       - 0.2
       - 0.7
-      - 0.7
+      - 0.4
       - -0.2
       - -0.7
-      - 0.7
+      - 0.4
       - 0.2
       - 0.7
-      - -0.7
+      - -0.4
       - -0.2
       - -0.7
 
     # 线性 chirp 扫频：频率从 start_frequency 线性增加到 end_frequency。
-    amplitude: 0.15
+    amplitude: 0.3
     start_frequency: 0.1
     end_frequency: 5.0
     duration: 40.0
 
     # 发布和记录频率。建议 publish_rate 与 rs00_motor 控制频率一致。
-    publish_rate: 500.0
-    record_rate: 500.0
+    publish_rate: 200.0
+    record_rate: 200.0
 
     # 扫频前从当前位置软启动到站立姿态；扫完后保持站立姿态。
     ramp_time: 3.0
     hold_time: 1.0
 
+    # 软启动完成后，等待所有电机到站立位并稳定，再开始扫频和采集。
+    # ramp/等待/结束保持阶段不写入 CSV，CSV 只记录 sweep 阶段。
+    stand_tolerance: 0.05
+    stand_settle_time: 0.3
+    stand_timeout: 8.0
+
+    # PD 增益。目标电机用于扫频；其他 11 个电机用 hold_kp/hold_kd 保持站立。
+    target_kp: 30.0
+    target_kd: 1.5
+    hold_kp: 80.0
+    hold_kd: 3.0
+
+    # 扫频结束后自动根据 CSV 生成同名 PDF 报告。
+    generate_pdf: true
+
     # 安全检查。
     max_position_error: 0.8
     feedback_timeout: 0.5
+    response_check_time: 3.0
+    min_command_motion: 0.08
+    min_feedback_motion: 0.03
 
     # CSV 输出路径。为空时自动保存到 ~/uika_sweep_logs。
     output_file: ""

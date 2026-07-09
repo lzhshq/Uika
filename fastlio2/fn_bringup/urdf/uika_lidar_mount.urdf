@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot name="uika_lidar_mount">
+  <link name="base_link"/>
+
+  <link name="base_lidar"/>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="0.26786 0.0 0.07286" rpy="0.0 0.7853981634 0.0"/>
+    <parent link="base_link"/>
+    <child link="base_lidar"/>
+  </joint>
+</robot>

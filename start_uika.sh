@@ -43,17 +43,25 @@ fi
 echo "[1/6] 获取 sudo 权限..."
 sudo -v
 
-echo "[2/6] 关闭旧 CAN 接口状态..."
+echo "[2/6] 检查 CAN 接口..."
+missing_can=0
 for iface in "${CAN_IFACES[@]}"; do
-  sudo ip link set "${iface}" down 2>/dev/null || true
+  if [[ ! -e "/sys/class/net/${iface}" ]]; then
+    echo "错误: 找不到 ${iface}，请检查 CAN hub 是否连接。"
+    missing_can=1
+  fi
 done
-
-echo "[3/6] 检查并编译 ROS2 workspace..."
-if grep -R "/home/nvidia/UIKA" "${WORKSPACE_DIR}/build" >/dev/null 2>&1; then
-  echo "检测到旧路径 /home/nvidia/UIKA 的 CMake 缓存，清理 build/install/log..."
-  rm -rf "${WORKSPACE_DIR}/build" "${WORKSPACE_DIR}/install" "${WORKSPACE_DIR}/log"
+if [[ ${missing_can} -ne 0 ]]; then
+  exit 1
 fi
-colcon build
+
+echo "[3/6] 检查 ROS2 workspace install..."
+if [[ ! -f "${WORKSPACE_DIR}/install/setup.bash" ]]; then
+  echo "错误: 找不到 ${WORKSPACE_DIR}/install/setup.bash"
+  echo "请先手动编译一次:"
+  echo "  cd ${WORKSPACE_DIR} && colcon build"
+  exit 1
+fi
 
 echo "[4/6] 加载 workspace 环境..."
 set +u
@@ -78,7 +86,7 @@ echo "按 Ctrl-C 停止。"
 echo "========================================"
 
 # 仅过滤正常启动/退出时的固定噪声，保留节点状态和异常 WARN/ERROR。
-ros2 launch bringup bringup.launch.py 2>&1 | \
+ros2 launch bringup bringup.launch.py imu_type:=yesense 2>&1 | \
   grep --line-buffered -v -E '^\[INFO\] \[launch\]: (All log files can be found below|Default logging verbosity is set to INFO)' | \
   grep --line-buffered -v -E '^\[WARNING\] \[launch\]: user interrupted with ctrl-c \(SIGINT\)' | \
   grep --line-buffered -v -E '^\[[^]]+\] \[INFO\] \[[^]]+\] \[rclcpp\]: signal_handler\(signum=2\)' | \

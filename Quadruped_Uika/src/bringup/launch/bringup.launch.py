@@ -13,8 +13,10 @@
 # limitations under the License.
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, TimerAction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 import os
 import logging
@@ -31,10 +33,14 @@ def generate_launch_description():
     # 只隐藏 launch 自己的进程启动提示，保留各节点自己的 INFO/WARN/ERROR 日志。
     launch.logging.launch_config.get_screen_handler().addFilter(HideProcessStartedFilter())
 
+    imu_type = LaunchConfiguration('imu_type')
+
     # Get package share directories
     xbox_pkg_share = get_package_share_directory('xbox')
     dm_imu_pkg_share = get_package_share_directory('dm_imu')
+    yesense_imu_pkg_share = get_package_share_directory('yesense_std_ros2')
     dm_imu_params_file = os.path.join(dm_imu_pkg_share, 'config', 'params.yaml')
+    yesense_imu_params_file = os.path.join(yesense_imu_pkg_share, 'config', 'yesense_config.yaml')
 
     # Include xbox launch file
     xbox_launch = IncludeLaunchDescription(
@@ -43,13 +49,29 @@ def generate_launch_description():
         )
     )
 
-    # DM IMU node
+    # IMU nodes. Select exactly one with imu_type:=yesense|dm|none.
+    imu_type_arg = DeclareLaunchArgument(
+        'imu_type',
+        default_value='yesense',
+        description='IMU driver to launch: yesense, dm, or none',
+    )
+
+    yesense_imu_node = Node(
+        package='yesense_std_ros2',
+        executable='yesense_node_publisher',
+        name='yesense_imu',
+        output='screen',
+        parameters=[yesense_imu_params_file],
+        condition=IfCondition(PythonExpression(["'", imu_type, "' == 'yesense'"])),
+    )
+
     dm_imu_node = Node(
         package='dm_imu',
         executable='dm_imu_node',
         name='dm_imu',
         output='screen',
-        parameters=[dm_imu_params_file]
+        parameters=[dm_imu_params_file],
+        condition=IfCondition(PythonExpression(["'", imu_type, "' == 'dm'"])),
     )
 
     # Robstride motor node
@@ -61,6 +83,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        imu_type_arg,
+        yesense_imu_node,
         dm_imu_node,
         TimerAction(period=0.5, actions=[
             xbox_launch,

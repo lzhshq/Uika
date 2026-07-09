@@ -1,0 +1,261 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Plane Cell Count: 40
+      Cell Size: 1
+      Color: 160; 160; 164
+      Alpha: 0.45
+    - Class: rviz_default_plugins/TF
+      Enabled: false
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Marker Scale: 0.25
+      Update Interval: 0
+      Value: false
+    - Class: rviz_default_plugins/Axes
+      Enabled: true
+      Name: BaseLink Axes
+      Reference Frame: base_link
+      Length: 0.55
+      Radius: 0.025
+      Value: true
+    - Class: rviz_default_plugins/Odometry
+      Enabled: true
+      Name: BaseLink Dryrun Odometry
+      Topic:
+        Value: /dryrun_odom
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Depth: 10
+      Keep: 200
+      Shape:
+        Value: Arrow
+        Color: 255; 80; 40
+        Alpha: 1
+        Shaft Length: 0.35
+        Shaft Radius: 0.035
+        Head Length: 0.18
+        Head Radius: 0.08
+      Value: true
+    - Class: rviz_default_plugins/PointCloud2
+      Enabled: true
+      Name: Saved Map PCD
+      Topic:
+        Value: /saved_map_cloud
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Depth: 1
+      Style: Flat Squares
+      Size (Pixels): 2
+      Size (m): 0.015
+      Alpha: 0.55
+      Color Transformer: AxisColor
+      Axis: Z
+      Position Transformer: XYZ
+      Use Fixed Frame: true
+    - Class: rviz_default_plugins/PointCloud2
+      Enabled: false
+      Name: PCT Tomography Cost
+      Topic:
+        Value: /tomography_layers
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Style: Flat Squares
+      Size (Pixels): 3
+      Size (m): 0.04
+      Alpha: 0.55
+      Color Transformer: RGB8
+      Position Transformer: XYZ
+      Use Fixed Frame: true
+      Value: false
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: PCT Cost Blocks
+      Namespaces:
+        pct_blocked_top: true
+        pct_traversable_top: true
+      Topic:
+        Value: /tomography_cost_markers
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Selected Start Goal
+      Namespaces:
+        rviz_pct_selector: true
+      Topic:
+        Value: /selection_markers
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Terrain Zones
+      Namespaces:
+        terrain_zone_label: true
+        terrain_zone_polygon: true
+      Topic:
+        Value: /terrain_zones
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Terrain Zone Draft
+      Namespaces:
+        terrain_zone_draft: true
+      Topic:
+        Value: /terrain_zone_draft
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Terrain Path Segments
+      Namespaces:
+        terrain_path_segment: true
+      Topic:
+        Value: /terrain_path_segments
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Mission Markers
+      Namespaces:
+        mission_connector_route: true
+        mission_entry: true
+        mission_exit: true
+        mission_full_route: false
+        mission_label: true
+        mission_mandatory_zone: true
+        mission_pole_center: true
+        mission_required: true
+        mission_slalom_gate: true
+        mission_start: true
+        mission_task_label: true
+        mission_task_route: true
+      Topic:
+        Value: /mission_markers
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: false
+      Name: Mission Route
+      Topic:
+        Value: /mission_route
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Line Style: Billboards
+      Line Width: 0.08
+      Color: 255; 255; 255
+      Value: false
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: PCT Planned Path
+      Topic:
+        Value: /planned_path
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Line Style: Billboards
+      Line Width: 0.22
+      Color: 255; 255; 0
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Follower Path
+      Topic:
+        Value: /follower_path
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Line Style: Lines
+      Line Width: 0.05
+      Color: 0; 255; 120
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Mission Follow Path
+      Topic:
+        Value: /mission_follow_path
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+      Line Style: Billboards
+      Line Width: 0.06
+      Color: 0; 255; 255
+  Enabled: true
+  Global Options:
+    Background Color: 35; 35; 35
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Value: /goal_pose
+    - Class: rviz_default_plugins/PublishPoint
+      Single click: true
+      Topic:
+        Value: /clicked_point
+    - Class: rviz_default_plugins/PublishPoint
+      Single click: true
+      Topic:
+        Value: /zone_clicked_point
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 12
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Name: Orbit
+      Pitch: 0.8
+      Target Frame: <Fixed Frame>
+      Yaw: 0.8
+Window Geometry:
+  Height: 900
+  Width: 1400
+  X: 80
+  Y: 40

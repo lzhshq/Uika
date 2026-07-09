@@ -1,0 +1,9 @@
+# ROS
+devel/
+log/
+build/
+install/
+
+# Clion
+.idea/
+cmake-build-debug/

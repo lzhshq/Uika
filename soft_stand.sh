@@ -6,7 +6,7 @@ set -euo pipefail
 #   cd /home/nvidia/Uika
 #   ./soft_stand.sh
 # 可选参数会原样转发给 soft_start_stand.py，例如：
-#   ./soft_stand.sh --duration 3.0 --rate 500 --hold-time 1.0
+#   ./soft_stand.sh --duration 3.0 --rate 200 --hold-time 1.0
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_DIR="${ROOT_DIR}/Quadruped_Uika"

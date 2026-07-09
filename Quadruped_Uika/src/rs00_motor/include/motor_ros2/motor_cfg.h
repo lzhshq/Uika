@@ -225,6 +225,19 @@ public:
     return std::make_tuple(position_, velocity_, torque_, temperature_);
   }
 
+  std::tuple<uint8_t, uint8_t, uint8_t> return_status() {
+    std::lock_guard<std::mutex> lock(state_mutex_);
+    return std::make_tuple(error_code, pattern, drw.run_mode.data);
+  }
+
+  bool has_recent_motion_feedback(std::chrono::milliseconds max_age) {
+    std::lock_guard<std::mutex> lock(state_mutex_);
+    if (last_motion_feedback_time_ == std::chrono::steady_clock::time_point{}) {
+      return false;
+    }
+    return std::chrono::steady_clock::now() - last_motion_feedback_time_ <= max_age;
+  }
+
   void handle_received_frame(uint8_t communication_type, uint16_t extra_data,
                              uint8_t host_id,
                              const std::vector<uint8_t> &data);
@@ -294,9 +307,10 @@ public:
   float velocity_ = 0.0;
   float torque_ = 0.0;
   float temperature_ = 0.0;
+  std::chrono::steady_clock::time_point last_motion_feedback_time_{};
 
-  uint8_t error_code;
-  uint8_t pattern;
+  uint8_t error_code = 0;
+  uint8_t pattern = 0;
   std::atomic<bool> is_move_control_first = true;
   std::atomic<uint64_t> rx_count_{0};
   std::shared_ptr<CanRxDispatcher> rx_dispatcher_;

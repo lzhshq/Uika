@@ -173,6 +173,7 @@ void RobStrideMotor::handle_received_frame(uint8_t communication_type,
         (ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
              .torque);
     temperature_ = static_cast<float>(temperature_u16) * 0.1f;
+    last_motion_feedback_time_ = std::chrono::steady_clock::now();
   } else if (communication_type == 17) {
     params.data = uint8_t(data[4]);
     params.index = 0X7005;

@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com)
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="FINES">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-4.21833694720959E-05 0.146049150218996 0.0241608585089949"
+        rpy="0 0 0" />
+      <mass
+        value="5.77687472400627" />
+      <inertia
+        ixx="0.0152845361511169"
+        ixy="-7.5601871862517E-07"
+        ixz="-8.66676045530567E-06"
+        iyy="0.0262028955694257"
+        iyz="-7.57937583549048E-06"
+        izz="0.0196956473543524" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/base_link.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/base_link.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Robot FootPrint -->
+  <link name = "base_footprint"/>
+
+  <joint name = "base_footprint_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 1.57"/>
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+  </joint>
+
+  <link
+    name="link1">
+    <inertial>
+      <origin
+        xyz="-0.00036378382184897 2.20746144273531E-05 0.0819997077639568"
+        rpy="0 0 0" />
+      <mass
+        value="0.592857462743612" />
+      <inertia
+        ixx="0.000582400962928646"
+        ixy="5.14301991899386E-05"
+        ixz="2.5246019707827E-06"
+        iyy="0.000603962707843331"
+        iyz="1.69962981177444E-07"
+        izz="0.000550745981942424" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link1.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link1.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint1"
+    type="revolute">
+    <origin
+      xyz="0 0.097 0.0884029999999963"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="1" />
+  </joint>
+  <link
+    name="link2">
+    <inertial>
+      <origin
+        xyz="2.85608333469578E-07 0.11295838317479 0.0336276667285427"
+        rpy="0 0 0" />
+      <mass
+        value="0.196402077222647" />
+      <inertia
+        ixx="0.00127653505391681"
+        ixy="5.41563303156552E-11"
+        ixz="-7.75832456765897E-20"
+        iyy="5.98529112676925E-05"
+        iyz="0.000121493532578092"
+        izz="0.00127569392513034" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link2.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link2.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint2"
+    type="revolute">
+    <origin
+      xyz="0 0 0.1327"
+      rpy="1.5707963267949 0 1.5707963267949" />
+    <parent
+      link="link1" />
+    <child
+      link="link2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="1" />
+  </joint>
+  <link
+    name="link3">
+    <inertial>
+      <origin
+        xyz="-0.0196841260569843 -0.0312078974956166 0.00911118417782346"
+        rpy="0 0 0" />
+      <mass
+        value="0.123199816764308" />
+      <inertia
+        ixx="7.02688186868716E-05"
+        ixy="-2.19820831000194E-05"
+        ixz="-1.52469004336761E-05"
+        iyy="7.15762026141492E-05"
+        iyz="-1.75443790787875E-05"
+        izz="9.26678542530137E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link3.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.647058823529412 0.619607843137255 0.588235294117647 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link3.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint3"
+    type="revolute">
+    <origin
+      xyz="0 0.219999999999999 0"
+      rpy="-3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="link2" />
+    <child
+      link="link3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="1" />
+  </joint>
+  <link
+    name="link4">
+    <inertial>
+      <origin
+        xyz="3.38467754222166E-05 0.00976476421187765 0.109684590612533"
+        rpy="0 0 0" />
+      <mass
+        value="0.1229499827688" />
+      <inertia
+        ixx="0.000112511477915889"
+        ixy="6.25146164730519E-10"
+        ixz="1.20557809985063E-08"
+        iyy="0.000105635002401183"
+        iyz="-1.35902656409487E-05"
+        izz="2.38723203474712E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link4.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link4.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint4"
+    type="revolute">
+    <origin
+      xyz="-0.00849999999999868 0 0"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="link3" />
+    <child
+      link="link4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="1" />
+  </joint>
+  <link
+    name="link5">
+    <inertial>
+      <origin
+        xyz="-1.35187266964154E-06 -0.0216483157095903 0.0068305085887727"
+        rpy="0 0 0" />
+      <mass
+        value="0.0577217440214143" />
+      <inertia
+        ixx="1.61881137845433E-05"
+        ixy="9.39048360161047E-10"
+        ixz="-9.69515000806971E-11"
+        iyy="1.07522604591633E-05"
+        iyz="-3.65361260158631E-06"
+        izz="1.47715315918515E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link5.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.647058823529412 0.619607843137255 0.588235294117647 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link5.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint5"
+    type="revolute">
+    <origin
+      xyz="0 0 0.1685"
+      rpy="1.5707963267949 1.5707963267949 0" />
+    <parent
+      link="link4" />
+    <child
+      link="link5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="1" />
+  </joint>
+  <link
+    name="link6">
+    <inertial>
+      <origin
+        xyz="0.0153065493766539 7.28303064134652E-17 0.0690675338750898"
+        rpy="0 0 0" />
+      <mass
+        value="0.0387613813997493" />
+      <inertia
+        ixx="1.20554142515804E-05"
+        ixy="-1.95482201282678E-21"
+        ixz="-1.78379691041207E-06"
+        iyy="1.03167157196273E-05"
+        iyz="-1.14724531757392E-20"
+        izz="1.08086108232853E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link6.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.6 0.6 0.6 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://fines_description/meshes/link6.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint6"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="link5" />
+    <child
+      link="link6" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="1" />
+  </joint>
+  <link
+    name="base_lidar">
+    <inertial>
+      <origin
+        xyz="0.00320068910952939 -0.0392975196656463 0.0143032860491149"
+        rpy="0 0 0" />
+      <mass
+        value="0.156854810446873" />
+      <inertia
+        ixx="5.56780885323194E-05"
+        ixy="-9.1867880366134E-07"
+        ixz="2.94761243693032E-06"
+        iyy="8.84830902998659E-05"
+        iyz="-8.07445554879465E-06"
+        izz="6.77136499266229E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+    </collision>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0829998544383264 0 0.31"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="base_lidar" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="base_camera">
+    <inertial>
+      <origin
+        xyz="-1.10106300625079E-05 -0.00230688572428656 -0.0569688085272049"
+        rpy="0 0 0" />
+      <mass
+        value="0.18531218943756" />
+      <inertia
+        ixx="9.34395062248305E-05"
+        ixy="-3.99836592644056E-09"
+        ixz="-6.71923528481594E-10"
+        iyy="0.000100793853318184"
+        iyz="2.2053432576409E-07"
+        izz="6.08595855266519E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+    </collision>
+  </link>
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.0984999999999999 0.0607961400335611 0.285444077296145"
+      rpy="-2.1816615649929 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="base_camera" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

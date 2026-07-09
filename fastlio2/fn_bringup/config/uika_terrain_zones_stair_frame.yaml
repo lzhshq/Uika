@@ -1,0 +1,131 @@
+frame_id: map
+zones:
+- id: pole_slalom
+  type: pole_slalom
+  policy: slalom_policy
+  safe_margin: 0.2
+  polygon:
+  - 9.8
+  - -0.85
+  - 9.8
+  - 2.15
+  - 6.2
+  - 2.15
+  - 6.2
+  - -0.85
+  note: Straight-angle pole slalom area. Refine with RViz zone selector.
+- id: gravel_wood_pit
+  type: gravel
+  policy: gravel_policy
+  polygon:
+  - 9.8
+  - 2.15
+  - 9.8
+  - 4.95
+  - 6.3
+  - 4.95
+  - 6.3
+  - 2.15
+  note: Gravel and wood pit; entry/exit gates should be added later.
+- id: high_wall
+  type: wall
+  policy: wall_climb_policy
+  traversable: true
+  polygon:
+  - 4.05
+  - -0.55
+  - 4.05
+  - 0.55
+  - 2.95
+  - 0.55
+  - 2.95
+  - -0.55
+- id: low_bar_left_post
+  type: obstacle
+  policy: avoid_obstacle
+  traversable: false
+  polygon:
+  - 5.65
+  - 3.25
+  - 5.65
+  - 3.55
+  - 5.35
+  - 3.55
+  - 5.35
+  - 3.25
+  note: Ground contact area of the left low-bar post.
+- id: low_bar_right_post
+  type: obstacle
+  policy: avoid_obstacle
+  traversable: false
+  polygon:
+  - 5.65
+  - 4.25
+  - 5.65
+  - 4.55
+  - 5.35
+  - 4.55
+  - 5.35
+  - 4.25
+  note: Ground contact area of the right low-bar post.
+- id: low_bar
+  type: low_bar
+  policy: low_bar_policy
+  traversable: true
+  polygon:
+  - 6.3
+  - 3.15
+  - 6.3
+  - 4.65
+  - 4.8
+  - 4.65
+  - 4.8
+  - 3.15
+- id: t_stairs
+  type: stairs
+  policy: stair_policy
+  polygon:
+  - 1.8
+  - -0.6
+  - 1.8
+  - 1.5
+  - -1.45
+  - 1.5
+  - -1.45
+  - -0.6
+- id: bridge_a
+  type: bridge
+  policy: bridge_policy
+  polygon:
+  - -2.25
+  - -0.6
+  - -2.25
+  - 4.5
+  - -4.15
+  - 4.5
+  - -4.15
+  - -0.6
+- id: bridge_b
+  type: bridge
+  policy: bridge_policy
+  polygon:
+  - -0.05
+  - 3.35
+  - -0.05
+  - 4.05
+  - -2.25
+  - 4.05
+  - -2.25
+  - 3.35
+- id: big_slope
+  type: slope
+  policy: slope_policy
+  polygon:
+  - 4.8
+  - 2.0
+  - 4.8
+  - 4.75
+  - -0.05
+  - 4.75
+  - -0.05
+  - 2.0

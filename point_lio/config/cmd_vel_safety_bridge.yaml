@@ -1,0 +1,20 @@
+cmd_vel_safety_bridge:
+  ros__parameters:
+    input_topic: /nav_cmd_vel_test
+    output_topic: /cmd_vel
+    debug_topic: /nav_cmd_vel_limited_debug
+
+    # Keep true until the real base bridge has been reviewed and tested.
+    dry_run: true
+
+    max_linear_x: 0.20
+    max_linear_y: 0.0
+    max_angular_z: 0.40
+    max_linear_accel: 0.20
+    max_angular_accel: 0.50
+    command_timeout: 0.50
+    log_period: 1.0
+
+    require_deadman: false
+    deadman_topic: /cmd_vel_deadman
+    e_stop_topic: /cmd_vel_e_stop

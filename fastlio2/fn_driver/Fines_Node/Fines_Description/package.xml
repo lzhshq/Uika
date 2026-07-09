@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+    <name>fines_description</name>
+    <version>1.0.0</version>
+    <description>Urdf description for Fines robot</description>
+    <maintainer email="wangjinghui@sjtu.edu.cn">fins</maintainer>
+    <license>Mozilla Public License 2.0</license>
+
+    <buildtool_depend>ament_cmake</buildtool_depend>
+
+    <depend>urdf</depend>
+
+    <export>
+        <build_type>ament_cmake</build_type>
+    </export>
+</package>

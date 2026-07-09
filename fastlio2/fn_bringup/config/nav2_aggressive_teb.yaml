@@ -1,0 +1,483 @@
+#****************************************************************************************************************
+# BT:
+#****************************************************************************************************************
+bt_navigator:
+  ros__parameters:
+    use_sim_time: False
+    global_frame: map
+    robot_base_frame: base_link
+    odom_topic: /Odometry
+    bt_loop_duration: 10
+    default_server_timeout: 20
+    default_nav_to_pose_bt_xml: $(find-pkg-share fine_nav2d_bringup)/behavior_tree/navigate_w_replanning_only_if_goal_is_updated.xml
+    default_nav_through_poses_bt_xml: $(find-pkg-share fine_nav2d_bringup)/behavior_tree/navigate_through_poses_w_replanning_and_recovery.xml
+    plugin_lib_names:
+      - nav2_compute_path_to_pose_action_bt_node
+      - nav2_compute_path_through_poses_action_bt_node
+      - nav2_smooth_path_action_bt_node
+      - nav2_follow_path_action_bt_node
+      - nav2_spin_action_bt_node
+      - nav2_wait_action_bt_node
+      - nav2_back_up_action_bt_node
+      - nav2_drive_on_heading_bt_node
+      - nav2_clear_costmap_service_bt_node
+      - nav2_is_stuck_condition_bt_node
+      - nav2_goal_reached_condition_bt_node
+      - nav2_goal_updated_condition_bt_node
+      - nav2_globally_updated_goal_condition_bt_node
+      - nav2_is_path_valid_condition_bt_node
+      - nav2_initial_pose_received_condition_bt_node
+      - nav2_reinitialize_global_localization_service_bt_node
+      - nav2_rate_controller_bt_node
+      - nav2_distance_controller_bt_node
+      - nav2_speed_controller_bt_node
+      - nav2_truncate_path_action_bt_node
+      - nav2_truncate_path_local_action_bt_node
+      - nav2_goal_updater_node_bt_node
+      - nav2_recovery_node_bt_node
+      - nav2_pipeline_sequence_bt_node
+      - nav2_round_robin_node_bt_node
+      - nav2_transform_available_condition_bt_node
+      - nav2_time_expired_condition_bt_node
+      - nav2_path_expiring_timer_condition
+      - nav2_distance_traveled_condition_bt_node
+      - nav2_single_trigger_bt_node
+      - nav2_is_battery_low_condition_bt_node
+      - nav2_navigate_through_poses_action_bt_node
+      - nav2_navigate_to_pose_action_bt_node
+      - nav2_remove_passed_goals_action_bt_node
+      - nav2_planner_selector_bt_node
+      - nav2_controller_selector_bt_node
+      - nav2_goal_checker_selector_bt_node
+      - nav2_controller_cancel_bt_node
+      - nav2_path_longer_on_approach_bt_node
+      - nav2_wait_cancel_bt_node
+      - nav2_spin_cancel_bt_node
+      - nav2_back_up_cancel_bt_node
+      - nav2_drive_on_heading_cancel_bt_node
+      - nav2_goal_updated_controller_bt_node
+      - fn_behavior
+
+
+#****************************************************************************************************************
+# Costmap2D: Global Map
+#****************************************************************************************************************
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      use_sim_time: False
+
+      global_frame: map # Reference frame
+      robot_base_frame: base_link
+
+      #****************************************************************************************************************
+      # TF
+      # TODO: Don't use timer_action in launch file, see what init_transform_timeout can do
+      #****************************************************************************************************************
+      transform_tolerance: 0.1 # TF transform tolerance (s).
+      initial_transform_timeout: 60.0 # Time to wait for the transform from robot base frame to global frame to become available.
+
+      #****************************************************************************************************************
+      # Footprint
+      # If this parameter is set, isPathValid of Planner will do full collision checking.
+      # Note that the footprint can also be adjusted over time using the costmap’s ~/footprint topic, which will
+      # update the polygon over time as needed due to changes in the robot’s state.
+      #****************************************************************************************************************
+      footprint: "[ [0.10 0.10], [0.10, -0.10], [-0.10, -0.10], [-0.10, 0.10] ]" # Ordered set of footprint points passed in as a string, must be closed set.
+      footprint_padding: 0.0 # Add additional padding to the footprint.
+      robot_radius: 0.201 # Robot radius to use, if footprint coordinates not provided, isPathValid will do circular collision checking.
+
+      #****************************************************************************************************************
+      # Costmap Configuration
+      #****************************************************************************************************************
+      # Publish
+      always_send_full_costmap: False # Whether to send full costmap every update, rather than updates.
+      update_frequency: 10.0 # Default: 5.0
+      publish_frequency: 9.0 # Frequency to publish costmap to topic. 不要设置整除update_frequency，否则发布速率不稳定
+
+      # Size
+      resolution: 0.05 # Resolution of 1 pixel of the costmap, in meters.
+      height: 5 # 5 int
+      width: 5 # 5 int
+      origin_x: -10.0 # double ; X origin of the costmap relative to width (m).
+      origin_y: -10.0 # double ; Y origin of the costmap relative to height (m).
+      rolling_window: False # Whether costmap should roll with robot base frame. Only For Local Map Use.
+      map_vis_z: 0.0 # Help modify the map slightly below the default plane, allows to avoid rviz visualization flickering at -0.008
+
+      # Cost
+      trinary_costmap: True # If occupancy grid map should be interpreted as only 3 values (free, occupied, unknown) or with its stored values.
+      track_unknown_space: False # If false, treats unknown space as free space, else as unknown space.
+      unknown_cost_value: 255 # Cost of unknown space if tracking it.
+      lethal_cost_threshold: 100 # Minimum cost of an occupancy grid map to be considered a lethal obstacle.
+
+      #****************************************************************************************************************
+      # Layer Plugins
+      # 1.Static Layer: This implements a costmap layer taking in a map from either SLAM or map_server (or other) to
+      # place into the costmap. It resizes the costmap to its size and places the static obstacles on the planning space.
+      #
+      # 2.Inflation Layer: This layer places an exponential decay functions around obstacles to increase cost to traverse
+      # near collision. It also places a lethal cost around obstacles within the robot’s fully inscribed radius
+      # - even if a robot is non-circular for optimized first-order collision checking.
+      #
+      # 3.Obstacle Layer: This costmap layer implements a plugin that uses 2D raycasting for 2D lidars, depth, or other
+      # sensors. It contains a 2D costmap model within it that manages the planning space by the parameters.
+      #****************************************************************************************************************
+      use_maximum: False # Whether when combining costmaps to use the maximum cost or override. 似乎默认static_layer是最底层
+
+
+      #plugins: ["static_layer", "obstacle_layer"]
+      plugins: ["pointcloud_projection_layer", "inflation_layer"] # TODO: static_layer与pointcloud_projection_layer是否冲突？
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_topic: /map # Topic to subscribe to for static map.
+        subscribe_to_updates: True # After receiving first static map, Whether to subscribe to updates.
+        map_subscribe_transient_local: False # QoS settings for map topic.
+        footprint_clearing_enabled: False # Clear any occupied cells under robot footprint.
+
+      pointcloud_projection_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_topic: /local_cost_map
+        subscribe_to_updates: True
+        map_subscribe_transient_local: False # QoS settings for map topic.
+        footprint_clearing_enabled: True # Clear any occupied cells under robot footprint.
+
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 4.0 # Exponential decay factor across inflation radius.
+        inflation_radius: 0.7 # Radius to inflate costmap around lethal obstacles.
+        inflate_unknown: False # Whether to inflate unknown cells as if lethal.
+        inflate_around_unknown: False # Whether to inflate around unknown cells.
+
+  global_costmap_client:
+    ros__parameters:
+      use_sim_time: False
+
+  global_costmap_rclcpp_node:
+    ros__parameters:
+      use_sim_time: False
+
+#****************************************************************************************************************
+# Costmap2D: Local Map
+#****************************************************************************************************************
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      use_sim_time: False
+
+      global_frame: odom # Reference frame
+      robot_base_frame: base_link
+
+      #****************************************************************************************************************
+      # TF
+      # TODO: Don't use timer_action in launch file, see what init_transform_timeout can do
+      #****************************************************************************************************************
+      transform_tolerance: 0.1 # TF transform tolerance (s).
+      initial_transform_timeout: 60.0 # Time to wait for the transform from robot base frame to global frame to become available.
+
+      #****************************************************************************************************************
+      # Footprint
+      # If this parameter is set, isPathValid of Planner will do full collision checking.
+      # Note that the footprint can also be adjusted over time using the costmap’s ~/footprint topic, which will
+      # update the polygon over time as needed due to changes in the robot’s state.
+      #****************************************************************************************************************
+      footprint: "[ [ 0.10 0.10 ], [ 0.10, -0.10], [ -0.10, -0.10 ], [ -0.10, 0.10 ] ]" # Ordered set of footprint points passed in as a string, must be closed set.
+      footprint_padding: 0.00  # Add additional padding to the footprint.
+      robot_radius: 0.201 # Robot radius to use, if footprint coordinates not provided, isPathValid will do circular collision checking.
+
+      #****************************************************************************************************************
+      # Costmap Configuration
+      #****************************************************************************************************************
+      # Publish
+      always_send_full_costmap: False # Whether to send full costmap every update, rather than updates.
+      update_frequency: 10.0 # Default: 5.0
+      publish_frequency: 6.0 # Frequency to publish costmap to topic.
+
+      # Size
+      resolution: 0.05 # Resolution of 1 pixel of the costmap, in meters.
+      height: 10 # 5 int
+      width: 10 # 5 int
+      origin_x: -5.0 # -1.5 double ; X origin of the costmap relative to width (m).
+      origin_y: -5.0 # -1.5 double ; Y origin of the costmap relative to height (m).
+      rolling_window: True # Whether costmap should roll with robot base frame. Only For Local Map Use.
+      map_vis_z: 0.0 # Help modify the map slightly below the default plane, allows to avoid rviz visualization flickering at -0.008
+
+      # Cost
+      trinary_costmap: True # If occupancy grid map should be interpreted as only 3 values (free, occupied, unknown) or with its stored values.
+      track_unknown_space: False # If false, treats unknown space as free space, else as unknown space.
+      unknown_cost_value: 255 # Cost of unknown space if tracking it.
+      lethal_cost_threshold: 100 # Minimum cost of an occupancy grid map to be considered a lethal obstacle.
+
+      #****************************************************************************************************************
+      # Layer Plugins
+      # 1.Static Layer: This implements a costmap layer taking in a map from either SLAM or map_server (or other) to
+      # place into the costmap. It resizes the costmap to its size and places the static obstacles on the planning space.
+      #
+      # 2.Inflation Layer: This layer places an exponential decay functions around obstacles to increase cost to traverse
+      # near collision. It also places a lethal cost around obstacles within the robot’s fully inscribed radius
+      # - even if a robot is non-circular for optimized first-order collision checking.
+      #
+      # 3.Obstacle Layer: This costmap layer implements a plugin that uses 2D raycasting for 2D lidars, depth, or other
+      # sensors. It contains a 2D costmap model within it that manages the planning space by the parameters.
+      #****************************************************************************************************************
+      use_maximum: False # Whether when combining costmaps to use the maximum cost or override.
+
+      plugins: ["pointcloud_projection_layer","inflation_layer"]
+
+      pointcloud_projection_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_topic: /local_cost_map
+        subscribe_to_updates: True
+        map_subscribe_transient_local: False # QoS settings for map topic.
+        footprint_clearing_enabled: False # Clear any occupied cells under robot footprint.
+
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 4.0 # Exponential decay factor across inflation radius.
+        inflation_radius: 0.15 # Radius to inflate costmap around lethal obstacles.
+        inflate_unknown: False # Whether to inflate unknown cells as if lethal.
+        inflate_around_unknown: False # Whether to inflate around unknown cells.
+
+      stvl_layer:
+        plugin: "spatio_temporal_voxel_layer/SpatioTemporalVoxelLayer"
+        enabled: true
+        voxel_decay: 0.5    #seconds if linear, e^n if exponential
+        decay_model: 0      #0=linear, 1=exponential, -1=persistent
+        voxel_size: 0.01   #meters
+        track_unknown_space: true   #default space is unknown
+        observation_persistence: 0.0  #seconds
+        max_obstacle_height: 2.0    #meters
+        mark_threshold: 0      #voxel height
+        update_footprint_enabled: true
+        combination_method: 1      #1=max, 0=override
+        obstacle_range: 3.0    #meters
+        origin_z: 0.0    #meters
+        publish_voxel_map: true   # default off
+        transform_tolerance: 0.2    # seconds
+        mapping_mode: false  # default off, saves map not for navigation
+        map_save_duration: 60.0     #default 60s, how often to autosave
+        observation_sources: stvl_mark
+        stvl_mark:
+          data_type: PointCloud2
+          topic: '/cloud_registered_body'
+          marking: true
+          clearing: false
+          min_obstacle_height: 0.2     #default 0, meters
+          max_obstacle_height: 2.0     #defaule 3, meters
+          expected_update_rate: 0.0    #default 0, if not updating at this rate at least, remove from buffer
+          observation_persistence: 0.0 #default 0, use all measurements taken during now-value, 0=latest
+          inf_is_valid: false          #default false, for laser scans
+          clear_after_reading: true    #default false, clear the buffer after the layer gets readings from it
+          filter: "voxel"              #default passthrough, apply "voxel", "passthrough", or no filter to sensor data, recommended to have at one filter on
+          voxel_min_points: 0          #default 0, minimum points per voxel for voxel filter
+
+  local_costmap_client:
+    ros__parameters:
+      use_sim_time: False
+
+  local_costmap_rclcpp_node:
+    ros__parameters:
+      use_sim_time: False
+
+#****************************************************************************************************************
+# Planner Server
+#****************************************************************************************************************
+planner_server:
+  ros__parameters:
+    use_sim_time: False
+    expected_planner_frequency: 20.0
+    planner_plugins: ["GridBased"]
+
+    GridBased:
+      plugin: "nav2_smac_planner/SmacPlanner2D" # In Iron and older versions, "/" was used instead of "::"
+      tolerance: 0.1                        # tolerance for planning if unable to reach exact pose, in meters
+      downsample_costmap: false             # whether to downsample the map
+      downsampling_factor: 1                # multiplier for the resolution of the costmap layer (e.g. 2 on a 5cm costmap would be 10cm)
+      allow_unknown: true                   # allow traveling in unknown space
+      max_iterations: 1000000               # maximum total iterations to search for before failing (in case unreachable), set to -1 to disable
+      max_on_approach_iterations: 1000      # maximum number of iterations to attempt to reach goal once in tolerance
+      max_planning_time: 2.0                # max time in s for planner to plan, smooth
+      cost_travel_multiplier: 2.0           # Cost multiplier to apply to search to steer away from high cost areas. Larger values will place in the center of aisles more exactly (if non-`FREE` cost potential field exists) but take slightly longer to compute. To optimize for speed, a value of 1.0 is reasonable. A reasonable tradeoff value is 2.0. A value of 0.0 effective disables steering away from obstacles and acts like a naive binary search A*.
+      use_final_approach_orientation: false # Whether to set the final path pose at the goal's orientation to the requested orientation (false) or in line with the approach angle so the robot doesn't rotate to heading (true)
+      smoother:
+        max_iterations: 1000
+        w_smooth: 0.3
+        w_data: 0.2
+        tolerance: 1.0e-10
+
+planner_server_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False
+
+
+#****************************************************************************************************************
+# Controller Server5
+#****************************************************************************************************************
+controller_server:
+  ros__parameters:
+    use_sim_time: False
+    odom_topic: "Odometry"
+    controller_frequency: 5.0
+
+
+
+
+    failure_tolerance: 0.3 # The maximum duration in seconds the called controller plugin can fail before the nav2_msgs::action::FollowPath action fails
+#    min_x_velocity_threshold: 0.001 # Velocity from odometry which below this threshold will be set to 0.0
+#    min_y_velocity_threshold: 0.001 # Holonomic Parameter
+#    min_theta_velocity_threshold: 0.001
+
+    progress_checker_plugin: "progress_checker"
+    goal_checker_plugins: ["general_goal_checker"] # "precise_goal_checker"
+    controller_plugins: ["FollowPath"]
+    controller_plugin_types: ["teb_local_planner::TebLocalPlannerROS"]
+
+
+    #****************************************************************************************************************
+    # Progress checker parameters
+    #****************************************************************************************************************
+    progress_checker:
+      plugin: "nav2_controller::SimpleProgressChecker" # 1. SimpleProgressChecker; 2. PoseProgressChecker
+      required_movement_radius: 0.5 # Minimum amount a robot must move to be progressing to goal (m).
+      movement_time_allowance: 10.0 # Maximum amount of time a robot has to move the minimum radius
+
+    #****************************************************************************************************************
+    # Goal checker parameters
+    #****************************************************************************************************************
+    #precise_goal_checker:
+    #  plugin: "nav2_controller::SimpleGoalChecker"
+    #  xy_goal_tolerance: 0.25
+    #  yaw_goal_tolerance: 0.25
+    #  stateful: True
+    general_goal_checker:
+      stateful: True
+      plugin: "nav2_controller::SimpleGoalChecker" # 1. SimpleGoalChecker; 2. StoppedGoalChecker
+      xy_goal_tolerance: 0.20 # Tolerance to meet goal completion criteria (m).
+      yaw_goal_tolerance: 0.25 # Tolerance to meet goal completion criteria (rad).
+
+    FollowPath:
+      plugin: teb_local_planner::TebLocalPlannerROS
+
+      teb_autosize: 1.0 # 是否自动调整TEB的时间和采样点
+      dt_ref: 0.3 # 时间分辨率参考值，表示轨迹上两个连续位姿点之间的期望时间间隔（秒
+      dt_hysteresis: 0.1
+      max_samples: 500
+      global_plan_overwrite_orientation: False # 是否忽略全局路径中点的朝向，让 TEB 自己优化每个点的朝向
+      allow_init_with_backwards_motion: False #
+      max_global_plan_lookahead_dist: 3.0 # 最远的全局路径点距离
+      global_plan_viapoint_sep: 0.3 # 路径点采样间隔
+      global_plan_prune_distance: 1.0
+      exact_arc_length: False
+      feasibility_check_no_poses: 2
+      publish_feedback: False
+
+        # Robot
+      max_vel_x: 0.26
+      max_vel_theta: 1.0
+      acc_lim_x: 2.5
+      acc_lim_theta: 3.2
+
+      footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
+        type: "circular"
+        radius: 0.17 # for type "circular"
+
+          # GoalTolerance
+
+      free_goal_vel: False
+
+        # Obstacles
+
+      min_obstacle_dist: 0.27 # 轨迹与障碍物之间的硬性最小允许距离
+      inflation_dist: 0.6 # 膨胀距离。在此距离内，障碍物会对轨迹产生“斥力”，
+      include_costmap_obstacles: True
+      costmap_obstacles_behind_robot_dist: 1.0
+      obstacle_poses_affected: 15
+
+      dynamic_obstacle_inflation_dist: 0.6
+      include_dynamic_obstacles: True
+
+      # 将成本地图（Costmap）中的像素块转换为一组多边形障碍物（例如 CostmapToPolygonsDBSMCCH），这样 TEB 才能高效地进行几何碰撞检测和优化
+      costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSMCCH"
+      costmap_converter_spin_thread: True
+      costmap_converter_rate: 5
+
+        # Optimization
+      no_inner_iterations: 5
+      no_outer_iterations: 4
+      optimization_activate: True
+      optimization_verbose: False
+      penalty_epsilon: 0.1
+      obstacle_cost_exponent: 4.0
+      weight_max_vel_x: 0.5
+      weight_max_vel_theta: 0.5
+      weight_acc_lim_x: 0.5
+      weight_acc_lim_theta: 10.5
+      weight_kinematics_nh: 1000.0
+      weight_kinematics_forward_drive: 3.0
+      weight_kinematics_turning_radius: 1.0
+      weight_optimaltime: 1.0 # must be > 0
+      weight_shortest_path: 0.0
+      weight_obstacle: 100.0
+      weight_inflation: 0.2
+      weight_dynamic_obstacle: 10.0 # not in use yet
+      weight_dynamic_obstacle_inflation: 0.2
+      weight_viapoint: 50.0
+      weight_adapt_factor: 2.0
+
+      # Homotopy Class Planner
+
+      enable_homotopy_class_planning: False # 算法会同时规划多条处于不同“绕行方向” 的轨迹,然后选择最优的一条
+      enable_multithreading: True
+      max_number_classes: 4
+      selection_cost_hysteresis: 5.0
+      selection_prefer_initial_plan: 1.0
+      selection_obst_cost_scale: 1.0
+      selection_alternative_time_cost: True
+
+      roadmap_graph_no_samples: 15
+      roadmap_graph_area_width: 5.0
+      roadmap_graph_area_length_scale: 1.0
+      h_signature_prescaler: 0.5
+      h_signature_threshold: 0.1
+      obstacle_heading_threshold: 0.45
+      switching_blocking_period: 0.0
+      viapoints_all_candidates: True
+      delete_detours_backwards: True
+      max_ratio_detours_duration_best_duration: 3.0
+      visualize_hc_graph: False
+      visualize_with_time_as_z_axis_scale: 0.0
+
+      # Recovery
+      shrink_horizon_backup: False # True
+      shrink_horizon_min_duration: 10.0
+      oscillation_recovery: False # True
+      oscillation_v_eps: 0.1
+      oscillation_omega_eps: 0.1
+      oscillation_recovery_min_duration: 10.0
+      oscillation_filter_duration: 10.0
+
+
+controller_server_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False
+
+velocity_smoother:
+  ros__parameters:
+    smoothing_frequency: 20.0
+    scale_velocities: false
+    feedback: "OPEN_LOOP"
+    max_velocity: [2.0, 0.0, 2.5]
+    min_velocity: [-0.50, 0.0, -2.5]
+    deadband_velocity: [0.0, 0.0, 0.0]
+    velocity_timeout: 1.0
+    max_accel: [5.0, 0.0, 3.2]
+    max_decel: [-2.5, 0.0, -3.2]
+    odom_topic: "Odometry"
+    odom_duration: 0.1
+    use_realtime_priority: false
+    enable_stamped_cmd_vel: false
+
+map_server:
+  ros__parameters:
+    yaml_filename: "$(find-pkg-share fine_nav2d_bringup)/maps/blank.yaml"
+    topic_name: "map"
+    frame_id: "map"

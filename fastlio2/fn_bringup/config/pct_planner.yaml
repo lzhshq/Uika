@@ -1,0 +1,21 @@
+pct_planner:
+  ros__parameters:
+    # PctPlanner 参数
+    pcd_file_path_: "/home/lzh/Uika/fastlio2/fn_localization/Fast_LIO/PCD/uika_real_map_mount_x0313_zm006_p90_map.pcd"
+    tomography_visualize_: true  # 断层扫描可视化开关
+    path_smoothing_enabled: false
+
+    # Tomography 断层扫描参数
+    resolution: 0.05       # 地图分辨率 (米)
+    slice_dh: 0.45         # 切片高度间隔 (米) - 影响垂直方向的分析精度
+    ground_h: -1.65        # 地面基准高度 (米)；当前 p90 转换地图最低 z 约 -1.62m，实机需用 RViz/PCT 再校准
+    interval_min: 0.0001   # 最小可通过高度间隔；先按 PCT 默认值验证地面可通行性
+    slope_max: 1.0         # 最大可通过坡度 (弧度)；按 PCT 默认值先验证
+    slope_cost_ratio: 10.0 # 坡度成本系数 - 代表机器人爬坡的损耗
+    max_step_height: 0.05  # 允许跨越的最大台阶高度 (米)；覆盖地面飞点导致的孤立 barrier
+    cost_barrier: 50.0     # 不可通行区域的代价值
+    safe_margin: 0.00      # 障碍物周围的安全边界 (米) - 首轮验证先关闭
+    inflation: 0.00        # 膨胀半径 (米) - 首轮验证先关闭
+    kernal_size: 3         # 中值滤波的核大小
+    a_star_cost_threshold: 20.0
+    step_cost_weight: 0.2

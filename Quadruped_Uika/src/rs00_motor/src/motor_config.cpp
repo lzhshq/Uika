@@ -5,6 +5,9 @@
 namespace rs00_motor {
 namespace {
 
+constexpr float kCalfReduction = 28.0f / 15.0f;
+constexpr float kCalfReductionInv = 15.0f / 28.0f;
+
 // 下面所有配置表都严格按 0~11 顺序排列，顺序不能随意调整：
 // 0 fl_hip, 1 fl_thigh, 2 fl_calf,
 // 3 fr_hip, 4 fr_thigh, 5 fr_calf,
@@ -30,7 +33,7 @@ const std::array<MotorConfig, kMotorCount> kMotorConfigs = {{
 }};
 
 // 电机位置限位，单位 rad。
-// 限位按最终发给电机的角度理解：髋/大腿命令会取反，小腿直通。
+// 限位按最终发给电机的角度理解：髋/大腿命令会取反，小腿命令会乘 28/15。
 const std::array<JointLimit, kMotorCount> kJointLimits = {{
     {0.00f, 1.50f},     // 0
     {-0.79f, 0.79f},    // 1
@@ -48,20 +51,21 @@ const std::array<JointLimit, kMotorCount> kJointLimits = {{
 
 // 命令和反馈缩放。
 // 每行格式：{命令位置缩放, 反馈位置缩放, 反馈力矩缩放, 反馈速度缩放}。
-// 髋和大腿与上层位置方向相反，所以命令和反馈都取反；小腿不取反，也不乘传动比。
+// 翻转关节按实机标定：FL_hip, FL_thigh, FR_hip, FR_calf, RL_thigh, RR_calf。
+// 小腿同时保留 28/15 减速比：命令到电机侧乘 28/15，反馈回关节侧乘 15/28。
 const std::array<JointTransform, kMotorCount> kJointTransforms = {{
-    {-1.0f, -1.0f, -1.0f, -1.0f},  // 0 hip
-    {-1.0f, -1.0f, -1.0f, -1.0f},  // 1 thigh
-    {1.0f, 1.0f, 1.0f, 1.0f},      // 2 calf
-    {-1.0f, -1.0f, -1.0f, -1.0f},  // 3 hip
-    {-1.0f, -1.0f, -1.0f, -1.0f},  // 4 thigh
-    {1.0f, 1.0f, 1.0f, 1.0f},      // 5 calf
-    {-1.0f, -1.0f, -1.0f, -1.0f},  // 6 hip
-    {-1.0f, -1.0f, -1.0f, -1.0f},  // 7 thigh
-    {1.0f, 1.0f, 1.0f, 1.0f},      // 8 calf
-    {-1.0f, -1.0f, -1.0f, -1.0f},  // 9 hip
-    {-1.0f, -1.0f, -1.0f, -1.0f},  // 10 thigh
-    {1.0f, 1.0f, 1.0f, 1.0f},      // 11 calf
+    {-1.0f, -1.0f, -1.0f, -1.0f},                                          // 0 FL_hip
+    {-1.0f, -1.0f, -1.0f, -1.0f},                                          // 1 FL_thigh
+    { kCalfReduction,  kCalfReductionInv,  kCalfReduction,  kCalfReductionInv},  // 2 FL_calf
+    {-1.0f, -1.0f, -1.0f, -1.0f},                                          // 3 FR_hip
+    { 1.0f,  1.0f,  1.0f,  1.0f},                                          // 4 FR_thigh
+    {-kCalfReduction, -kCalfReductionInv, -kCalfReduction, -kCalfReductionInv},  // 5 FR_calf
+    { 1.0f,  1.0f,  1.0f,  1.0f},                                          // 6 RL_hip
+    {-1.0f, -1.0f, -1.0f, -1.0f},                                          // 7 RL_thigh
+    { kCalfReduction,  kCalfReductionInv,  kCalfReduction,  kCalfReductionInv},  // 8 RL_calf
+    { 1.0f,  1.0f,  1.0f,  1.0f},                                          // 9 RR_hip
+    { 1.0f,  1.0f,  1.0f,  1.0f},                                          // 10 RR_thigh
+    {-kCalfReduction, -kCalfReductionInv, -kCalfReduction, -kCalfReductionInv},  // 11 RR_calf
 }};
 
 // 默认 PD 增益，单位和 /motor_command 中的 kp/kd 一致。

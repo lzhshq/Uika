@@ -64,7 +64,7 @@ done
 ## 话题说明
 
 ### 发布的话题
-- `/motor_feedback` - 电机反馈数据（10ms周期）
+- `/motor_feedback` - 电机反馈数据（5ms 周期，200Hz）
   - 类型：`interfaces::msg::MotorFeedback12`
   - 内容：12个电机的扭矩、位置、速度、温度
 

@@ -1,0 +1,102 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Plane Cell Count: 40
+      Cell Size: 1
+      Color: 160; 160; 164
+      Alpha: 0.5
+    - Class: rviz_default_plugins/TF
+      Enabled: false
+      Name: TF
+      Show Arrows: false
+      Show Axes: false
+      Show Names: false
+      Marker Scale: 0.2
+      Update Interval: 0
+    - Class: rviz_default_plugins/PointCloud2
+      Enabled: true
+      Name: FAST-LIO Accumulated Map
+      Topic:
+        Value: /Laser_map
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Depth: 1
+      Style: Flat Squares
+      Size (Pixels): 4
+      Size (m): 0.03
+      Alpha: 1
+      Color Transformer: FlatColor
+      Color: 255; 245; 120
+      Position Transformer: XYZ
+      Use Fixed Frame: true
+    - Class: rviz_default_plugins/PointCloud2
+      Enabled: true
+      Name: FAST-LIO Live Scan
+      Topic:
+        Value: /cloud_registered
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Depth: 1
+      Style: Flat Squares
+      Size (Pixels): 5
+      Size (m): 0.04
+      Alpha: 1
+      Color Transformer: FlatColor
+      Color: 80; 220; 255
+      Position Transformer: XYZ
+      Use Fixed Frame: true
+    - Class: rviz_default_plugins/Odometry
+      Enabled: false
+      Name: FAST-LIO Odometry
+      Topic:
+        Value: /Odometry
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Depth: 10
+      Keep: 10
+      Shape:
+        Value: Axes
+        Axes Length: 0.25
+        Axes Radius: 0.02
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: lidar_odom
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 12
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Name: Orbit
+      Pitch: 0.8
+      Target Frame: <Fixed Frame>
+      Yaw: 0.8
+    Saved: ~
+Window Geometry:
+  Height: 900
+  Width: 1400

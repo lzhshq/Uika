@@ -3,7 +3,7 @@
 
 用法：
   ros2 run rs00_motor soft_start_stand.py
-  ros2 run rs00_motor soft_start_stand.py --duration 3.0 --rate 500
+  ros2 run rs00_motor soft_start_stand.py --duration 3.0 --rate 200
 
 说明：
   - 脚本会先等待 /motor_feedback，读取当前 12 个关节位置。
@@ -31,10 +31,10 @@ JOINT_FIELDS = [
 
 # 默认站立姿态，单位 rad。顺序必须和 JOINT_FIELDS 一致。
 STAND_POSITIONS = [
-    -0.7, 0.2, 0.7,
-     0.7, -0.2, -0.7,
-     0.7, 0.2, 0.7,
-    -0.7, -0.2, -0.7,
+    -0.78, 0.05, 0.70,
+     0.78, 0.05, 0.70,
+    -0.78, 0.05, 0.70,
+     0.78, 0.05, 0.70,
 ]
 
 
@@ -126,8 +126,8 @@ def main():
     parser = argparse.ArgumentParser(description='平滑启动到默认站立姿态')
     parser.add_argument('--duration', type=float, default=2.0,
                         help='插值时间，单位秒，默认 2.0')
-    parser.add_argument('--rate', type=float, default=500.0,
-                        help='发布频率 Hz，默认 500')
+    parser.add_argument('--rate', type=float, default=200.0,
+                        help='发布频率 Hz，默认 200')
     parser.add_argument('--hold-time', type=float, default=0.5,
                         help='到达目标后继续发布目标姿态的时间，单位秒，默认 0.5')
     args = parser.parse_args()
