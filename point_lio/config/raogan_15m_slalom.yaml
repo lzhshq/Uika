@@ -1,0 +1,96 @@
+version: 1
+frame_id: map
+name: raogan_15m_pole_slalom
+description: Pole-slalom route aligned from the FAST-LIO2 reference route to raogan_15m.pcd.
+preview_only: true
+control_output_enabled: false
+connect_last_to_first: false
+publish_mission_route: true
+
+map:
+  pcd_file: maps/raogan_15m.pcd
+  floor_z: -0.261
+  bounds_xy: [-7.5, -7.5, 7.5, 7.5]
+
+source_alignment:
+  source_file: fastlio2/fn_bringup/config/uika_obstacle_mission_stair_frame.yaml
+  source_frame: stair_frame
+  target_frame: map
+  yaw_rad: 0.001083887
+  translation_xyz: [-5.876874, -0.020492, 0.139]
+  pole_fit_rms_m: 0.0049
+
+tasks:
+  - id: pole_slalom
+    type: pole_slalom
+    zone: pole_slalom
+    policy: normal_policy
+    route_color: [0.10, 0.55, 1.0, 1.0]
+    route_width: 0.045
+    route_z_offset: 0.10
+    safe_margin: 0.20
+    mandatory_zone_radius: 0.175
+    estimated_pole_radius: 0.06
+    estimated_pole_height: 0.80
+    robot_width: 0.41
+    minimum_body_clearance: 0.05
+
+    zone_polygon:
+      - [0.324, -0.864, -0.261]
+      - [3.924, -0.860, -0.261]
+      - [3.921, 2.140, -0.261]
+      - [0.321, 2.136, -0.261]
+
+    entry: [0.723, -0.188, -0.261]
+    mandatory_zones:
+      - [0.723, -0.013, -0.261]
+      - [3.373, -0.260, -0.261]
+      - [3.122, 1.389, -0.261]
+    pole_centers:
+      - [1.119, -0.011, -0.261]
+      - [2.125, -0.010, -0.261]
+      - [3.130, -0.013, -0.261]
+      - [3.118, 0.989, -0.261]
+    slalom_gates:
+      - [1.623, -0.012, -0.261]
+      - [2.623, -0.011, -0.261]
+      - [3.123, 0.489, -0.261]
+    required_points:
+      - [0.723, -0.188, -0.261]
+      - [3.373, -0.260, -0.261]
+      - [2.947, 1.389, -0.261]
+
+    bezier_path:
+      samples_per_segment: 18
+      segments:
+        - - [0.723, -0.188, -0.261]
+          - [0.943, -0.253, -0.261]
+          - [1.374, -0.653, -0.261]
+          - [1.623, -0.012, -0.261]
+        - - [1.623, -0.012, -0.261]
+          - [1.773, 0.458, -0.261]
+          - [2.473, 0.459, -0.261]
+          - [2.623, -0.011, -0.261]
+        - - [2.623, -0.011, -0.261]
+          - [2.774, -0.481, -0.261]
+          - [3.204, -0.571, -0.261]
+          - [3.373, -0.260, -0.261]
+        - - [3.373, -0.260, -0.261]
+          - [3.563, -0.030, -0.261]
+          - [3.483, 0.320, -0.261]
+          - [3.123, 0.489, -0.261]
+        - - [3.123, 0.489, -0.261]
+          - [2.652, 0.639, -0.261]
+          - [2.682, 1.229, -0.261]
+          - [2.947, 1.389, -0.261]
+        - - [2.947, 1.389, -0.261]
+          - [2.946, 1.639, -0.261]
+          - [2.946, 1.889, -0.261]
+          - [2.946, 2.139, -0.261]
+    exit: [2.946, 2.139, -0.261]
+
+    validation:
+      expected_route_length_m: 6.26
+      measured_min_pole_center_clearance_m: 0.326
+      adjustment: control_points_shifted_outward_by_0.01_to_0.04_m
+      status: preview_only_requires_rviz_and_low_speed_validation

@@ -1,0 +1,55 @@
+version: 1
+frame_id: map
+name: changdi_competition_mission_draft
+description: Formal competition route draft for the measured origin-side half-field.
+preview_only: true
+control_output_enabled: false
+
+map:
+  yaml_file: maps/changdi_2_nav_h5.yaml
+
+source:
+  mission_file: config/uika_obstacle_mission_source.yaml
+  zones_file: config/uika_terrain_zones_source.yaml
+  bounds_xy: [-4.182016, -0.992026, 9.760303, 4.996197]
+
+alignment:
+  source_center_xy: [2.7891435, 2.0020855]
+  target_center_xy: [-0.3220438, 2.5766394]
+  mirror_y: true
+  scale: 0.98
+  yaw_rad: -1.5707963268
+  fit_mean_distance_m: 0.02
+  required_map_origin_inside_half: true
+  status: formal_competition_draft_saved
+  semantic_anchors:
+    measured_pole_centers_xy:
+      - [1.64, -1.53]
+      - [1.63, -2.55]
+      - [1.63, -3.52]
+      - [0.68, -3.50]
+    predicted_zone_centers_xy:
+      t_stairs: [1.20, 5.14]
+      big_slope: [-1.67, 2.98]
+      gravel_wood_pit: [-1.84, -2.58]
+      high_wall: [1.64, 1.88]
+
+# The first segment runs from the map origin to the existing pole-slalom entry.
+route_start_map_xy: [0.0, 0.0]
+
+active_tasks:
+  - pole_slalom
+  - gravel_wood_pit
+  - low_bar
+  - big_slope
+  - bridge_b
+  - bridge_a
+  - t_stairs
+
+visualization:
+  route_z: 0.08
+  route_width: 0.055
+  zone_width: 0.035
+  half_boundary_width: 0.06
+  point_diameter: 0.14
+  publish_period_s: 2.0

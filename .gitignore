@@ -21,6 +21,7 @@ fastlio2/external/perception_pcl/
 # Runtime/data captures
 point_lio/PCD/
 point_lio/Log/
+point_lio/bags/
 
 # Local backups
 *.bak_*

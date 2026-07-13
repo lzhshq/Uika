@@ -1,0 +1,234 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+  - Class: nav2_rviz_plugins/Navigation 2
+    Name: Navigation 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Plane Cell Count: 30
+      Cell Size: 0.5
+      Color: 160; 160; 160
+      Alpha: 0.45
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Marker Scale: 0.45
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+      Tree:
+        {}
+      Value: true
+    - Class: rviz_default_plugins/LaserScan
+      Enabled: true
+      Name: Scan
+      Topic:
+        Value: /scan
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Durability Policy: Volatile
+        Depth: 10
+      Size (m): 0.035
+      Style: Flat Squares
+      Color Transformer: AxisColor
+      Axis: Z
+      Decay Time: 0
+      Alpha: 1
+      Value: true
+    - Class: rviz_default_plugins/Map
+      Enabled: true
+      Name: Static Map
+      Topic:
+        Value: /map
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        Depth: 1
+      Alpha: 0.55
+      Color Scheme: map
+      Draw Behind: true
+      Value: true
+    - Class: rviz_default_plugins/Map
+      Enabled: true
+      Name: Global Costmap
+      Topic:
+        Value: /global_costmap/costmap
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Alpha: 0.55
+      Color Scheme: costmap
+      Draw Behind: false
+      Value: true
+    - Class: rviz_default_plugins/Map
+      Enabled: true
+      Name: Local Costmap
+      Topic:
+        Value: /local_costmap/costmap
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Alpha: 0.75
+      Color Scheme: costmap
+      Draw Behind: false
+      Value: true
+    - Class: rviz_default_plugins/Polygon
+      Enabled: true
+      Name: Footprint
+      Topic:
+        Value: /local_costmap/published_footprint
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Color: 255; 180; 40
+      Alpha: 1
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: PointLIO Path
+      Topic:
+        Value: /path
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Color: 40; 220; 80
+      Alpha: 1
+      Buffer Length: 1
+      Line Style: Lines
+      Line Width: 0.04
+      Pose Style: None
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Continuous Route
+      Topic:
+        Value: /route_plan
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Color: 255; 230; 40
+      Alpha: 1
+      Buffer Length: 1
+      Line Style: Lines
+      Line Width: 0.06
+      Pose Style: None
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Route Poses
+      Topic:
+        Value: /route_waypoints
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        Depth: 1
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Local Plan
+      Topic:
+        Value: /local_plan
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Color: 60; 170; 255
+      Alpha: 1
+      Buffer Length: 1
+      Line Style: Lines
+      Line Width: 0.06
+      Pose Style: None
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Transformed Global Plan
+      Topic:
+        Value: /transformed_global_plan
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Color: 255; 120; 40
+      Alpha: 1
+      Buffer Length: 1
+      Line Style: Lines
+      Line Width: 0.04
+      Pose Style: None
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Received Global Plan
+      Topic:
+        Value: /received_global_plan
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Color: 180; 110; 255
+      Alpha: 1
+      Buffer Length: 1
+      Line Style: Lines
+      Line Width: 0.04
+      Pose Style: None
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 35; 35; 35
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /route_pose
+    - Class: nav2_rviz_plugins/GoalTool
+    - Class: rviz_default_plugins/PublishPoint
+      Single click: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 6
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Name: Current View
+      Pitch: 1.5708
+      Target Frame: base_link
+      Yaw: 0
+    Saved: ~
+Window Geometry:
+  Height: 900
+  Width: 1280
+  X: 80
+  Y: 60

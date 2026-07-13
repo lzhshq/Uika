@@ -1,0 +1,38 @@
+fixed_path_controller:
+  ros__parameters:
+    map_frame: map
+    base_frame: base_footprint
+    route_topic: /slalom_route
+    command_topic: /nav_cmd_vel_test
+    debug_topic: /fixed_path_controller/cmd_debug
+    status_topic: /fixed_path_controller/status
+    localization_success_topic: /relocalization/success
+    e_stop_topic: /cmd_vel_e_stop
+
+    # Stage 1: true publishes computed commands only on the debug topic.
+    dry_run: true
+    require_localization_success: true
+    control_frequency: 10.0
+
+    lookahead_distance: 0.30
+    nominal_linear_speed: 0.05
+    minimum_linear_speed: 0.02
+    maximum_linear_speed: 0.08
+    maximum_angular_speed: 0.20
+    maximum_linear_accel: 0.10
+    maximum_angular_accel: 0.25
+    heading_gain: 0.20
+    rotate_gain: 0.80
+    rotate_in_place_threshold: 0.65
+
+    goal_position_tolerance: 0.12
+    goal_yaw_tolerance: 0.25
+    goal_slowdown_distance: 0.50
+    maximum_cross_track_error: 0.35
+    start_position_tolerance: 0.35
+    start_heading_tolerance: 0.80
+    pose_timeout: 0.25
+
+    search_behind_points: 4
+    search_ahead_points: 30
+    maximum_index_advance: 8

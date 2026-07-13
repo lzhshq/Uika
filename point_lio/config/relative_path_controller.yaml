@@ -1,0 +1,37 @@
+fixed_path_controller:
+  ros__parameters:
+    map_frame: odom
+    base_frame: base_footprint
+    route_topic: /relative_path/route
+    command_topic: /nav_cmd_vel_test
+    debug_topic: /fixed_path_controller/cmd_debug
+    status_topic: /fixed_path_controller/status
+    e_stop_topic: /cmd_vel_e_stop
+
+    # The relative chain is dry-run until hardware and CAN feedback are healthy.
+    dry_run: true
+    require_localization_success: false
+    control_frequency: 10.0
+
+    lookahead_distance: 0.30
+    nominal_linear_speed: 0.30
+    minimum_linear_speed: 0.04
+    maximum_linear_speed: 0.30
+    maximum_angular_speed: 0.50
+    maximum_linear_accel: 0.50
+    maximum_angular_accel: 1.00
+    heading_gain: 0.20
+    rotate_gain: 0.80
+    rotate_in_place_threshold: 0.65
+
+    goal_position_tolerance: 0.12
+    goal_yaw_tolerance: 0.25
+    goal_slowdown_distance: 0.50
+    maximum_cross_track_error: 0.35
+    start_position_tolerance: 0.08
+    start_heading_tolerance: 0.15
+    pose_timeout: 0.25
+
+    search_behind_points: 4
+    search_ahead_points: 30
+    maximum_index_advance: 8

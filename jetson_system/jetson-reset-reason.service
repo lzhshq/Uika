@@ -1,0 +1,12 @@
+[Unit]
+Description=Record Jetson hardware reset reason and NVMe shutdown counters
+After=local-fs.target systemd-journald.service
+Before=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/record-jetson-reset-reason
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

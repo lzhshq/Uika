@@ -10,6 +10,7 @@
 
 #include <nav_msgs/msg/odometry.hpp>
 #include <nav_msgs/msg/path.hpp>
+#include <std_srvs/srv/trigger.hpp>
 
 #include "li_initialization.h"
 
@@ -41,12 +42,134 @@ pcl::VoxelGrid<PointType> downSizeFilterMap;
 V3D euler_cur;
 
 nav_msgs::msg::Path path;
+nav_msgs::msg::Path planar_path;
 nav_msgs::msg::Odometry odomAftMapped;
+nav_msgs::msg::Odometry odomPlanar;
 geometry_msgs::msg::PoseStamped msg_body_pose;
+geometry_msgs::msg::PoseStamped msg_planar_pose;
+
+bool planar_filter_initialized = false;
+geometry_msgs::msg::Pose filtered_planar_pose;
 
 int sleep_time = 0;
 
 auto LOGGER = rclcpp::get_logger("laserMapping");
+
+Eigen::Isometry3d makeRobotBaseToLioBodyTransform()
+{
+  Eigen::AngleAxisd roll_angle(robot_base_to_lio_body_roll, Eigen::Vector3d::UnitX());
+  Eigen::AngleAxisd pitch_angle(robot_base_to_lio_body_pitch, Eigen::Vector3d::UnitY());
+  Eigen::AngleAxisd yaw_angle(robot_base_to_lio_body_yaw, Eigen::Vector3d::UnitZ());
+
+  Eigen::Isometry3d base_to_body = Eigen::Isometry3d::Identity();
+  base_to_body.linear() = (yaw_angle * pitch_angle * roll_angle).toRotationMatrix();
+  base_to_body.translation() =
+    Eigen::Vector3d(robot_base_to_lio_body_x, robot_base_to_lio_body_y, robot_base_to_lio_body_z);
+  return base_to_body;
+}
+
+geometry_msgs::msg::Pose compensateLioBodyPoseToRobotBase(
+  const geometry_msgs::msg::Pose & lio_body_pose)
+{
+  Eigen::Quaterniond q_world_body(
+    lio_body_pose.orientation.w,
+    lio_body_pose.orientation.x,
+    lio_body_pose.orientation.y,
+    lio_body_pose.orientation.z);
+  q_world_body.normalize();
+
+  Eigen::Isometry3d world_to_body = Eigen::Isometry3d::Identity();
+  world_to_body.linear() = q_world_body.toRotationMatrix();
+  world_to_body.translation() =
+    Eigen::Vector3d(
+      lio_body_pose.position.x, lio_body_pose.position.y, lio_body_pose.position.z);
+
+  const Eigen::Isometry3d world_to_base = world_to_body * makeRobotBaseToLioBodyTransform().inverse();
+  Eigen::Quaterniond q_world_base(world_to_base.linear());
+  q_world_base.normalize();
+
+  geometry_msgs::msg::Pose robot_base_pose;
+  robot_base_pose.position.x = world_to_base.translation().x();
+  robot_base_pose.position.y = world_to_base.translation().y();
+  robot_base_pose.position.z = world_to_base.translation().z();
+  robot_base_pose.orientation.x = q_world_base.x();
+  robot_base_pose.orientation.y = q_world_base.y();
+  robot_base_pose.orientation.z = q_world_base.z();
+  robot_base_pose.orientation.w = q_world_base.w();
+  return robot_base_pose;
+}
+
+Eigen::Isometry3d poseToIsometry(const geometry_msgs::msg::Pose & pose)
+{
+  Eigen::Quaterniond orientation(
+    pose.orientation.w, pose.orientation.x, pose.orientation.y, pose.orientation.z);
+  orientation.normalize();
+
+  Eigen::Isometry3d transform = Eigen::Isometry3d::Identity();
+  transform.linear() = orientation.toRotationMatrix();
+  transform.translation() =
+    Eigen::Vector3d(pose.position.x, pose.position.y, pose.position.z);
+  return transform;
+}
+
+geometry_msgs::msg::Transform isometryToTransform(const Eigen::Isometry3d & transform)
+{
+  Eigen::Quaterniond orientation(transform.linear());
+  orientation.normalize();
+
+  geometry_msgs::msg::Transform result;
+  result.translation.x = transform.translation().x();
+  result.translation.y = transform.translation().y();
+  result.translation.z = transform.translation().z();
+  result.rotation.x = orientation.x();
+  result.rotation.y = orientation.y();
+  result.rotation.z = orientation.z();
+  result.rotation.w = orientation.w();
+  return result;
+}
+
+double poseYaw(const geometry_msgs::msg::Pose & pose)
+{
+  const auto & q = pose.orientation;
+  return std::atan2(
+    2.0 * (q.w * q.z + q.x * q.y),
+    1.0 - 2.0 * (q.y * q.y + q.z * q.z));
+}
+
+double shortestAngularDistance(double from, double to)
+{
+  return std::atan2(std::sin(to - from), std::cos(to - from));
+}
+
+geometry_msgs::msg::Pose updatePlanarBasePose(const geometry_msgs::msg::Pose & full_base_pose)
+{
+  const double raw_yaw = poseYaw(full_base_pose);
+  const double raw_ground_z = full_base_pose.position.z - planar_nominal_height;
+  double next_yaw = raw_yaw;
+
+  if (!planar_filter_initialized) {
+    filtered_planar_pose.position.x = full_base_pose.position.x;
+    filtered_planar_pose.position.y = full_base_pose.position.y;
+    filtered_planar_pose.position.z = raw_ground_z;
+    planar_filter_initialized = true;
+  } else {
+    filtered_planar_pose.position.x +=
+      planar_xy_alpha * (full_base_pose.position.x - filtered_planar_pose.position.x);
+    filtered_planar_pose.position.y +=
+      planar_xy_alpha * (full_base_pose.position.y - filtered_planar_pose.position.y);
+    filtered_planar_pose.position.z +=
+      planar_z_alpha * (raw_ground_z - filtered_planar_pose.position.z);
+    const double filtered_yaw = poseYaw(filtered_planar_pose);
+    next_yaw =
+      filtered_yaw + planar_yaw_alpha * shortestAngularDistance(filtered_yaw, raw_yaw);
+  }
+
+  filtered_planar_pose.orientation.x = 0.0;
+  filtered_planar_pose.orientation.y = 0.0;
+  filtered_planar_pose.orientation.z = std::sin(next_yaw * 0.5);
+  filtered_planar_pose.orientation.w = std::cos(next_yaw * 0.5);
+  return filtered_planar_pose;
+}
 
 void SigHandle(int sig)
 {
@@ -166,6 +289,7 @@ void MapIncremental()
 void publish_init_map(
   const rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr & pubLaserCloudFullRes)
 {
+  if (!pubLaserCloudFullRes || pubLaserCloudFullRes->get_subscription_count() == 0) return;
   int size_init_map = init_feats_world->size();
 
   sensor_msgs::msg::PointCloud2 laserCloudmsg;
@@ -179,42 +303,69 @@ void publish_init_map(
 
 PointCloudXYZI::Ptr pcl_wait_pub(new PointCloudXYZI(500000, 1));
 PointCloudXYZI::Ptr pcl_wait_save(new PointCloudXYZI());
+
+bool saveAccumulatedMap(std::string & message)
+{
+  if (!pcd_save_en) {
+    message = "PCD saving is disabled";
+    return false;
+  }
+  if (pcl_wait_save->empty()) {
+    message = "No accumulated map points are available";
+    return false;
+  }
+
+  const string map_path = string(ROOT_DIR) + "PCD/" + pcd_save_file_name;
+  pcl::PCDWriter pcd_writer;
+  const int result = pcd_writer.writeBinary(map_path, *pcl_wait_save);
+  if (result != 0) {
+    message = "Failed to save map to " + map_path;
+    return false;
+  }
+
+  message =
+    "Saved " + std::to_string(pcl_wait_save->size()) + " points to " + map_path;
+  RCLCPP_INFO(LOGGER, "%s", message.c_str());
+  return true;
+}
+
 void publish_frame_world(
   const rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr & pubLaserCloudFullRes)
 {
-  if (scan_pub_en) {
+  if (pcd_save_en) {
+    *pcl_wait_save += *feats_down_world;
+
+    static int scan_wait_num = 0;
+    scan_wait_num++;
+    if (!pcl_wait_save->empty() && pcd_save_interval > 0 && scan_wait_num >= pcd_save_interval) {
+      pcd_index++;
+      string all_points_dir(
+        string(string(ROOT_DIR) + "PCD/scans_") + to_string(pcd_index) + string(".pcd"));
+      pcl::PCDWriter pcd_writer;
+      std::cout << "current scan saved to /PCD/" << all_points_dir << '\n';
+      pcd_writer.writeBinary(all_points_dir, *pcl_wait_save);
+      pcl_wait_save->clear();
+      scan_wait_num = 0;
+    }
+  }
+
+  if (
+    scan_pub_en && pubLaserCloudFullRes &&
+    pubLaserCloudFullRes->get_subscription_count() > 0)
+  {
     sensor_msgs::msg::PointCloud2 laserCloudmsg;
     pcl::toROSMsg(*feats_down_world, laserCloudmsg);
 
     laserCloudmsg.header.stamp = get_ros_time(lidar_end_time);
     laserCloudmsg.header.frame_id = "camera_init";
     pubLaserCloudFullRes->publish(laserCloudmsg);
-
-    //--------------------------save map-----------------------------------
-    // 1. make sure you have enough memories
-    // 2. noted that pcd save will influence the real-time performances
-    if (pcd_save_en) {
-      *pcl_wait_save += *feats_down_world;
-
-      static int scan_wait_num = 0;
-      scan_wait_num++;
-      if (!pcl_wait_save->empty() && pcd_save_interval > 0 && scan_wait_num >= pcd_save_interval) {
-        pcd_index++;
-        string all_points_dir(
-          string(string(ROOT_DIR) + "PCD/scans_") + to_string(pcd_index) + string(".pcd"));
-        pcl::PCDWriter pcd_writer;
-        std::cout << "current scan saved to /PCD/" << all_points_dir << '\n';
-        pcd_writer.writeBinary(all_points_dir, *pcl_wait_save);
-        pcl_wait_save->clear();
-        scan_wait_num = 0;
-      }
-    }
   }
 }
 
 void publish_frame_body(
   const rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr & pubLaserCloudFull_body)
 {
+  if (!pubLaserCloudFull_body || pubLaserCloudFull_body->get_subscription_count() == 0) return;
   int size = feats_undistort->points.size();
   PointCloudXYZI::Ptr laserCloudIMUBody(new PointCloudXYZI(size, 1));
 
@@ -264,54 +415,99 @@ void set_posestamp(T & out)
 
 void publish_odometry(
   const rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr & pubOdomAftMapped,
+  const rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr & pubOdomPlanar,
   std::shared_ptr<tf2_ros::TransformBroadcaster> & tf_br)
 {
-  odomAftMapped.header.frame_id = "camera_init";
-  odomAftMapped.child_frame_id = "body";
+  odomAftMapped.header.frame_id = "odom";
+  odomAftMapped.child_frame_id = "base_link";
   if (publish_odometry_without_downsample) {
     odomAftMapped.header.stamp = get_ros_time(time_current);
   } else {
     odomAftMapped.header.stamp = get_ros_time(lidar_end_time);
   }
-  set_posestamp(odomAftMapped.pose.pose);
+  geometry_msgs::msg::Pose lio_body_pose;
+  set_posestamp(lio_body_pose);
+  odomAftMapped.pose.pose = compensateLioBodyPoseToRobotBase(lio_body_pose);
 
   pubOdomAftMapped->publish(odomAftMapped);
+
+  if (planar_base_en) {
+    odomPlanar = odomAftMapped;
+    odomPlanar.child_frame_id = "base_footprint";
+    odomPlanar.pose.pose = updatePlanarBasePose(odomAftMapped.pose.pose);
+    odomPlanar.twist.twist.linear.z = 0.0;
+    odomPlanar.twist.twist.angular.x = 0.0;
+    odomPlanar.twist.twist.angular.y = 0.0;
+    pubOdomPlanar->publish(odomPlanar);
+  }
 
   if (tf_send_en) {
     geometry_msgs::msg::TransformStamped transform;
     transform.header.frame_id = "camera_init";
     transform.child_frame_id = "aft_mapped";
-    transform.transform.translation.x = odomAftMapped.pose.pose.position.x;
-    transform.transform.translation.y = odomAftMapped.pose.pose.position.y;
-    transform.transform.translation.z = odomAftMapped.pose.pose.position.z;
-    transform.transform.rotation.w = odomAftMapped.pose.pose.orientation.w;
-    transform.transform.rotation.x = odomAftMapped.pose.pose.orientation.x;
-    transform.transform.rotation.y = odomAftMapped.pose.pose.orientation.y;
-    transform.transform.rotation.z = odomAftMapped.pose.pose.orientation.z;
+    transform.transform.translation.x = lio_body_pose.position.x;
+    transform.transform.translation.y = lio_body_pose.position.y;
+    transform.transform.translation.z = lio_body_pose.position.z;
+    transform.transform.rotation.w = lio_body_pose.orientation.w;
+    transform.transform.rotation.x = lio_body_pose.orientation.x;
+    transform.transform.rotation.y = lio_body_pose.orientation.y;
+    transform.transform.rotation.z = lio_body_pose.orientation.z;
     transform.header.stamp = odomAftMapped.header.stamp;
     tf_br->sendTransform(transform);
 
-    transform.child_frame_id = "body";
-    tf_br->sendTransform(transform);
+    if (planar_base_en) {
+      transform.header.frame_id = "odom";
+      transform.child_frame_id = "base_footprint";
+      transform.transform = isometryToTransform(poseToIsometry(odomPlanar.pose.pose));
+      tf_br->sendTransform(transform);
 
-    transform.header.frame_id = "odom";
-    transform.child_frame_id = "base_link";
-    tf_br->sendTransform(transform);
+      const Eigen::Isometry3d footprint_to_base =
+        poseToIsometry(odomPlanar.pose.pose).inverse() *
+        poseToIsometry(odomAftMapped.pose.pose);
+      transform.header.frame_id = "base_footprint";
+      transform.child_frame_id = "base_link";
+      transform.transform = isometryToTransform(footprint_to_base);
+      tf_br->sendTransform(transform);
+    } else {
+      transform.header.frame_id = "odom";
+      transform.child_frame_id = "base_link";
+      transform.transform = isometryToTransform(poseToIsometry(odomAftMapped.pose.pose));
+      tf_br->sendTransform(transform);
+    }
   }
 }
 
-void publish_path(const rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pubPath)
+void publish_path(
+  const rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pubPath,
+  const rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pubPlanarPath)
 {
-  set_posestamp(msg_body_pose.pose);
-  // msg_body_pose.header.stamp = ros::Time::now();
+  static int publish_counter = 0;
+  publish_counter++;
+  if (publish_counter % path_publish_stride != 0) return;
+
+  geometry_msgs::msg::Pose lio_body_pose;
+  set_posestamp(lio_body_pose);
+  msg_body_pose.pose = compensateLioBodyPoseToRobotBase(lio_body_pose);
   msg_body_pose.header.stamp = get_ros_time(lidar_end_time);
-  msg_body_pose.header.frame_id = "camera_init";
-  static int jjj = 0;
-  jjj++;
-  // if (jjj % 2 == 0) // if path is too large, the rvis will crash
-  {
-    path.poses.emplace_back(msg_body_pose);
-    pubPath->publish(path);
+  msg_body_pose.header.frame_id = "odom";
+
+  path.header = msg_body_pose.header;
+  path.poses.emplace_back(msg_body_pose);
+  if (static_cast<int>(path.poses.size()) > path_max_poses) {
+    path.poses.erase(path.poses.begin(), path.poses.begin() + path_max_poses / 2);
+  }
+  pubPath->publish(path);
+
+  if (planar_base_en && planar_filter_initialized) {
+    msg_planar_pose.header = msg_body_pose.header;
+    msg_planar_pose.pose = filtered_planar_pose;
+    planar_path.header = msg_planar_pose.header;
+    planar_path.poses.emplace_back(msg_planar_pose);
+    if (static_cast<int>(planar_path.poses.size()) > path_max_poses) {
+      planar_path.poses.erase(
+        planar_path.poses.begin(), planar_path.poses.begin() + path_max_poses / 2);
+    }
+    pubPlanarPath->publish(planar_path);
   }
 }
 
@@ -386,16 +582,30 @@ int main(int argc, char ** argv)
   }
   auto sub_imu =
     nh->create_subscription<sensor_msgs::msg::Imu>(imu_topic, rclcpp::SensorDataQoS(), imu_cbk);
-  auto pub_laser_cloud_full_res =
-    nh->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_registered", 20);
-  auto pub_laser_cloud_full_res_body =
-    nh->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_registered_body", 20);
-  auto pub_laser_cloud_effect =
-    nh->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_effected", 20);
-  auto pub_laser_cloud_map = nh->create_publisher<sensor_msgs::msg::PointCloud2>("Laser_map", 20);
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_laser_cloud_full_res;
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_laser_cloud_full_res_body;
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_laser_cloud_map;
+  if (scan_pub_en) {
+    pub_laser_cloud_full_res =
+      nh->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_registered", 20);
+    pub_laser_cloud_map =
+      nh->create_publisher<sensor_msgs::msg::PointCloud2>("Laser_map", 20);
+    if (scan_body_pub_en) {
+      pub_laser_cloud_full_res_body =
+        nh->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_registered_body", 20);
+    }
+  }
   auto pub_odom_aft_mapped =
     nh->create_publisher<nav_msgs::msg::Odometry>("aft_mapped_to_init", 20);
+  auto pub_odom_planar = nh->create_publisher<nav_msgs::msg::Odometry>("odom_planar", 20);
   auto pub_path = nh->create_publisher<nav_msgs::msg::Path>("path", 20);
+  auto pub_planar_path = nh->create_publisher<nav_msgs::msg::Path>("base_footprint_path", 20);
+  auto save_map_service = nh->create_service<std_srvs::srv::Trigger>(
+    "save_map",
+    [](const std::shared_ptr<std_srvs::srv::Trigger::Request>,
+      std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
+      response->success = saveAccumulatedMap(response->message);
+    });
   auto tf_broadcaster = std::make_shared<tf2_ros::TransformBroadcaster>(nh);
 
   //------------------------------------------------------------------------------------------------------
@@ -420,6 +630,9 @@ int main(int argc, char ** argv)
         }
         flg_first_scan = true;
         is_first_frame = true;
+        planar_filter_initialized = false;
+        path.poses.clear();
+        planar_path.poses.clear();
         flg_reset = false;
         init_map = false;
 
@@ -532,7 +745,7 @@ int main(int argc, char ** argv)
           } else {
             ivox_->AddPoints(init_feats_world->points);
           }
-          publish_init_map(pub_laser_cloud_map);
+          if (scan_pub_en) publish_init_map(pub_laser_cloud_map);
           init_feats_world.reset(new PointCloudXYZI());
           init_map = true;
         } else {
@@ -690,7 +903,7 @@ int main(int argc, char ** argv)
             if (publish_odometry_without_downsample) {
               /******* Publish odometry *******/
 
-              publish_odometry(pub_odom_aft_mapped, tf_broadcaster);
+              publish_odometry(pub_odom_aft_mapped, pub_odom_planar, tf_broadcaster);
               if (runtime_pos_log) {
                 euler_cur = SO3ToEuler(kf_output.x_.rot);
                 fout_out << setw(20) << Measures.lidar_beg_time - first_lidar_time << " "
@@ -874,7 +1087,7 @@ int main(int argc, char ** argv)
             if (publish_odometry_without_downsample) {
               /******* Publish odometry *******/
 
-              publish_odometry(pub_odom_aft_mapped, tf_broadcaster);
+              publish_odometry(pub_odom_aft_mapped, pub_odom_planar, tf_broadcaster);
               if (runtime_pos_log) {
                 euler_cur = SO3ToEuler(kf_input.x_.rot);
                 fout_out << setw(20) << Measures.lidar_beg_time - first_lidar_time << " "
@@ -970,7 +1183,7 @@ int main(int argc, char ** argv)
       //                     (euler_cur(0), euler_cur(1), euler_cur(2));
       /******* Publish odometry downsample *******/
       if (!publish_odometry_without_downsample) {
-        publish_odometry(pub_odom_aft_mapped, tf_broadcaster);
+        publish_odometry(pub_odom_aft_mapped, pub_odom_planar, tf_broadcaster);
       }
 
       /*** add the feature points to map ***/
@@ -987,7 +1200,7 @@ int main(int argc, char ** argv)
       }
       t5 = omp_get_wtime();
       /******* Publish points *******/
-      if (path_en) publish_path(pub_path);
+      if (path_en) publish_path(pub_path, pub_planar_path);
       if (scan_pub_en || pcd_save_en) publish_frame_world(pub_laser_cloud_full_res);
       if (scan_pub_en && scan_body_pub_en) publish_frame_body(pub_laser_cloud_full_res_body);
 
@@ -1034,14 +1247,11 @@ int main(int argc, char ** argv)
     }
     rate.sleep();
   }
-  //--------------------------save map-----------------------------------
-  // 1. make sure you have enough memories
-  // 2. noted that pcd save will influence the real-time performances
-  if (!pcl_wait_save->empty() && pcd_save_en) {
-    string all_points_dir(string(string(ROOT_DIR) + "PCD/") + pcd_save_file_name);
-    pcl::PCDWriter pcd_writer;
-    std::cout << "map saved to " << all_points_dir << '\n';
-    pcd_writer.writeBinary(all_points_dir, *pcl_wait_save);
+  if (pcd_save_en && !pcl_wait_save->empty()) {
+    std::string save_message;
+    if (!saveAccumulatedMap(save_message)) {
+      RCLCPP_ERROR(LOGGER, "%s", save_message.c_str());
+    }
   }
   fout_out.close();
   fout_imu_pbp.close();

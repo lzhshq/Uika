@@ -10,6 +10,7 @@
 
 #include <Eigen/Core>
 #include <Eigen/Eigen>
+#include <algorithm>
 #include <condition_variable>
 #include <csignal>
 #include <cstring>
@@ -62,12 +63,22 @@ extern int lidar_type, pcd_save_interval;
 extern std::vector<double> gravity_init, gravity;
 extern bool runtime_pos_log, pcd_save_en, path_en;
 extern bool scan_pub_en, scan_body_pub_en, tf_send_en;
+extern bool planar_base_en;
+extern int path_publish_stride, path_max_poses;
+extern double planar_xy_alpha, planar_z_alpha, planar_yaw_alpha;
+extern double planar_nominal_height;
 extern shared_ptr<Preprocess> p_pre;
 extern shared_ptr<ImuProcess> p_imu;
 extern bool is_first_frame;
 
 extern std::vector<double> extrinT;
 extern std::vector<double> extrinR;
+extern double robot_base_to_lio_body_x;
+extern double robot_base_to_lio_body_y;
+extern double robot_base_to_lio_body_z;
+extern double robot_base_to_lio_body_roll;
+extern double robot_base_to_lio_body_pitch;
+extern double robot_base_to_lio_body_yaw;
 extern double time_diff_lidar_to_imu;
 extern double lidar_time_inte, first_imu_time;
 extern int cut_frame_num, orig_odom_freq;

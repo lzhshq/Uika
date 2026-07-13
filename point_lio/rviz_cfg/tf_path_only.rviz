@@ -1,0 +1,92 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Plane Cell Count: 40
+      Cell Size: 0.5
+      Color: 160; 160; 160
+      Alpha: 0.5
+      Value: true
+    - Class: rviz_default_plugins/Axes
+      Enabled: true
+      Name: Base Link
+      Reference Frame: base_link
+      Length: 0.5
+      Radius: 0.025
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Base Link Path
+      Topic:
+        Value: /path
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Color: 40; 220; 80
+      Alpha: 1
+      Buffer Length: 1
+      Line Style: Lines
+      Line Width: 0.05
+      Pose Style: None
+      Value: true
+    - Class: rviz_default_plugins/Odometry
+      Enabled: false
+      Name: PointLIO Odom
+      Topic:
+        Value: /aft_mapped_to_init
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 10
+      Keep: 100
+      Shape:
+        Value: Arrow
+        Color: 255; 90; 40
+        Alpha: 1
+        Axes Length: 0.5
+        Axes Radius: 0.04
+        Shaft Length: 0.4
+        Shaft Radius: 0.03
+        Head Length: 0.15
+        Head Radius: 0.08
+      Covariance:
+        Value: false
+      Value: false
+  Enabled: true
+  Global Options:
+    Background Color: 35; 35; 35
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 8
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Name: Current View
+      Pitch: 1.1
+      Target Frame: map
+      Yaw: 0.8
+    Saved: ~
+Window Geometry:
+  Height: 900
+  Width: 1280
+  X: 80
+  Y: 60

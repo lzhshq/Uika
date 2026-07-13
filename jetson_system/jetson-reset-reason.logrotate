@@ -1,0 +1,10 @@
+/var/log/jetson-reset-reason.log {
+    weekly
+    rotate 12
+    size 1M
+    missingok
+    notifempty
+    compress
+    delaycompress
+    copytruncate
+}

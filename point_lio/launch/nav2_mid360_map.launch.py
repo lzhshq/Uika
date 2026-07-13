@@ -17,6 +17,11 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
     rviz = LaunchConfiguration('rviz')
     cmd_vel_topic = LaunchConfiguration('cmd_vel_topic')
+    enable_cmd_bridge = LaunchConfiguration('enable_cmd_bridge')
+    cmd_bridge_dry_run = LaunchConfiguration('cmd_bridge_dry_run')
+    cmd_bridge_params_file = LaunchConfiguration('cmd_bridge_params_file')
+    base_cmd_topic = LaunchConfiguration('base_cmd_topic')
+    enable_route_planner = LaunchConfiguration('enable_route_planner')
 
     lifecycle_nodes = [
         'map_server',
@@ -52,6 +57,31 @@ def generate_launch_description():
             'cmd_vel_topic',
             default_value='/nav_cmd_vel_test',
             description='Safe output topic for Nav2 velocity commands',
+        ),
+        DeclareLaunchArgument(
+            'enable_cmd_bridge',
+            default_value='false',
+            description='Start the limited bridge from Nav2 test cmd_vel to the real base topic.',
+        ),
+        DeclareLaunchArgument(
+            'cmd_bridge_dry_run',
+            default_value='true',
+            description='If true, bridge only publishes debug output and does not publish to base_cmd_topic.',
+        ),
+        DeclareLaunchArgument(
+            'cmd_bridge_params_file',
+            default_value=os.path.join(pkg_dir, 'config', 'cmd_vel_safety_bridge.yaml'),
+            description='Full path to cmd_vel safety bridge parameters',
+        ),
+        DeclareLaunchArgument(
+            'base_cmd_topic',
+            default_value='/cmd_vel',
+            description='Real robot base command topic used by the bridge when dry_run is false.',
+        ),
+        DeclareLaunchArgument(
+            'enable_route_planner',
+            default_value='true',
+            description='Collect RViz route poses and publish one continuous route path.',
         ),
 
         Node(
@@ -108,6 +138,28 @@ def generate_launch_description():
                 {'autostart': True},
                 {'node_names': lifecycle_nodes},
             ],
+        ),
+        Node(
+            condition=IfCondition(enable_cmd_bridge),
+            package='point_lio',
+            executable='cmd_vel_safety_bridge.py',
+            name='cmd_vel_safety_bridge',
+            output='screen',
+            parameters=[
+                cmd_bridge_params_file,
+                {
+                    'input_topic': cmd_vel_topic,
+                    'output_topic': base_cmd_topic,
+                    'dry_run': cmd_bridge_dry_run,
+                },
+            ],
+        ),
+        Node(
+            condition=IfCondition(enable_route_planner),
+            package='point_lio',
+            executable='route_pose_planner.py',
+            name='route_pose_planner',
+            output='screen',
         ),
         Node(
             condition=IfCondition(rviz),

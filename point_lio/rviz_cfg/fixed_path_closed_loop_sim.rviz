@@ -1,0 +1,116 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Plane Cell Count: 30
+      Cell Size: 0.5
+      Color: 110; 110; 110
+      Alpha: 0.35
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Slalom Geometry
+      Topic:
+        Value: /slalom_markers
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        Depth: 1
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Target Route
+      Topic:
+        Value: /slalom_route
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        Depth: 1
+      Color: 255; 190; 20
+      Line Style: Lines
+      Line Width: 0.05
+      Buffer Length: 1
+      Pose Style: None
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Simulated Actual Path
+      Topic:
+        Value: /fixed_path_simulator/actual_path
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Color: 20; 220; 255
+      Line Style: Lines
+      Line Width: 0.07
+      Buffer Length: 1
+      Pose Style: None
+      Value: true
+    - Class: rviz_default_plugins/Pose
+      Enabled: true
+      Name: Simulated Robot
+      Topic:
+        Value: /fixed_path_simulator/pose
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Shape: Arrow
+      Color: 50; 255; 90
+      Alpha: 1.0
+      Shaft Length: 0.45
+      Shaft Radius: 0.06
+      Head Length: 0.18
+      Head Radius: 0.12
+      Value: true
+    - Class: rviz_default_plugins/Pose
+      Enabled: true
+      Name: Lookahead Target
+      Topic:
+        Value: /fixed_path_controller/lookahead_target
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 5
+      Shape: Axes
+      Axes Length: 0.25
+      Axes Radius: 0.025
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 25; 25; 25
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 5.5
+      Focal Point:
+        X: 2.0
+        Y: 0.7
+        Z: 0.0
+      Name: Current View
+      Pitch: 1.55
+      Target Frame: map
+      Yaw: 0.0
+    Saved: ~
+Window Geometry:
+  Height: 900
+  Width: 1280
+  X: 80
+  Y: 60

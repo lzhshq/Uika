@@ -45,6 +45,8 @@ find_package(rclpy REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(pcl_ros REQUIRED)
 find_package(pcl_conversions REQUIRED)
@@ -83,12 +85,17 @@ add_executable(pointlio_mapping
   src/IMU_Processing.cpp
 )
 
+add_executable(fixed_start_relocalizer
+  src/fixed_start_relocalizer.cpp
+)
+
 ament_target_dependencies(pointlio_mapping
   rclcpp
   rclpy
   geometry_msgs
   nav_msgs
   sensor_msgs
+  std_srvs
   visualization_msgs
   pcl_ros
   pcl_conversions
@@ -99,17 +106,40 @@ ament_target_dependencies(pointlio_mapping
 target_link_libraries(pointlio_mapping ${PCL_LIBRARIES} ${PYTHON_LIBRARIES})
 target_include_directories(pointlio_mapping PRIVATE ${PYTHON_INCLUDE_DIRS})
 
+ament_target_dependencies(fixed_start_relocalizer
+  rclcpp
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  std_msgs
+  std_srvs
+  pcl_ros
+  pcl_conversions
+  tf2_ros
+)
+target_link_libraries(fixed_start_relocalizer ${PCL_LIBRARIES})
+
 # Install the executable
 install(TARGETS
   pointlio_mapping
+  fixed_start_relocalizer
   DESTINATION lib/${PROJECT_NAME}
 )
 
 install(PROGRAMS
   scripts/pcd_to_occupancy.py
+  scripts/pcd_map_rebase.py
   scripts/map_stats.py
   scripts/cmd_vel_safety_bridge.py
+  scripts/cancel_nav_goal.py
   scripts/nav_goal_smoke_test.py
+  scripts/route_pose_planner.py
+  scripts/route_path_follower.py
+  scripts/slalom_route_preview.py
+  scripts/course_mission_preview.py
+  scripts/fixed_path_controller.py
+  scripts/fixed_path_simulator.py
+  scripts/relative_path_executor.py
   scripts/mid360_system_check.py
   DESTINATION lib/${PROJECT_NAME}
 )
@@ -126,6 +156,8 @@ ament_export_dependencies(
   geometry_msgs
   nav_msgs
   sensor_msgs
+  std_msgs
+  std_srvs
   pcl_ros
   pcl_conversions
   tf2_ros

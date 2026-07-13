@@ -7,6 +7,7 @@
 #include <array>
 #include <atomic>
 #include <chrono>
+#include <condition_variable>
 #include <iostream>
 #include <memory>
 #include <mutex>
@@ -126,7 +127,11 @@ public:
   }
 
   ~MotorControlSample() {
-    running_ = false;
+    {
+      std::lock_guard<std::mutex> lock(worker_wait_mutex_);
+      running_ = false;
+    }
+    worker_cv_.notify_all();
     if (worker_thread_.joinable())
       worker_thread_.join();
     std::lock_guard<std::mutex> lock(motors_mutex_);
@@ -147,14 +152,24 @@ private:
   }
 
   void command_callback(const interfaces::msg::MotorCommand12::SharedPtr msg) {
-    std::lock_guard<std::mutex> lock(command_mutex_);
-    latest_command_ = *msg;
-    received_first_command_ = true;
+    {
+      std::lock_guard<std::mutex> lock(command_mutex_);
+      latest_command_ = *msg;
+    }
+    {
+      std::lock_guard<std::mutex> lock(worker_wait_mutex_);
+      received_first_command_ = true;
+    }
+    worker_cv_.notify_one();
     RCLCPP_INFO_ONCE(this->get_logger(), "First command received! Starting motor control.");
   }
 
   void request_set_zero() {
-    set_zero_requested_.store(true);
+    {
+      std::lock_guard<std::mutex> lock(worker_wait_mutex_);
+      set_zero_requested_.store(true);
+    }
+    worker_cv_.notify_one();
     RCLCPP_WARN(this->get_logger(), "Manual motor zero requested");
   }
 
@@ -164,12 +179,15 @@ private:
     msg.header.frame_id = "motor_feedback";
 
     const auto &transforms = rs00_motor::joint_transforms();
+    const auto feedback_now = std::chrono::steady_clock::now();
     for (size_t i = 0; i < motors_.size(); ++i) {
       if (!motor_initialized_[i]) {
         continue;
       }
+      const auto snapshot = motors_[i]->feedback_snapshot();
       if (received_first_command_ &&
-          !motors_[i]->has_recent_motion_feedback(FEEDBACK_STALE_TIMEOUT)) {
+          (snapshot.received_at == std::chrono::steady_clock::time_point{} ||
+           feedback_now - snapshot.received_at > FEEDBACK_STALE_TIMEOUT)) {
         RCLCPP_WARN_THROTTLE(
             this->get_logger(), *this->get_clock(), 1000,
             "Motor %zu feedback stale; skipping /motor_feedback publish", i);
@@ -178,12 +196,10 @@ private:
 
       auto &feedback = msg.*kFeedbackFields[i];
       const auto &transform = transforms[i];
-      const auto [position, velocity, torque, temperature] =
-          motors_[i]->return_data_pvtt();
-      feedback.torque = torque * transform.feedback_torque_scale;
-      feedback.position = position * transform.feedback_position_scale;
-      feedback.velocity = velocity * transform.feedback_velocity_scale;
-      feedback.temperature = temperature;
+      feedback.torque = snapshot.torque * transform.feedback_torque_scale;
+      feedback.position = snapshot.position * transform.feedback_position_scale;
+      feedback.velocity = snapshot.velocity * transform.feedback_velocity_scale;
+      feedback.temperature = snapshot.temperature;
     }
 
     feedback_pub_->publish(msg);
@@ -294,10 +310,15 @@ private:
     while (rclcpp::ok() && running_) {
       // 等待接收第一个命令，同时允许手柄触发手动定零。
       while (rclcpp::ok() && running_ && !received_first_command_) {
+        std::unique_lock<std::mutex> lock(worker_wait_mutex_);
+        worker_cv_.wait(lock, [this]() {
+          return !rclcpp::ok() || !running_ || received_first_command_ ||
+                 set_zero_requested_.load();
+        });
+        lock.unlock();
         if (set_zero_requested_.exchange(false)) {
           set_zero_all_motors();
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
       }
 
       if (!rclcpp::ok() || !running_) {
@@ -314,8 +335,13 @@ private:
 
       while (rclcpp::ok() && running_ && received_first_command_) {
         if (set_zero_requested_.exchange(false)) {
+          // Clear the old command before zeroing. A command received while the
+          // zero operation is running will set this flag again and is retained.
+          {
+            std::lock_guard<std::mutex> lock(worker_wait_mutex_);
+            received_first_command_ = false;
+          }
           set_zero_all_motors();
-          received_first_command_ = false;
           RCLCPP_WARN(this->get_logger(),
                       "Manual zero finished; waiting for next motor command");
           break;
@@ -387,6 +413,8 @@ private:
   std::atomic<bool> set_zero_requested_{false};
   std::mutex command_mutex_;
   std::mutex motors_mutex_;
+  std::mutex worker_wait_mutex_;
+  std::condition_variable worker_cv_;
   interfaces::msg::MotorCommand12 latest_command_;
   std::vector<bool> motor_initialized_;
   std::vector<bool> motor_enabled_;
@@ -396,7 +424,7 @@ private:
 int main(int argc, char **argv) {
   rclcpp::init(argc, argv);
   auto controller = std::make_shared<MotorControlSample>();
-  rclcpp::executors::MultiThreadedExecutor executor;
+  rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(controller);
   executor.spin();
   rclcpp::shutdown();

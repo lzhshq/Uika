@@ -1,0 +1,63 @@
+/**:
+  ros__parameters:
+    source_topic: /cloud_registered_body
+    odom_topic: /aft_mapped_to_init
+    map_frame: map
+    odom_frame: odom
+    base_frame: base_link
+
+    source_frames: 10
+    validation_count: 3
+    source_voxel: 0.10
+    target_voxel: 0.15
+    local_map_radius: 6.0
+    local_map_z_radius: 3.0
+
+    yaw_search_range: 0.35
+    yaw_search_step: 0.0872664626
+    ndt_resolution: 0.50
+    ndt_step_size: 0.10
+    ndt_iterations: 30
+    icp_max_distance: 0.30
+    icp_iterations: 50
+
+    metric_max_distance: 0.25
+    max_rmse: 0.20
+    min_overlap: 0.40
+    max_prior_xy: 0.75
+    max_prior_z: 0.50
+    max_prior_yaw: 0.436332313
+
+    consistency_xy: 0.08
+    consistency_z: 0.10
+    consistency_yaw: 0.052359878
+
+    continuous_shadow:
+      enabled: false
+      interval: 2.0
+      source_frames: 5
+      odom_tolerance: 0.03
+      local_map_radius: 5.0
+      yaw_search_range: 0.0872664626
+      yaw_search_step: 0.0872664626
+      max_rmse: 0.15
+      min_overlap: 0.55
+      max_correction_xy: 0.20
+      max_correction_z: 0.10
+      max_correction_yaw: 0.0872664626
+      consistency_count: 3
+
+    # map -> odom prior when the robot is placed at the first slalom path pose.
+    prior:
+      x: 1.048
+      y: -0.282
+      z: 0.016
+      yaw: -0.3448
+
+    base_to_body:
+      x: 0.313710623
+      y: 0.02329
+      z: -0.080845726
+      roll: 0.0
+      pitch: 0.7853981634
+      yaw: 0.0

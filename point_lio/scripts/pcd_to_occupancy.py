@@ -80,7 +80,9 @@ def dilate_occupied(grid, radius_cells):
     return grid
 
 
-def build_map(points, resolution, padding, z_min, z_max, inflation):
+def build_map(
+    points, resolution, padding, z_min, z_max, inflation, min_points_per_cell
+):
     sliced = points[(points[:, 2] >= z_min) & (points[:, 2] <= z_max)]
     if sliced.size == 0:
         raise ValueError("No points remain after z filtering; adjust --z-min/--z-max")
@@ -92,12 +94,15 @@ def build_map(points, resolution, padding, z_min, z_max, inflation):
 
     width = max(1, int(math.ceil((max_x - min_x) / resolution)))
     height = max(1, int(math.ceil((max_y - min_y) / resolution)))
-    grid = np.full((height, width), 254, dtype=np.uint8)
-
     cols = np.floor((sliced[:, 0] - min_x) / resolution).astype(np.int64)
     rows = np.floor((sliced[:, 1] - min_y) / resolution).astype(np.int64)
     valid = (cols >= 0) & (cols < width) & (rows >= 0) & (rows < height)
-    grid[height - 1 - rows[valid], cols[valid]] = 0
+    image_rows = height - 1 - rows[valid]
+    flat_indices = image_rows * width + cols[valid]
+    hit_counts = np.bincount(flat_indices, minlength=height * width)
+    grid = np.full(height * width, 254, dtype=np.uint8)
+    grid[hit_counts >= min_points_per_cell] = 0
+    grid = grid.reshape((height, width))
 
     radius_cells = int(math.ceil(inflation / resolution))
     grid = dilate_occupied(grid, radius_cells)
@@ -115,7 +120,15 @@ def main():
     parser.add_argument("--z-min", type=float, default=0.10)
     parser.add_argument("--z-max", type=float, default=1.20)
     parser.add_argument("--inflate", type=float, default=0.15)
+    parser.add_argument(
+        "--min-points-per-cell",
+        type=int,
+        default=1,
+        help="Minimum projected point hits required to mark a cell occupied",
+    )
     args = parser.parse_args()
+    if args.min_points_per_cell < 1:
+        parser.error("--min-points-per-cell must be at least 1")
 
     points = read_pcd_xyz(args.pcd)
     image, origin, kept = build_map(
@@ -125,6 +138,7 @@ def main():
         z_min=args.z_min,
         z_max=args.z_max,
         inflation=args.inflate,
+        min_points_per_cell=args.min_points_per_cell,
     )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -1,5 +1,6 @@
 #include "motor_ros2/motor_cfg.h"
 
+#include <array>
 #include <map>
 #include <memory>
 
@@ -27,9 +28,8 @@ public:
 
   void unregister_motor(uint8_t motor_id, RobStrideMotor *motor) {
     std::lock_guard<std::mutex> lock(motors_mutex_);
-    auto it = motors_.find(motor_id);
-    if (it != motors_.end() && it->second == motor) {
-      motors_.erase(it);
+    if (motors_[motor_id] == motor) {
+      motors_[motor_id] = nullptr;
     }
   }
 
@@ -88,16 +88,14 @@ private:
       const uint16_t extra_data = (can_id >> 8) & 0xFFFF;
       const uint8_t host_id = can_id & 0xFF;
       const uint8_t motor_id = extra_data & 0xFF;
-      const std::vector<uint8_t> data(frame.data, frame.data + frame.can_dlc);
-
       std::lock_guard<std::mutex> lock(motors_mutex_);
-      auto it = motors_.find(motor_id);
-      if (it == motors_.end()) {
+      RobStrideMotor *motor = motors_[motor_id];
+      if (motor == nullptr) {
         continue;
       }
-      it->second->handle_received_frame(communication_type, extra_data, host_id,
-                                        data);
-      it->second->rx_count_.fetch_add(1, std::memory_order_relaxed);
+      motor->handle_received_frame(communication_type, extra_data, host_id,
+                                   frame.data, frame.can_dlc);
+      motor->rx_count_.fetch_add(1, std::memory_order_relaxed);
     }
   }
 
@@ -107,7 +105,7 @@ private:
   std::thread rx_thread_;
   std::mutex motors_mutex_;
   std::mutex tx_mutex_;
-  std::map<uint8_t, RobStrideMotor *> motors_;
+  std::array<RobStrideMotor *, 256> motors_{};
 };
 
 std::shared_ptr<CanRxDispatcher> get_can_rx_dispatcher(
@@ -126,11 +124,13 @@ std::shared_ptr<CanRxDispatcher> get_can_rx_dispatcher(
   return created;
 }
 
-RobStrideMotor::RobStrideMotor(const std::string can_interface,
+RobStrideMotor::RobStrideMotor(const std::string &can_interface,
                                uint8_t master_id, uint8_t motor_id,
                                int actuator_type)
     : iface(can_interface), master_id(master_id), motor_id(motor_id),
-      actuator_type(actuator_type) {
+      actuator_type(actuator_type),
+      actuator_operation_(ACTUATOR_OPERATION_MAPPING.at(
+          static_cast<ActuatorType>(actuator_type))) {
   rx_dispatcher_ = get_can_rx_dispatcher(iface);
   rx_dispatcher_->register_motor(motor_id, this);
 }
@@ -144,9 +144,10 @@ RobStrideMotor::~RobStrideMotor() {
 void RobStrideMotor::handle_received_frame(uint8_t communication_type,
                                            uint16_t extra_data,
                                            uint8_t host_id,
-                                           const std::vector<uint8_t> &data) {
+                                           const uint8_t *data,
+                                           std::size_t data_size) {
   (void)host_id;
-  if (data.size() < 8) {
+  if (data_size < 8) {
     return;
   }
 
@@ -162,16 +163,13 @@ void RobStrideMotor::handle_received_frame(uint8_t communication_type,
 
     position_ =
         ((static_cast<float>(position_u16) / 32767.0f) - 1.0f) *
-        (ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-             .position);
+        actuator_operation_.position;
     velocity_ =
         ((static_cast<float>(velocity_u16) / 32767.0f) - 1.0f) *
-        (ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-             .velocity);
+        actuator_operation_.velocity;
     torque_ =
         ((static_cast<float>(torque_i16) / 32767.0f) - 1.0f) *
-        (ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-             .torque);
+        actuator_operation_.torque;
     temperature_ = static_cast<float>(temperature_u16) * 0.1f;
     last_motion_feedback_time_ = std::chrono::steady_clock::now();
   } else if (communication_type == 17) {
@@ -184,43 +182,43 @@ void RobStrideMotor::handle_received_frame(uint8_t communication_type,
           drw.run_mode.data = uint8_t(data[4]);
           break;
         case 1:
-          drw.iq_ref.data = Byte_to_float(data);
+          drw.iq_ref.data = Byte_to_float(data, data_size);
           break;
         case 2:
-          drw.spd_ref.data = Byte_to_float(data);
+          drw.spd_ref.data = Byte_to_float(data, data_size);
           break;
         case 3:
-          drw.imit_torque.data = Byte_to_float(data);
+          drw.imit_torque.data = Byte_to_float(data, data_size);
           break;
         case 4:
-          drw.cur_kp.data = Byte_to_float(data);
+          drw.cur_kp.data = Byte_to_float(data, data_size);
           break;
         case 5:
-          drw.cur_ki.data = Byte_to_float(data);
+          drw.cur_ki.data = Byte_to_float(data, data_size);
           break;
         case 6:
-          drw.cur_filt_gain.data = Byte_to_float(data);
+          drw.cur_filt_gain.data = Byte_to_float(data, data_size);
           break;
         case 7:
-          drw.loc_ref.data = Byte_to_float(data);
+          drw.loc_ref.data = Byte_to_float(data, data_size);
           break;
         case 8:
-          drw.limit_spd.data = Byte_to_float(data);
+          drw.limit_spd.data = Byte_to_float(data, data_size);
           break;
         case 9:
-          drw.limit_cur.data = Byte_to_float(data);
+          drw.limit_cur.data = Byte_to_float(data, data_size);
           break;
         case 10:
-          drw.mechPos.data = Byte_to_float(data);
+          drw.mechPos.data = Byte_to_float(data, data_size);
           break;
         case 11:
-          drw.iqf.data = Byte_to_float(data);
+          drw.iqf.data = Byte_to_float(data, data_size);
           break;
         case 12:
-          drw.mechVel.data = Byte_to_float(data);
+          drw.mechVel.data = Byte_to_float(data, data_size);
           break;
         case 13:
-          drw.VBUS.data = Byte_to_float(data);
+          drw.VBUS.data = Byte_to_float(data, data_size);
           break;
         }
       }
@@ -305,9 +303,9 @@ uint16_t RobStrideMotor::float_to_uint(float x, float x_min, float x_max,
 }
 
 // 发送运控模式（控制角度 + 速度 + KP + KD）
-std::tuple<float, float, float, float>
-RobStrideMotor::send_motion_command(float torque, float position_rad,
-                                    float velocity_rad_s, float kp, float kd) {
+void RobStrideMotor::send_motion_command(float torque, float position_rad,
+                                         float velocity_rad_s, float kp,
+                                         float kd) {
   uint8_t run_mode_snapshot;
   uint8_t pattern_snapshot;
   {
@@ -331,14 +329,8 @@ RobStrideMotor::send_motion_command(float torque, float position_rad,
   struct can_frame frame{};
   frame.can_id =
       (Communication_Type_MotionControl << 24) |
-      (float_to_uint(torque,
-                     -ACTUATOR_OPERATION_MAPPING
-                          .at(static_cast<ActuatorType>(actuator_type))
-                          .torque,
-                     ACTUATOR_OPERATION_MAPPING
-                         .at(static_cast<ActuatorType>(actuator_type))
-                         .torque,
-                     16)
+      (float_to_uint(torque, -actuator_operation_.torque,
+                     actuator_operation_.torque, 16)
        << 8) |
       motor_id;
   frame.can_id |= CAN_EFF_FLAG; // 扩展帧
@@ -347,28 +339,16 @@ RobStrideMotor::send_motion_command(float torque, float position_rad,
 
   uint16_t pos = float_to_uint(
       position_rad,
-      -ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-           .position,
-      ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-          .position,
+      -actuator_operation_.position, actuator_operation_.position,
       16);
   uint16_t vel = float_to_uint(
       velocity_rad_s,
-      -ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-           .velocity,
-      ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-          .velocity,
+      -actuator_operation_.velocity, actuator_operation_.velocity,
       16);
   uint16_t kp_u = float_to_uint(
-      kp, 0.0f,
-      ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-          .kp,
-      16);
+      kp, 0.0f, actuator_operation_.kp, 16);
   uint16_t kd_u = float_to_uint(
-      kd, 0.0f,
-      ACTUATOR_OPERATION_MAPPING.at(static_cast<ActuatorType>(actuator_type))
-          .kd,
-      16);
+      kd, 0.0f, actuator_operation_.kd, 16);
 
   frame.data[0] = (pos >> 8);
   frame.data[1] = pos;
@@ -385,7 +365,6 @@ RobStrideMotor::send_motion_command(float torque, float position_rad,
   if (n != sizeof(frame)) {
     perror("send_motion_command failed");
   }
-  return std::make_tuple(position_, velocity_, torque_, temperature_);
 }
 
 std::tuple<float, float, float, float>

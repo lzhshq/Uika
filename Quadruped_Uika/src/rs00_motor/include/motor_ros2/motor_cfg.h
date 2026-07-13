@@ -1,6 +1,7 @@
 #include <atomic>
 #include <bitset>
 #include <chrono>
+#include <cstddef>
 #include <cmath>
 #include <cstring>
 #include <ctime>
@@ -214,15 +215,29 @@ public:
 
 class CanRxDispatcher;
 
+struct MotorFeedbackSnapshot {
+  float position;
+  float velocity;
+  float torque;
+  float temperature;
+  std::chrono::steady_clock::time_point received_at;
+};
+
 class RobStrideMotor {
 public:
-  RobStrideMotor(const std::string can_interface, uint8_t master_id,
+  RobStrideMotor(const std::string &can_interface, uint8_t master_id,
                  uint8_t motor_id, int actuator_type);
   ~RobStrideMotor();
 
   std::tuple<float, float, float, float> return_data_pvtt() {
     std::lock_guard<std::mutex> lock(state_mutex_);
     return std::make_tuple(position_, velocity_, torque_, temperature_);
+  }
+
+  MotorFeedbackSnapshot feedback_snapshot() {
+    std::lock_guard<std::mutex> lock(state_mutex_);
+    return MotorFeedbackSnapshot{position_, velocity_, torque_, temperature_,
+                                 last_motion_feedback_time_};
   }
 
   std::tuple<uint8_t, uint8_t, uint8_t> return_status() {
@@ -239,8 +254,8 @@ public:
   }
 
   void handle_received_frame(uint8_t communication_type, uint16_t extra_data,
-                             uint8_t host_id,
-                             const std::vector<uint8_t> &data);
+                             uint8_t host_id, const uint8_t *data,
+                             std::size_t data_size);
   bool wait_for_rx_update(uint64_t previous_rx_count,
                           std::chrono::milliseconds timeout);
 
@@ -257,9 +272,9 @@ public:
 
   uint16_t float_to_uint(float x, float x_min, float x_max, int bits);
   // 发送运控模式（控制角度 + 速度 + KP + KD）
-  std::tuple<float, float, float, float>
-  send_motion_command(float torque, float position_rad, float velocity_rad_s,
-                      float kp = 0.5f, float kd = 0.1f);
+  void send_motion_command(float torque, float position_rad,
+                           float velocity_rad_s, float kp = 0.5f,
+                           float kd = 0.1f);
 
   float uint_to_float(uint16_t x_int, float x_min, float x_max, int bits) {
     float span = x_max - x_min;
@@ -279,9 +294,12 @@ public:
   void Set_ZeroPos();
 
   float Byte_to_float(uint8_t *bytedata) {
-    uint32_t data =
-        bytedata[7] << 24 | bytedata[6] << 16 | bytedata[5] << 8 | bytedata[4];
-    float data_float = *(float *)(&data);
+    uint32_t data = (static_cast<uint32_t>(bytedata[7]) << 24) |
+                    (static_cast<uint32_t>(bytedata[6]) << 16) |
+                    (static_cast<uint32_t>(bytedata[5]) << 8) |
+                    static_cast<uint32_t>(bytedata[4]);
+    float data_float;
+    std::memcpy(&data_float, &data, sizeof(float));
     return data_float;
   }
 
@@ -292,6 +310,18 @@ public:
                     (bytedata[5] << 8) | bytedata[4];
     float data_float;
     std::memcpy(&data_float, &data, sizeof(float)); // 比 *(float*)&data 更安全
+    return data_float;
+  }
+
+  float Byte_to_float(const uint8_t *bytedata, std::size_t data_size) {
+    if (data_size < 8)
+      return 0.0f;
+    uint32_t data = (static_cast<uint32_t>(bytedata[7]) << 24) |
+                    (static_cast<uint32_t>(bytedata[6]) << 16) |
+                    (static_cast<uint32_t>(bytedata[5]) << 8) |
+                    static_cast<uint32_t>(bytedata[4]);
+    float data_float;
+    std::memcpy(&data_float, &data, sizeof(float));
     return data_float;
   }
 
@@ -316,4 +346,5 @@ public:
   std::shared_ptr<CanRxDispatcher> rx_dispatcher_;
   std::mutex state_mutex_;
   int actuator_type;
+  const ActuatorOperation actuator_operation_;
 };

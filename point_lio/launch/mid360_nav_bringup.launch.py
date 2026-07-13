@@ -50,8 +50,8 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'safety_bridge',
-            default_value='true',
-            description='Start cmd_vel safety bridge.',
+            default_value='false',
+            description='Start cmd_vel safety bridge. Keep false until ready for real robot motion.',
         ),
         DeclareLaunchArgument(
             'rviz',

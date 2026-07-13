@@ -9,6 +9,12 @@ int ivox_nearby_type = 6;
 
 std::vector<double> extrinT(3, 0.0);
 std::vector<double> extrinR(9, 0.0);
+double robot_base_to_lio_body_x = 0.313710623;
+double robot_base_to_lio_body_y = 0.02329;
+double robot_base_to_lio_body_z = -0.080845726;
+double robot_base_to_lio_body_roll = 0.0;
+double robot_base_to_lio_body_pitch = 0.7853981634;
+double robot_base_to_lio_body_yaw = 0.0;
 state_input state_in;
 state_output state_out;
 std::string lid_topic, imu_topic;
@@ -31,6 +37,10 @@ int lidar_type, pcd_save_interval;
 std::vector<double> gravity_init, gravity;
 bool runtime_pos_log, pcd_save_en, path_en, extrinsic_est_en = true;
 bool scan_pub_en, scan_body_pub_en, tf_send_en;
+bool planar_base_en = true;
+int path_publish_stride = 2, path_max_poses = 5000;
+double planar_xy_alpha = 0.35, planar_z_alpha = 0.15, planar_yaw_alpha = 0.35;
+double planar_nominal_height = 0.33;
 shared_ptr<Preprocess> p_pre;
 shared_ptr<ImuProcess> p_imu;
 double time_update_last = 0.0, time_current = 0.0, time_predict_last_const = 0.0, t_last = 0.0;
@@ -196,12 +206,36 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
     nh->declare_parameter<std::vector<double>>("mapping.extrinsic_R", std::vector<double>());
     nh->get_parameter("mapping.extrinsic_R", extrinR);
 
+    nh->declare_parameter<double>("robot_base_to_lio_body.x", 0.313710623);
+    nh->get_parameter("robot_base_to_lio_body.x", robot_base_to_lio_body_x);
+
+    nh->declare_parameter<double>("robot_base_to_lio_body.y", 0.02329);
+    nh->get_parameter("robot_base_to_lio_body.y", robot_base_to_lio_body_y);
+
+    nh->declare_parameter<double>("robot_base_to_lio_body.z", -0.080845726);
+    nh->get_parameter("robot_base_to_lio_body.z", robot_base_to_lio_body_z);
+
+    nh->declare_parameter<double>("robot_base_to_lio_body.roll", 0.0);
+    nh->get_parameter("robot_base_to_lio_body.roll", robot_base_to_lio_body_roll);
+
+    nh->declare_parameter<double>("robot_base_to_lio_body.pitch", 0.7853981634);
+    nh->get_parameter("robot_base_to_lio_body.pitch", robot_base_to_lio_body_pitch);
+
+    nh->declare_parameter<double>("robot_base_to_lio_body.yaw", 0.0);
+    nh->get_parameter("robot_base_to_lio_body.yaw", robot_base_to_lio_body_yaw);
+
     nh->declare_parameter<bool>("odometry.publish_odometry_without_downsample", false);
     nh->get_parameter(
       "odometry.publish_odometry_without_downsample", publish_odometry_without_downsample);
 
     nh->declare_parameter<bool>("publish.path_en", true);
     nh->get_parameter("publish.path_en", path_en);
+
+    nh->declare_parameter<int>("publish.path_publish_stride", 2);
+    nh->get_parameter("publish.path_publish_stride", path_publish_stride);
+
+    nh->declare_parameter<int>("publish.path_max_poses", 5000);
+    nh->get_parameter("publish.path_max_poses", path_max_poses);
 
     nh->declare_parameter<bool>("publish.scan_publish_en", true);
     nh->get_parameter("publish.scan_publish_en", scan_pub_en);
@@ -211,6 +245,21 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
 
     nh->declare_parameter<bool>("publish.tf_send_en", true);
     nh->get_parameter("publish.tf_send_en", tf_send_en);
+
+    nh->declare_parameter<bool>("planar_base.enabled", true);
+    nh->get_parameter("planar_base.enabled", planar_base_en);
+
+    nh->declare_parameter<double>("planar_base.xy_alpha", 0.35);
+    nh->get_parameter("planar_base.xy_alpha", planar_xy_alpha);
+
+    nh->declare_parameter<double>("planar_base.z_alpha", 0.15);
+    nh->get_parameter("planar_base.z_alpha", planar_z_alpha);
+
+    nh->declare_parameter<double>("planar_base.yaw_alpha", 0.35);
+    nh->get_parameter("planar_base.yaw_alpha", planar_yaw_alpha);
+
+    nh->declare_parameter<double>("planar_base.nominal_height", 0.33);
+    nh->get_parameter("planar_base.nominal_height", planar_nominal_height);
 
     nh->declare_parameter<bool>("runtime_pos_log_enable", false);
     nh->get_parameter("runtime_pos_log_enable", runtime_pos_log);
@@ -251,6 +300,11 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
     ivox_options_.nearby_type_ = IVoxType::NearbyType::NEARBY18;
   }
   p_imu->gravity_ << VEC_FROM_ARRAY(gravity);
+  path_publish_stride = std::max(1, path_publish_stride);
+  path_max_poses = std::max(2, path_max_poses);
+  planar_xy_alpha = std::clamp(planar_xy_alpha, 0.0, 1.0);
+  planar_z_alpha = std::clamp(planar_z_alpha, 0.0, 1.0);
+  planar_yaw_alpha = std::clamp(planar_yaw_alpha, 0.0, 1.0);
 }
 
 Eigen::Matrix<double, 3, 1> SO3ToEuler(const SO3 & rot)

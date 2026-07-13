@@ -1,0 +1,79 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Plane Cell Count: 30
+      Cell Size: 0.5
+      Color: 120; 120; 120
+      Alpha: 0.35
+      Value: true
+    - Class: rviz_default_plugins/Map
+      Enabled: true
+      Name: Static Map
+      Topic:
+        Value: /map
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        Depth: 1
+      Alpha: 0.65
+      Color Scheme: map
+      Draw Behind: true
+      Value: true
+    - Class: rviz_default_plugins/LaserScan
+      Enabled: true
+      Name: Live Scan
+      Topic:
+        Value: /scan
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Durability Policy: Volatile
+        Depth: 10
+      Size (m): 0.045
+      Style: Flat Squares
+      Color: 255; 64; 64
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Alpha: 1
+      Value: true
+    - Class: rviz_default_plugins/Axes
+      Enabled: true
+      Name: Base Link
+      Reference Frame: base_link
+      Length: 0.45
+      Radius: 0.035
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 30; 30; 30
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Angle: 0
+      Scale: 35
+      Target Frame: map
+      X: 0
+      Y: 0
+      Name: Current View
+    Saved: ~
+Window Geometry:
+  Height: 900
+  Width: 1280
+  X: 80
+  Y: 60

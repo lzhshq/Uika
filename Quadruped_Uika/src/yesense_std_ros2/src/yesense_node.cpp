@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <chrono>
 #include <cmath>
 #include <functional>
@@ -161,24 +162,6 @@ class YESENSE_Publisher : public rclcpp::Node
 	YESENSE_Publisher()
 	: Node("yesense_publisher")
 	{
-		pub_imu_ros 		= this->create_publisher<sensor_msgs::msg::Imu>("imu/data", 10);
-		pub_rpy_geometry 	= this->create_publisher<geometry_msgs::msg::Vector3Stamped>("imu/rpy", 10);
-		pub_pose_geometry 	= this->create_publisher<geometry_msgs::msg::PoseStamped>("imu/pose", 10);
-		pub_marker 			= this->create_publisher<visualization_msgs::msg::Marker>("marker", 10);	
-
-		// ==========================================		
-		pub_imu 			= this->create_publisher<yesense_interface::msg::ImuData>("imu_data", 10);		
-		pub_sensor_10axis	= this->create_publisher<yesense_interface::msg::ImuDataTenAxis>("sensor_10axis", 10);	
-		pub_euler 			= this->create_publisher<yesense_interface::msg::EulerOnly>("euler_only", 10);
-		pub_robt_lord		= this->create_publisher<yesense_interface::msg::RobotLord>("robot_lord", 10);
-		pub_att_min_vru		= this->create_publisher<yesense_interface::msg::AttitudeMinVru>("att_min_vru", 10);
-		pub_att_min_ahrs	= this->create_publisher<yesense_interface::msg::AttitudeMinAhrs>("att_min_ahrs", 10);		
-		pub_att_all			= this->create_publisher<yesense_interface::msg::AttitudeAllData>("att_all", 10);
-		pub_pos				= this->create_publisher<yesense_interface::msg::PosOnly>("pos_only", 10);
-		pub_nav_min			= this->create_publisher<yesense_interface::msg::NavMin>("nav_min", 10);
-		pub_nav_min_utc		= this->create_publisher<yesense_interface::msg::NavMinUtc>("nav_min_utc", 10);
-		pub_nav_all			= this->create_publisher<yesense_interface::msg::NavAll>("nav_all", 10);
-		
 		// =================================================
 		*((unsigned int *)&yis_out) = 0u;		
 		user_info.flg 		= 1u;
@@ -192,17 +175,50 @@ class YESENSE_Publisher : public rclcpp::Node
 		this->declare_parameter<int>("baud_rate", 460800);
 		this->declare_parameter<std::string>("frame_id", "basic_id");
 		this->declare_parameter<std::string>("driver_type", "ros_serial");
+		this->declare_parameter<bool>("publish_rpy", false);
+		this->declare_parameter<bool>("publish_pose", false);
+		this->declare_parameter<bool>("publish_marker", false);
+		this->declare_parameter<bool>("publish_extended", false);
 		//this->declare_parameter<std::string>("driver_type", "linux_serial");
 		
 		std::string driver_type_str;
 		this->get_parameter("serial_port", serial_port);
 		this->get_parameter("baud_rate", baud_rate);
 		this->get_parameter("frame_id", frame_id);
-		this->get_parameter("driver_type", driver_type_str);		
+		this->get_parameter("driver_type", driver_type_str);
+		this->get_parameter("publish_rpy", publish_rpy);
+		this->get_parameter("publish_pose", publish_pose);
+		this->get_parameter("publish_marker", publish_marker);
+		this->get_parameter("publish_extended", publish_extended);
+
+		pub_imu_ros = this->create_publisher<sensor_msgs::msg::Imu>("imu/data", 10);
+		if(publish_rpy)
+			pub_rpy_geometry = this->create_publisher<geometry_msgs::msg::Vector3Stamped>("imu/rpy", 10);
+		if(publish_pose)
+			pub_pose_geometry = this->create_publisher<geometry_msgs::msg::PoseStamped>("imu/pose", 10);
+		if(publish_marker)
+			pub_marker = this->create_publisher<visualization_msgs::msg::Marker>("marker", 10);
+		if(publish_extended)
+		{
+			pub_imu = this->create_publisher<yesense_interface::msg::ImuData>("imu_data", 10);
+			pub_sensor_10axis = this->create_publisher<yesense_interface::msg::ImuDataTenAxis>("sensor_10axis", 10);
+			pub_euler = this->create_publisher<yesense_interface::msg::EulerOnly>("euler_only", 10);
+			pub_robt_lord = this->create_publisher<yesense_interface::msg::RobotLord>("robot_lord", 10);
+			pub_att_min_vru = this->create_publisher<yesense_interface::msg::AttitudeMinVru>("att_min_vru", 10);
+			pub_att_min_ahrs = this->create_publisher<yesense_interface::msg::AttitudeMinAhrs>("att_min_ahrs", 10);
+			pub_att_all = this->create_publisher<yesense_interface::msg::AttitudeAllData>("att_all", 10);
+			pub_pos = this->create_publisher<yesense_interface::msg::PosOnly>("pos_only", 10);
+			pub_nav_min = this->create_publisher<yesense_interface::msg::NavMin>("nav_min", 10);
+			pub_nav_min_utc = this->create_publisher<yesense_interface::msg::NavMinUtc>("nav_min_utc", 10);
+			pub_nav_all = this->create_publisher<yesense_interface::msg::NavAll>("nav_all", 10);
+		}
 		RCLCPP_INFO(this->get_logger(), "serial port %s\n", serial_port.c_str());
 		RCLCPP_INFO(this->get_logger(), "baudrate %d\n", baud_rate);
 		RCLCPP_INFO(this->get_logger(), "frame id %s\n", frame_id.c_str());
 		RCLCPP_INFO(this->get_logger(), "driver type %s\n", driver_type_str.c_str());
+		RCLCPP_INFO(
+			this->get_logger(), "optional topics: rpy=%d pose=%d marker=%d extended=%d",
+			publish_rpy, publish_pose, publish_marker, publish_extended);
 
 		if(0 == memcmp(driver_type_str.c_str(), "ros_serial", strlen("ros_serial")))
 		{
@@ -274,7 +290,7 @@ class YESENSE_Publisher : public rclcpp::Node
 		RCLCPP_INFO(this->get_logger(), "open serial port to decode msg!\n");			
 
 		// =================================================
-		timer_ 			= this->create_wall_timer(5ms, std::bind(&YESENSE_Publisher::timer_callback, this));
+		timer_ 			= this->create_wall_timer(1ms, std::bind(&YESENSE_Publisher::timer_callback, this));
 		//timer_msg_rate_ = this->create_wall_timer(1ms, std::bind(&YESENSE_Publisher::callback_msg_rate_calc, this));		
 	}
 
@@ -297,32 +313,37 @@ class YESENSE_Publisher : public rclcpp::Node
 
 		if(serial_drv_ros == driver_type)
 		{	
-			if(ser.available()) 
+			const size_t available_bytes = ser.available();
+			if(available_bytes > 0)
 			{
-				size_t available_bytes = ser.available();
-				size_t bytes_to_read = std::min(available_bytes, sizeof(r_buffer));
+				const size_t bytes_to_read = std::min(available_bytes, sizeof(r_buffer));
 				bytes_read_r_buffer = ser.read(r_buffer, bytes_to_read);
 			}
 		}
 		else if(serial_drv_linux == driver_type)
 		{
-			bytes_read_r_buffer = read(fd, r_buffer, UART_RX_BUF_LEN);
+			const ssize_t read_count = read(fd, r_buffer, UART_RX_BUF_LEN);
+			if(read_count > 0)
+				bytes_read_r_buffer = static_cast<size_t>(read_count);
 		}	
 
+		if(bytes_read_r_buffer == 0)
+			return;
+
+		// data_proc() consumes one frame per call. Drain all complete frames that
+		// were read in this callback so high-rate IMU packets do not accumulate.
 		int ret = decoder.data_proc(r_buffer, (unsigned int)bytes_read_r_buffer, &yis_out);
-		if(analysis_ok == ret)
+		unsigned int decoded_frames = 0u;
+		while((analysis_ok == ret || crc_err == ret) && decoded_frames < 64u)
 		{
-			if(yis_out.content.valid_flg)
+			if(analysis_ok == ret && yis_out.content.valid_flg)
 			{
 				yis_out.content.valid_flg = 0u;
-				user_info.msg_cnt++;						
-				//RCLCPP_INFO(this->get_logger(), "msg rate: %d, tid %d, acc: %f, %f, %f gyro: %f, %f, %f, euler: %f, %f, %f!", 
-				//			user_info.msg_rate,
-				//			yis_out.tid, yis_out.acc.x, yis_out.acc.y, yis_out.acc.z, yis_out.gyro.x, yis_out.gyro.y, yis_out.gyro.z,
-				//			yis_out.euler.pitch, yis_out.euler.roll, yis_out.euler.yaw
-				//		);
+				user_info.msg_cnt++;
 				publish_msg(&yis_out);
 			}
+			decoded_frames++;
+			ret = decoder.data_proc(r_buffer, 0u, &yis_out);
 		}
 	}
 	
@@ -355,6 +376,10 @@ class YESENSE_Publisher : public rclcpp::Node
 	int baud_rate;
 	std::string frame_id;	
 	int driver_type;	// 选择使用ROS串口驱动或是linux原生驱动
+	bool publish_rpy;
+	bool publish_pose;
+	bool publish_marker;
+	bool publish_extended;
 
 	// ===
 	yis_out_data_t yis_out;
@@ -385,21 +410,6 @@ class YESENSE_Publisher : public rclcpp::Node
 void YESENSE_Publisher::publish_msg(yis_out_data_t *result)
 {
 	sensor_msgs::msg::Imu					imu_ros_data;
-	geometry_msgs::msg::Vector3Stamped		rpy_data;
-   	geometry_msgs::msg::PoseStamped 		pose_data;	
-	visualization_msgs::msg::Marker			marker_info;
-
-	yesense_interface::msg::ImuData 		imu_data;
-	yesense_interface::msg::ImuDataTenAxis 	sensor_data_10axis;
-	yesense_interface::msg::EulerOnly		euler_data;
-	yesense_interface::msg::RobotLord		robot_data;
-	yesense_interface::msg::AttitudeMinVru	att_min_vru_data;
-	yesense_interface::msg::AttitudeMinAhrs	att_min_ahrs_data;
-	yesense_interface::msg::AttitudeAllData	att_all_data;
-	yesense_interface::msg::PosOnly			pos_data;
-	yesense_interface::msg::NavMin			nav_min_data;
-	yesense_interface::msg::NavMinUtc		nav_min_utc_data;
-	yesense_interface::msg::NavAll			nav_all_data;
 
     // =========== publish imu message ==============
     imu_ros_data.header.stamp = this->get_clock()->now();
@@ -482,8 +492,9 @@ void YESENSE_Publisher::publish_msg(yis_out_data_t *result)
 	}
     pub_imu_ros->publish(imu_ros_data);
 
-	if(result->content.euler)
+	if(publish_rpy && result->content.euler)
 	{
+		geometry_msgs::msg::Vector3Stamped rpy_data;
 		rpy_data.header.frame_id = frame_id;
 		rpy_data.header.stamp = imu_ros_data.header.stamp;
 		rpy_data.vector.x = result->euler.roll;
@@ -492,55 +503,50 @@ void YESENSE_Publisher::publish_msg(yis_out_data_t *result)
 		pub_rpy_geometry->publish(rpy_data);
 	}
 
-  	// ================ update pose =================
-    pose_data.header.frame_id 	= frame_id;
-    pose_data.header.stamp		= imu_ros_data.header.stamp;
-    pose_data.pose.position.x 	= 0.0;
-    pose_data.pose.position.y 	= 0.0;
-    pose_data.pose.position.z 	= 0.0;
-    pose_data.pose.orientation.w = imu_ros_data.orientation.w;
-    pose_data.pose.orientation.x = imu_ros_data.orientation.x;
-    pose_data.pose.orientation.y = imu_ros_data.orientation.y;
-    pose_data.pose.orientation.z = imu_ros_data.orientation.z;
-   	pub_pose_geometry->publish(pose_data);
+	if(publish_pose)
+	{
+		geometry_msgs::msg::PoseStamped pose_data;
+		pose_data.header.frame_id = frame_id;
+		pose_data.header.stamp = imu_ros_data.header.stamp;
+		pose_data.pose.orientation = imu_ros_data.orientation;
+		pub_pose_geometry->publish(pose_data);
+	}
 
-    // ============ update imu marker ===============
-    marker_info.header.frame_id = frame_id;
-    marker_info.header.stamp 	= imu_ros_data.header.stamp;
+	if(publish_marker)
+	{
+		visualization_msgs::msg::Marker marker_info;
+		marker_info.header.frame_id = frame_id;
+		marker_info.header.stamp = imu_ros_data.header.stamp;
+		marker_info.ns = "basic_shapes";
+		marker_info.id = 0;
+		marker_info.type = visualization_msgs::msg::Marker::CUBE;
+		marker_info.action = visualization_msgs::msg::Marker::ADD;
+		marker_info.pose.orientation = imu_ros_data.orientation;
+		marker_info.scale.x = 4.0;
+		marker_info.scale.y = 4.0;
+		marker_info.scale.z = 3.0;
+		marker_info.color.r = 0.2f;
+		marker_info.color.g = 0.2f;
+		marker_info.color.b = 0.2f;
+		marker_info.color.a = 1.0;
+		marker_info.lifetime = rclcpp::Duration(10, 0);
+		pub_marker->publish(marker_info);
+	}
 
-    // set namespace and id
-    marker_info.ns = "basic_shapes";
-    marker_info.id = 0;
+	if(!publish_extended)
+		return;
 
-    // set marker's shape
-    marker_info.type = visualization_msgs::msg::Marker::CUBE;
-
-    // set action: ADD
-    marker_info.action = visualization_msgs::msg::Marker::ADD;
-
-    // set imu pose
-    marker_info.pose.position.x 	= pose_data.pose.position.x;
-    marker_info.pose.position.y 	= pose_data.pose.position.y;
-    marker_info.pose.position.z 	= pose_data.pose.position.z;
-    marker_info.pose.orientation.x 	= imu_ros_data.orientation.x;
-    marker_info.pose.orientation.y 	= imu_ros_data.orientation.y;
-    marker_info.pose.orientation.z 	= imu_ros_data.orientation.z;
-    marker_info.pose.orientation.w 	= imu_ros_data.orientation.w;
-
-    // set scale, unit: m
-    marker_info.scale.x = 4.0;
-    marker_info.scale.y = 4.0;
-    marker_info.scale.z = 3.0;
-
-    // set color
-    marker_info.color.r = 0.2f;
-    marker_info.color.g = 0.2f;
-    marker_info.color.b = 0.2f;
-    marker_info.color.a = 1.0;
-
-	    marker_info.lifetime = rclcpp::Duration(10, 0);
-    
-    pub_marker->publish(marker_info);
+	yesense_interface::msg::ImuData imu_data;
+	yesense_interface::msg::ImuDataTenAxis sensor_data_10axis;
+	yesense_interface::msg::EulerOnly euler_data;
+	yesense_interface::msg::RobotLord robot_data;
+	yesense_interface::msg::AttitudeMinVru att_min_vru_data;
+	yesense_interface::msg::AttitudeMinAhrs att_min_ahrs_data;
+	yesense_interface::msg::AttitudeAllData att_all_data;
+	yesense_interface::msg::PosOnly pos_data;
+	yesense_interface::msg::NavMin nav_min_data;
+	yesense_interface::msg::NavMinUtc nav_min_utc_data;
+	yesense_interface::msg::NavAll nav_all_data;
 
 	// ==============================================
 	imu_data.tid.tid 	= result->tid;
